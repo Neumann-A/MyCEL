@@ -39,35 +39,33 @@ private:
 	std::vector<std::chrono::time_point<clock, unit>> _times;
 protected:
 public:
-	Timer() 
-	{
-		_times.push_back(clock::now());
-	};
-	~Timer() {};
+	BASIC_ALWAYS_INLINE Timer() : _time_begin(clock::now()), _times({_times_begin}) {};
+	BASIC_ALWAYS_INLINE ~Timer() {};
 
 	//Sets the start time to the 
 	BASIC_ALWAYS_INLINE void start() noexcept
 	{
 		_time_begin = clock::now();
 	};
+
 	// Stops the time and returns the count() to the start time
-	BASIC_ALWAYS_INLINE long long stop() noexcept
+	BASIC_ALWAYS_INLINE auto stop() noexcept
 	{
 		_time_end = clock::now();
 		return (_time_end - _time_begin).count();
 	};
 
 	// Return Conversion Factor from Counts to Seconds
-	BASIC_ALWAYS_INLINE long long CountsToSeconds() const noexcept
+	BASIC_ALWAYS_INLINE std::intmax_t CountsToSeconds() const noexcept
 	{
-		return static_cast<long long>(unit::period::den);
+		return static_cast<std::intmax_t>(unit::period::den);
 	}
 
 	// Returns the unit conversion factor
-	BASIC_ALWAYS_INLINE double unitFactor() const noexcept
+	constexpr BASIC_ALWAYS_INLINE static double unitFactor() noexcept
 	{
-		double num = static_cast<double>(unit::period::num);
-		double den = static_cast<double>(unit::period::den);
+		constexpr auto num = static_cast<double>(unit::period::num);
+		constexpr auto den = static_cast<double>(unit::period::den);
 		return num/den;
 	}
 
@@ -75,13 +73,11 @@ public:
 	BASIC_ALWAYS_INLINE void startSplit() 
 	{
 		_times.clear();
-		
 		_times.push_back(clock::now());
-
 	};
 
 	// Takes a split time measurement and returns counts to last measurement
-	BASIC_ALWAYS_INLINE long long takeSplit() 
+	BASIC_ALWAYS_INLINE auto takeSplit() 
 	{
 		auto it = _times.end();
 		_times.push_back(clock::now());
@@ -90,7 +86,7 @@ public:
 	};
 	
 	// Takes and stops a split time measurement and returns counts to last measurement
-	BASIC_ALWAYS_INLINE long long stopSplit()
+	BASIC_ALWAYS_INLINE auto stopSplit()
 	{
 		auto it = _times.end();
 		_times.push_back(clock::now());
@@ -99,32 +95,54 @@ public:
 	};
 
 	// Returns all taken split times as timepoints. TODO why not only take the times?
-	BASIC_ALWAYS_INLINE std::vector<std::chrono::time_point<clock, unit> > getSplits()
+	BASIC_ALWAYS_INLINE auto getSplits() const noexcept
 	{
 		return _times;
 	};
 };
 
 
-auto timeFunction = [](auto&& func, auto&&... params) // C++14
+/// <summary>	Lambda to time a Function Call (C++14). It returns the used time in seconds </summary>
+auto timeFunction = [](auto&& func, auto&&... params)
 {
-	Timer<> Timer;
+	auto begin = std::chrono::high_resolution_clock::now();
 	std::forward<decltype(func)>(func)( // invoke func
 		std::forward<decltype(params)>(params)... // on params
 		);
-	auto Tmp = Timer.stop();
-	Logger::Log("Function call needed "+std::to_string(Tmp*Timer.unitFactor()/1000)+"ms");
+	auto end = std::chrono::high_resolution_clock::now();
+
+	constexpr auto unit = static_cast<double>(std::chrono::high_resolution_clock::period::num)/static_cast<double>(std::chrono::high_resolution_clock::period::den);
+	
+	return static_cast<double>((end-begin).count()*unit);
 };
 
-auto timeFunctionString = [](std::string text, auto&& func, auto&&... params) // C++14
+
+/// <summary> Returns a formated String for Logging\Debugging or other things for timeFunction </summary>
+auto timeFunctionString = [](const std::string& str, auto&& func, auto&&... params)
 {
-	Timer<> Timer{};
+	auto begin = std::chrono::high_resolution_clock::now();
 	std::forward<decltype(func)>(func)( // invoke func
 		std::forward<decltype(params)>(params)... // on params
 		);
-	auto Tmp = Timer.stop();
-	Logger::Log(text + std::to_string(Tmp*Timer.unitFactor() / 1000) + "ms");
+	auto end = std::chrono::high_resolution_clock::now();
+
+	constexpr auto unit = static_cast<double>(std::chrono::high_resolution_clock::period::num) / static_cast<double>(std::chrono::high_resolution_clock::period::den);
+	auto time = static_cast<double>((end - begin).count()*unit);
+
+	return (str + std::to_string(time*1000) + " ms.");
 };
+
+
+////Times a function call
+//auto timeFunctionString = [](std::string text, auto&& func, auto&&... params) // C++14
+//{
+//	Timer<> Timer{};
+//	std::forward<decltype(func)>(func)( // invoke func
+//		std::forward<decltype(params)>(params)... // on params
+//		);
+//	auto Tmp = Timer.stop();
+//	Logger::Log(text + std::to_string(Tmp*Timer.unitFactor() / 1000) + "ms");
+//};
 
 
 #endif	// INC_Timer_H
