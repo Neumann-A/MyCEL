@@ -116,6 +116,15 @@ auto timeFunction = [](auto&& func, auto&&... params) // C++14
 	Logger::Log("Function call needed "+std::to_string(Tmp*Timer.unitFactor()/1000)+"ms");
 };
 
+auto timeFunctionString = [](std::string text, auto&& func, auto&&... params) // C++14
+{
+	Timer<> Timer{};
+	std::forward<decltype(func)>(func)( // invoke func
+		std::forward<decltype(params)>(params)... // on params
+		);
+	auto Tmp = Timer.stop();
+	Logger::Log(text + std::to_string(Tmp*Timer.unitFactor() / 1000) + "ms");
+};
 
 
 #endif	// INC_Timer_H
