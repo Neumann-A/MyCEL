@@ -6,6 +6,17 @@
 #include <locale>
 #include <type_traits>
 
+#ifdef _MSC_VER
+	#define BASIC_ALWAYS_INLINE __forceinline
+	#define BASIC_NOINLINE		__declspec(noinline)
+#elif __GNUC__ || __clang__ || __llvm__
+	#define BASIC_ALWAYS_INLINE		__attribute__((always_inline)) inline
+	#define BASIC_NOINLINE			__attribute__((noinline))
+#else
+	#define BASIC_ALWAYS_INLINE
+	#define BASIC_NOINLINE
+#endif
+
 //class str_const { // constexpr string
 //private:
 //	const char* const p_;

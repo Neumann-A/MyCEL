@@ -46,33 +46,33 @@ public:
 	~Timer() {};
 
 	//Sets the start time to the 
-	__forceinline void start()
+	BASIC_ALWAYS_INLINE void start() noexcept
 	{
 		_time_begin = clock::now();
 	};
 	// Stops the time and returns the count() to the start time
-	__forceinline long long stop()
+	BASIC_ALWAYS_INLINE long long stop() noexcept
 	{
 		_time_end = clock::now();
 		return (_time_end - _time_begin).count();
 	};
 
 	// Return Conversion Factor from Counts to Seconds
-	__forceinline long long CountsToSeconds()
+	BASIC_ALWAYS_INLINE long long CountsToSeconds() const noexcept
 	{
 		return static_cast<long long>(unit::period::den);
 	}
 
 	// Returns the unit conversion factor
-	__forceinline double unitFactor()
+	BASIC_ALWAYS_INLINE double unitFactor() const noexcept
 	{
 		double num = static_cast<double>(unit::period::num);
 		double den = static_cast<double>(unit::period::den);
 		return num/den;
 	}
 
-	//Starts a split time measurement
-	__forceinline void startSplit()
+	//Starts a split time measurement 
+	BASIC_ALWAYS_INLINE void startSplit() 
 	{
 		_times.clear();
 		
@@ -81,7 +81,7 @@ public:
 	};
 
 	// Takes a split time measurement and returns counts to last measurement
-	__forceinline long long takeSplit()
+	BASIC_ALWAYS_INLINE long long takeSplit() 
 	{
 		auto it = _times.end();
 		_times.push_back(clock::now());
@@ -90,7 +90,7 @@ public:
 	};
 	
 	// Takes and stops a split time measurement and returns counts to last measurement
-	__forceinline long long stopSplit()
+	BASIC_ALWAYS_INLINE long long stopSplit()
 	{
 		auto it = _times.end();
 		_times.push_back(clock::now());
@@ -99,7 +99,7 @@ public:
 	};
 
 	// Returns all taken split times as timepoints. TODO why not only take the times?
-	__forceinline std::vector<std::chrono::time_point<clock, unit> > getSplits()
+	BASIC_ALWAYS_INLINE std::vector<std::chrono::time_point<clock, unit> > getSplits()
 	{
 		return _times;
 	};
