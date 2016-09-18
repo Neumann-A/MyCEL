@@ -96,6 +96,7 @@ public: \
 
 // Gives the name of the variable
 #define RAWNAME(x) x
+#define NAME(x)	#x
 #define VARNAME(x) #x
 #define SVARNAME(x) std::string{VARNAME(x)}
 #define SMEMBERNAME(x) (std::string{VARNAME(x)}).replace(0,2,std::string{std::toupper(VARNAME(x)[1],std::locale{})})

@@ -104,6 +104,9 @@
     <ClInclude Include="Headers\SimpleSmartEnum.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
+    <ClInclude Include="Headers\Is_Callable.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

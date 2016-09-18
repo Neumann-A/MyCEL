@@ -136,3 +136,7 @@ IIF(BITAND(IS_COMPARABLE(x))(IS_COMPARABLE(y)) ) \
 #include <tuple>
 #define NUMBER_OF_ARGS(...) std::tuple_size<decltype(std::make_tuple(EVAL(MAP(LISTNAME,NAME,__VA_ARGS__))))>::value
 
+#define ADDBRACESINGLE(arg, ...) arg{},
+#define ADDBRACEEND(arg, ...) arg{}
+#define ADDBRACES(...) MAP(ADDBRACESINGLE,ADDBRACEEND,__VA_ARGS__)
+

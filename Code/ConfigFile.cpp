@@ -69,7 +69,7 @@ std::vector<std::string> ConfigFile::getAllKeysInSection(const std::string& sect
 };
 
 
-void ConfigFile::clearAll() _NOEXCEPT
+void ConfigFile::clearAll() noexcept
 {
 	_contents.clear();
 }
@@ -277,6 +277,7 @@ void ConfigFile::writeCFG(const std::tr2::sys::path& fName) const
 
 void ConfigFile::exitWithError(const std::string &error) const
 {
+	//throw(std::exception{ error.c_str() });
 	Logger::Log(error);
 }
 
