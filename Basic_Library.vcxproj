@@ -232,6 +232,7 @@
     <ClInclude Include="Headers\DistributioneCalculator.h" />
     <ClInclude Include="Headers\DistributionHelper.h" />
     <ClInclude Include="Headers\GlobalParameters.h" />
+    <ClInclude Include="Headers\has_x.h" />
     <ClInclude Include="Headers\IConfigFile.h" />
     <ClInclude Include="Headers\IMATLABFileWriteable.h" />
     <ClInclude Include="Headers\Is_Callable.h" />
