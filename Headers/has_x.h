@@ -58,7 +58,7 @@ struct got_type : std::false_type {};
 
 template<typename A>
 struct got_type<A> : std::true_type {
-	typedef A type;
+	using type = A ;
 };
 
 template<typename T, T>
@@ -66,8 +66,8 @@ struct sig_check : std::true_type {};
 
 template<typename Alias, typename AmbiguitySeed>
 struct has_member {
-	template<typename C> static char((&f(decltype(&C::value))))[1];
-	template<typename C> static char((&f(...)))[2];
+	template<typename C> static constexpr char((&f(decltype(&C::value))))[1];
+	template<typename C> static constexpr char((&f(...)))[2];
 
 	//Make sure the member name is consistently spelled the same.
 	static_assert(

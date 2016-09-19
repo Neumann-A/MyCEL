@@ -8,8 +8,23 @@
 
 namespace stdext
 {
-	//TODO: Remove if supported by MS compiler
+	//From http://stackoverflow.com/questions/17201329/c11-ways-of-finding-if-a-type-has-member-function-or-supports-operator
+	template <typename C, typename F, typename = void>
+	struct is_call_possible : public std::false_type {};
 
+	template <typename C, typename R, typename... A>
+	struct is_call_possible<C, R(A...),
+		typename std::enable_if<
+		std::is_same<R, void>::value ||
+		std::is_convertible<decltype(
+			std::declval<C>().operator()(std::declval<A>()...)
+			//                ^^^^^^^^^^ replace this with the member you need.
+			), R>::value
+		>::type
+	> : public std::true_type {};
+
+	//TODO: Remove if supported by MS compiler
+	
 	template<class F, class...Args>
 	struct is_callable
 	{
