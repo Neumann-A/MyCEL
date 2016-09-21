@@ -110,6 +110,9 @@
     <ClInclude Include="Headers\has_x.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
+    <ClInclude Include="Headers\std_extensions.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

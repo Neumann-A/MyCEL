@@ -244,6 +244,7 @@
     <ClInclude Include="Headers\PreprocessorMakros.h" />
     <ClInclude Include="Headers\SimpleSmartEnum.h" />
     <ClInclude Include="Headers\StartOptions.h" />
+    <ClInclude Include="Headers\std_extensions.h" />
     <ClInclude Include="Headers\ThreadManager.h" />
     <ClInclude Include="Headers\Timer.h" />
   </ItemGroup>

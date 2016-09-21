@@ -1,0 +1,58 @@
+#pragma once
+
+#include <type_traits>
+
+#include "Is_Callable.h"
+#include "Is_Container.h"
+
+namespace std
+{
+	
+	// Not necessary to declare void_t
+	//template <class...>
+	//using void_t = void;
+
+	// N4502 detection proposal C++17
+	struct nonesuch
+	{
+		nonesuch() = delete;
+		~nonesuch() = delete;
+		nonesuch(nonesuch const&) = delete;
+		void operator=(nonesuch const&) = delete;
+	};
+
+	template <class Default, class AlwaysVoid, template<class...> class Op, class... Args>
+	struct DETECTOR
+	{ // exposition only
+		using value_t = false_type;
+		using type = Default;
+	};
+
+	template <class Default, template<class...> class Op, class... Args>
+	struct DETECTOR<Default, void_t<Op<Args...>>, Op, Args...> 
+	{ // exposition only
+		using value_t = true_type;
+		using type = Op<Args...>;
+	};
+
+	template <template<class...> class Op, class... Args>
+	using is_detected = typename DETECTOR<nonesuch, void, Op, Args...>::value_t;
+	template <template<class...> class Op, class... Args>
+	using detected_t = typename DETECTOR<nonesuch, void, Op, Args...>::type;
+	template <class Default, template<class...> class Op, class... Args>
+	using detected_or = DETECTOR<Default, void, Op, Args...>;
+	template <template<class...> class Op, class... Args>
+	constexpr bool is_detected_v = is_detected<Op, Args...>::value;
+	template <class Default, template<class...> class Op, class... Args>
+	using detected_or_t = typename detected_or<Default, Op, Args...>::type;
+	template <class Expected, template<class...> class Op, class... Args>
+	using is_detected_exact = is_same<Expected, detected_t<Op, Args...>>;
+	template <class Expected, template<class...> class Op, class... Args>
+	constexpr bool is_detected_exact_v	= is_detected_exact<Expected, Op, Args...>::value;
+	template <class To, template<class...> class Op, class... Args>
+	using is_detected_convertible = is_convertible<detected_t<Op, Args...>, To>;
+	template <class To, template<class...> class Op, class... Args>
+	constexpr bool is_detected_convertible_v = is_detected_convertible<To, Op, Args...>::value;
+	
+
+}
