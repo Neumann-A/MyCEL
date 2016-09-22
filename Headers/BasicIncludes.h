@@ -45,33 +45,36 @@ namespace BasicTools
 
 	// Conversion from a std::string to a arithmetic type
 	template<typename Number>
-	std::enable_if_t<std::is_arithmetic<Number>::value, std::remove_all_extents_t<Number>> stringToNumber(const std::string& stringtoconvert, size_t &pos)
+	std::enable_if_t<std::is_arithmetic<Number>::value, std::decay_t<Number>> stringToNumber(const std::string&, size_t &)
 	{
-		Logger::Log("Basic: Numeric conversion not yet supported");
+		assert(false); // should not be called!
 		return 0;
+	};
+
+	// Conversion from a std::string to a arithmetic type
+	template<typename Number>
+	std::enable_if_t<std::is_arithmetic<Number>::value> stringToNumber(const std::string& str, size_t &pos, Number& Return)
+	{
+		Return = stringToNumber<Number>(str, pos);
 	}
 
+	//Explicit instantiations
 	template<>
 	float stringToNumber<float>(const std::string& stringtoconvert, size_t& pos);
-
 	template<>
 	double stringToNumber<double>(const std::string& stringtoconvert, size_t& pos);
-
 	template<>
 	long double stringToNumber<long double>(const std::string& stringtoconvert, size_t& pos);
 
 	template<>
 	int stringToNumber<int>(const std::string& stringtoconvert, size_t& pos);
-
 	template<>
 	long stringToNumber<long>(const std::string& stringtoconvert, size_t& pos);
 
 	template<>
 	unsigned long stringToNumber<unsigned long>(const std::string& stringtoconvert, size_t& pos);
-
 	template<>
 	long long stringToNumber<long long>(const std::string& stringtoconvert, size_t& pos);
-
 	template<>
 	unsigned long long stringToNumber<unsigned long long>(const std::string& stringtoconvert, size_t& pos);
 

@@ -47,6 +47,3 @@ namespace stdext
 	//	static constexpr bool value = decltype(test<F>())::value;
 	//};
 }
-
-#define HAS_MEMBER_FUNC(Class, Fun, ...) stdext::is_callable<decltype(std::mem_fn(& CONCATTHREE_LTR(Class,::,Fun) )), ## Class ## , ##__VA_ARGS__ >::value
-#define FUNC_EXIST(Fun, ...) stdext::is_callable<decltype(std::bind(CONCAT(&,Fun), ADDBRACES(__VA_ARGS__))), ##__VA_ARGS__ >::value
