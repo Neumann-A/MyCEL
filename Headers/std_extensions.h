@@ -5,13 +5,8 @@
 #include "Is_Callable.h"
 #include "Is_Container.h"
 
-namespace std
+namespace stdext
 {
-	
-	// Not necessary to declare void_t
-	//template <class...>
-	//using void_t = void;
-
 	// N4502 detection proposal C++17
 	struct nonesuch
 	{
@@ -24,14 +19,14 @@ namespace std
 	template <class Default, class AlwaysVoid, template<class...> class Op, class... Args>
 	struct DETECTOR
 	{ // exposition only
-		using value_t = false_type;
+		using value_t = std::false_type;
 		using type = Default;
 	};
 
 	template <class Default, template<class...> class Op, class... Args>
-	struct DETECTOR<Default, void_t<Op<Args...>>, Op, Args...> 
+	struct DETECTOR<Default, std::void_t<Op<Args...>>, Op, Args...> 
 	{ // exposition only
-		using value_t = true_type;
+		using value_t =std::true_type;
 		using type = Op<Args...>;
 	};
 
@@ -46,13 +41,12 @@ namespace std
 	template <class Default, template<class...> class Op, class... Args>
 	using detected_or_t = typename detected_or<Default, Op, Args...>::type;
 	template <class Expected, template<class...> class Op, class... Args>
-	using is_detected_exact = is_same<Expected, detected_t<Op, Args...>>;
+	using is_detected_exact = std::is_same<Expected, detected_t<Op, Args...>>;
 	template <class Expected, template<class...> class Op, class... Args>
 	constexpr bool is_detected_exact_v	= is_detected_exact<Expected, Op, Args...>::value;
 	template <class To, template<class...> class Op, class... Args>
-	using is_detected_convertible = is_convertible<detected_t<Op, Args...>, To>;
+	using is_detected_convertible = std::is_convertible<detected_t<Op, Args...>, To>;
 	template <class To, template<class...> class Op, class... Args>
 	constexpr bool is_detected_convertible_v = is_detected_convertible<To, Op, Args...>::value;
-	
 
 }
