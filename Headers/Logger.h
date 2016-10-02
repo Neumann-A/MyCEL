@@ -28,7 +28,7 @@ public:
 	{
 #pragma warning( push )
 #pragma warning( disable : 6386 )
-		const size_t size = 512;
+		const int size = 512;
 		char* buffer = nullptr;
 		buffer = new char[size];
 		va_list vl;
@@ -60,7 +60,7 @@ public:
 	{
 #pragma warning( push )
 #pragma warning( disable : 6386 )
-		const size_t size = 512;
+		const int size = 512;
 		char* buffer = nullptr;
 		buffer = new char[size];
 		va_list vl;
@@ -84,7 +84,7 @@ public:
 	{
 #pragma warning( push )
 #pragma warning( disable : 6386 )
-		const size_t size = 512;
+		const int size = 512;
 		char* buffer = 0;;
 		buffer = new char[size];;
 		va_list vl;;

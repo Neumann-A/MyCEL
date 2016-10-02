@@ -68,9 +68,14 @@ static_assert(std::is_same< T1, T2 >::value, \
 
 //Interface definition of ctor and dtor
 //#undef MY_INTERFACE
-#define MY_INTERFACE(TypeName) \
+#define MY_CONSTEXPR_INTERFACE(TypeName) \
 protected: \
 	constexpr TypeName() noexcept {}; \
+	~TypeName() = default; \
+
+#define MY_INTERFACE(TypeName) \
+protected: \
+	TypeName() = default ; \
 	~TypeName() = default; \
 
 #define MY_VIRTUAL_INTERFACE(TypeName) \

@@ -28,8 +28,8 @@ namespace stdext
 	template<class F, class...Args>
 	struct is_callable
 	{
-		template<class U> static constexpr auto test(U* p) -> decltype((*p)(std::declval<Args>()...), void(), std::true_type()) {};
-		template<class U> static constexpr auto test(...) -> decltype(std::false_type()) {};
+		template<class U> static constexpr auto test(U* p) -> decltype((*p)(std::declval<Args>()...), void(), std::true_type()) { return std::true_type(); };
+		template<class U> static constexpr auto test(...) -> decltype(std::false_type()) { return std::false_type(); };
 
 		static constexpr bool value = decltype(test<F>(0))::value;
 	};
