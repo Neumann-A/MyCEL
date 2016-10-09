@@ -283,8 +283,6 @@ public:
 		mxDestroyArray(&Array);
 	}
 
-
-
 	inline static bool checkArrayPointer(mxArray *pArr, std::string caller, const int &lineno)
 	{
 		if (pArr == nullptr)
