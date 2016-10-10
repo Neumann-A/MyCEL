@@ -25,6 +25,12 @@
     <Filter Include="Quelldateien\Matlab">
       <UniqueIdentifier>{1e0b5bbc-7340-445d-8422-bb000ef20012}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Headerdateien\Archives">
+      <UniqueIdentifier>{11d86803-729b-4925-ba51-b2c9de9c97b6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Quelldateien\Archives">
+      <UniqueIdentifier>{9ec5f1e4-9f86-48a9-9abf-14bcd0078392}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Code\BasicIncludes.cpp">
