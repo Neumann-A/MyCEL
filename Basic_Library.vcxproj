@@ -13,16 +13,16 @@
       <Configuration>LLVM Debug</Configuration>
       <Platform>x64</Platform>
     </ProjectConfiguration>
-    <ProjectConfiguration Include="Release|Win32">
-      <Configuration>Release</Configuration>
+    <ProjectConfiguration Include="Release LLB|Win32">
+      <Configuration>Release LLB</Configuration>
       <Platform>Win32</Platform>
     </ProjectConfiguration>
     <ProjectConfiguration Include="Debug|x64">
       <Configuration>Debug</Configuration>
       <Platform>x64</Platform>
     </ProjectConfiguration>
-    <ProjectConfiguration Include="Release|x64">
-      <Configuration>Release</Configuration>
+    <ProjectConfiguration Include="Release LLB|x64">
+      <Configuration>Release LLB</Configuration>
       <Platform>x64</Platform>
     </ProjectConfiguration>
   </ItemGroup>
@@ -45,7 +45,7 @@
     <PlatformToolset>v140</PlatformToolset>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release LLB|Win32'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v140</PlatformToolset>
@@ -64,7 +64,7 @@
     <PlatformToolset>v140</PlatformToolset>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release LLB|x64'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v140</PlatformToolset>
@@ -82,7 +82,7 @@
   <ImportGroup Condition="'$(Configuration)|$(Platform)'=='LLVM Debug|Win32'" Label="PropertySheets">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
-  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release LLB|Win32'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -91,11 +91,11 @@
   <ImportGroup Condition="'$(Configuration)|$(Platform)'=='LLVM Debug|x64'" Label="PropertySheets">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
-  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release LLB|x64'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release LLB|x64'">
     <IncludePath>$(SolutionDir)..\Extern;$(SolutionDir)..\..\..\SkyDrive\VSProj\Extern;$(SolutionDir)..\..\..\SkyDrive\VSProj\Extern\Eigen;$(SolutionDir)..\..\..\SkyDrive\VSProj\Extern\MATLAB\include;$(SolutionDir)..\..\..\SkyDrive\VSProj\Extern\boost_159;$(ProjectDir)Headers;$(IncludePath)</IncludePath>
     <LibraryPath>$(SolutionDir)..\..\..\SkyDrive\VSProj\Extern\boost_159\lib;$(SolutionDir)..\..\..\SkyDrive\VSProj\Extern\MATLAB\lib\win64\microsoft;$(LibraryPath)</LibraryPath>
     <OutDir>$(SolutionDir)$(Platform)\Lib\</OutDir>
@@ -119,7 +119,7 @@
     <CodeAnalysisRuleSet>C:\Program Files (x86)\Microsoft Visual Studio 14.0\Team Tools\Static Analysis Tools\Rule Sets\NativeRecommendedRules.ruleset</CodeAnalysisRuleSet>
     <RunCodeAnalysis>true</RunCodeAnalysis>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release LLB|Win32'">
     <LibraryPath>$(SolutionDir)..\..\..\SkyDrive\VSProj\Extern\boost_159\lib;$(SolutionDir)..\..\..\SkyDrive\VSProj\Extern\MATLAB\lib\win64\microsoft;$(LibraryPath)</LibraryPath>
     <IncludePath>$(SolutionDir)..\Extern;$(SolutionDir)..\..\..\SkyDrive\VSProj\Extern;$(SolutionDir)..\..\..\SkyDrive\VSProj\Extern\Eigen;$(SolutionDir)..\..\..\SkyDrive\VSProj\Extern\MATLAB\include;$(SolutionDir)..\..\..\SkyDrive\VSProj\Extern\boost_159;$(ProjectDir)Headers;$(IncludePath)</IncludePath>
     <OutDir>$(SolutionDir)$(Platform)\Lib\</OutDir>
@@ -184,7 +184,7 @@
       <EnablePREfast>true</EnablePREfast>
     </ClCompile>
   </ItemDefinitionGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release LLB|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>MaxSpeed</Optimization>
@@ -200,7 +200,7 @@
       <OptimizeReferences>true</OptimizeReferences>
     </Link>
   </ItemDefinitionGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release LLB|x64'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>MaxSpeed</Optimization>
