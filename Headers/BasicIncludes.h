@@ -47,7 +47,7 @@ namespace BasicTools
 	template<typename Number>
 	std::enable_if_t<std::is_arithmetic<Number>::value, std::decay_t<Number>> stringToNumber(const std::string&, size_t &)
 	{
-		assert(false); // should not be called!
+		//assert(false); // should not be called!
 		return 0;
 	};
 
