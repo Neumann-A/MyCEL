@@ -39,7 +39,7 @@ private:
 	std::vector<std::chrono::time_point<clock, unit>> _times;
 protected:
 public:
-	BASIC_ALWAYS_INLINE Timer() : _time_begin(clock::now()), _times({_times_begin}) {};
+	BASIC_ALWAYS_INLINE Timer() : _time_begin(clock::now()), _times({_time_begin}) {};
 	BASIC_ALWAYS_INLINE ~Timer() {};
 
 	//Sets the start time to the 
@@ -62,10 +62,10 @@ public:
 	}
 
 	// Returns the unit conversion factor
-	constexpr BASIC_ALWAYS_INLINE static double unitFactor() noexcept
+	const BASIC_ALWAYS_INLINE static double unitFactor() noexcept
 	{
-		constexpr auto num = static_cast<double>(unit::period::num);
-		constexpr auto den = static_cast<double>(unit::period::den);
+		const auto num = static_cast<double>(unit::period::num);
+		const auto den = static_cast<double>(unit::period::den);
 		return num/den;
 	}
 
@@ -131,18 +131,6 @@ auto timeFunctionString = [](const std::string& str, auto&& func, auto&&... para
 
 	return (str + std::to_string(time*1000) + " ms.");
 };
-
-
-////Times a function call
-//auto timeFunctionString = [](std::string text, auto&& func, auto&&... params) // C++14
-//{
-//	Timer<> Timer{};
-//	std::forward<decltype(func)>(func)( // invoke func
-//		std::forward<decltype(params)>(params)... // on params
-//		);
-//	auto Tmp = Timer.stop();
-//	Logger::Log(text + std::to_string(Tmp*Timer.unitFactor() / 1000) + "ms");
-//};
 
 
 #endif	// INC_Timer_H
