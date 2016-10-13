@@ -14,6 +14,7 @@
 #pragma once
 #include "BasicMacros.h"
 
+#include <algorithm>
 #include <type_traits>
 #include <vector>
 #include <utility>
@@ -64,25 +65,26 @@ private:
 	distribution _distribution;
 	std::mt19937_64 _prng;
 public:
+	//TODO: use better init for PNG see noisefield!
 	template <typename T = distribution>
 	DistributionHelper(const prec &value, typename std::enable_if_t<std::is_same<T, std::discrete_distribution<prec>>::value, prec>* = nullptr)
-		:_distribution(distribution{ value }),	_prng((std::random_device{})())
+		:_distribution(distribution{ value }), _prng(std::random_device{}())
 	{
-		for (int i = 0; i <= 1000000; ++i)
-			_prng();
+		_prng.discard(10'000'000);
 	}
 	DistributionHelper(const DistributionParams &values)
 		: _distribution(distribution{ values.first, values.second }),
 		_prng(std::random_device{}())
 	{
-		for (int i = 0; i <= 1000000; i += 1)
-			_prng();
+		_prng.discard(10'000'000);
 	};
 
 	prec getValueFromDistribution() override final
 	{
 		return _distribution(_prng);
 	}
+
+
 
 };
 
@@ -96,11 +98,11 @@ private:
 protected:
 
 public:
+	//TODO: use better init for PNG see noisefield!
 	DistributionHelperDiscrete(const std::vector<inttype>& values)
 		:_distribution( values.begin(),values.end() ), _prng((std::random_device{})())
 	{
-		for (int i = 0; i <= 1000000; ++i)
-			_prng();
+		_prng.discard(10'000'000);
 	}
 	inttype getValueFromDistribution() override final
 	{
