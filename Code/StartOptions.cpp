@@ -54,14 +54,17 @@ void StartOptions::analyzeStartArguments(int argc, char** argv)
 	{
 		std::smatch match;
 		std::string optionname;
-		if (isArgumentRegistered(std::string{ argv[i] }, match, optionname))
+		std::string str{ argv[i] };
+		if (isArgumentRegistered(str, match, optionname))
 		{
 			if (_FoundwithArgument.find(optionname) != _FoundwithArgument.end())
 			{
 				Logger::Error("Error on line %d in file %s: Argument %s was already found as an option!", __LINE__, __FILE__, argv[i]);
 				return;
 			}
-			_FoundwithArgument[optionname] = match.suffix().str(); //push argument in found list
+			const auto test = match[0].length();
+			str.erase(0, test);
+			_FoundwithArgument[optionname] = str; //push argument in found list
 		}
 		else
 		{
