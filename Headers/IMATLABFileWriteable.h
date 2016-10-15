@@ -38,8 +38,8 @@ public:
 	///-------------------------------------------------------------------------------------------------
 	void WriteValuesToMATLABFile(MATLABFileHandler &File, const std::string &section) const
 	{
-		mxArray* data = this->createMATLABarray();
-		File.insertArrayIntoMAT(*data, section);
+		mxArray& data = this->createMATLABarray();
+		File.insertArrayIntoMAT(data, section);
 	};
 
 	///-------------------------------------------------------------------------------------------------
