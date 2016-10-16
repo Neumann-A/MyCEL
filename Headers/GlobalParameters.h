@@ -2,9 +2,8 @@
 
 #ifndef _GLOBALPARAMETERS_H_
 #define _GLOBALPARAMETERS_H_
+
 #include <string>
-
-
 
 class GlobalParameters
 {
