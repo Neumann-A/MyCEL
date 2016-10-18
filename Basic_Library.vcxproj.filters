@@ -54,6 +54,9 @@
     <ClCompile Include="Code\IMATLABFileWriteable.cpp">
       <Filter>Quelldateien\Matlab</Filter>
     </ClCompile>
+    <ClCompile Include="Code\DistributionHelper.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Headers\BasicIncludes.h">

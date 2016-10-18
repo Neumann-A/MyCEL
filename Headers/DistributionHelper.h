@@ -23,19 +23,17 @@
 
 #include "Logger.h"
 
+
+
 enum class IDistribution { Distribution_unknown, Distribution_delta, Distribution_normal, Distribution_lognormal };
-const std::map<IDistribution, std::string> IDistributionMap{ { { IDistribution::Distribution_unknown,"unknown" },{ IDistribution::Distribution_delta,"delta" } ,{ IDistribution::Distribution_normal,"normal" },{ IDistribution::Distribution_lognormal,"lognormal" } } };
+static const std::map<IDistribution, std::string> IDistributionMap{ { { IDistribution::Distribution_unknown,"unknown" },{ IDistribution::Distribution_delta,"delta" } ,{ IDistribution::Distribution_normal,"normal" },{ IDistribution::Distribution_lognormal,"lognormal" } } };
 
-// Interface functions which converts a string to an enum
-IDistribution getIDistribution(const std::string &string) noexcept
-{
-	for (const auto& it : IDistributionMap)
-		if (it.second == string)
-			return it.first;
+std::string to_string(const IDistribution& field);
+template<typename T>
+T from_string(const std::string &);
+template<>
+IDistribution from_string<IDistribution>(const std::string &string);
 
-	Logger::Log(std::string{ "Type of Distribution unknown! Requested Type: " } +string);
-	return IDistribution::Distribution_unknown;
-};
 
 template<typename ReturnValue>
 class IDistributionHelper

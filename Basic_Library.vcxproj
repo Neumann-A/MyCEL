@@ -219,6 +219,7 @@
   <ItemGroup>
     <ClCompile Include="Code\BasicIncludes.cpp" />
     <ClCompile Include="Code\ConfigFile.cpp" />
+    <ClCompile Include="Code\DistributionHelper.cpp" />
     <ClCompile Include="Code\GlobalParameters.cpp" />
     <ClCompile Include="Code\IConfigFile.cpp" />
     <ClCompile Include="Code\IMATLABFileWriteable.cpp" />
