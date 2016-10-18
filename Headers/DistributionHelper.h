@@ -29,11 +29,18 @@ enum class IDistribution { Distribution_unknown, Distribution_delta, Distributio
 static const std::map<IDistribution, std::string> IDistributionMap{ { { IDistribution::Distribution_unknown,"unknown" },{ IDistribution::Distribution_delta,"delta" } ,{ IDistribution::Distribution_normal,"normal" },{ IDistribution::Distribution_lognormal,"lognormal" } } };
 
 std::string to_string(const IDistribution& field);
+
 template<typename T>
 T from_string(const std::string &);
-template<>
-IDistribution from_string<IDistribution>(const std::string &string);
-
+//template<>
+//inline IDistribution from_string<IDistribution>(const std::string &String) //TODO: Remoe inline move to cpp; currently gives linker errors!
+//{
+//	for (auto it : IDistributionMap)
+//		if (it.second == String)
+//			return it.first;
+//
+//	throw std::runtime_error{ std::string{ "Type of Distribution unknown! " } +String };
+//};
 
 template<typename ReturnValue>
 class IDistributionHelper

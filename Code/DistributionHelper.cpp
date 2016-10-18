@@ -14,3 +14,11 @@ IDistribution from_string<IDistribution>(const std::string &String)
 
 	throw std::runtime_error{ std::string{ "Type of Distribution unknown! " } +String };
 };
+
+template IDistribution from_string<IDistribution>(const std::string &String);
+
+//
+//namespace
+//{
+//	auto test = from_string<IDistribution>("");
+//}
