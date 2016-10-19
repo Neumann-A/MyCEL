@@ -96,6 +96,7 @@ public:
 template <typename inttype>
 class DistributionHelperDiscrete : public IDistributionHelper<inttype>
 {
+	static_assert(std::is_integral<inttype>::value, "This class is only for integral types!");
 private:
 	std::discrete_distribution<inttype> _distribution;
 	std::mt19937_64 _prng;
