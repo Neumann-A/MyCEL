@@ -4,25 +4,25 @@
 #include <iostream>
 #include <string>
 #include <sstream> // Stringstream
+#include <chrono>
 
 #include <cstdarg>
 
 class Logger
 {
 private:
-	Logger() {};
-	virtual ~Logger() {};
-
+	Logger() = default;
 protected:
 	
 public:
 	inline static void Log(const std::string &msg) 
 	{ 
+		//TODO: Implement Time as an extra
 		std::cout << msg << std::endl;
 	};
 	inline static void Log(const std::stringstream &msg) 
 	{ 
-		std::cout << msg.str() << std::endl;
+		Log(msg.str());
 	};
 	inline static void Log(const char* fmt, ...)
 	{
@@ -44,7 +44,7 @@ public:
 		std::string ret{ buffer };
 		va_end(vl);
 		delete[] buffer;
-		std::cout << ret << std::endl;
+		Log(ret);
 #pragma warning( pop )
 	}
 
@@ -54,7 +54,7 @@ public:
 	};
 	inline static void Error(const std::stringstream &msg)
 	{
-		std::cerr << msg.str() << std::endl;
+		Error(msg.str());
 	};
 	inline static void Error(const char* fmt, ...)
 	{
@@ -76,7 +76,7 @@ public:
 		std::string ret{ buffer };
 		va_end(vl);
 		delete[] buffer;
-		std::cout << ret << std::endl;
+		Error(ret);
 #pragma warning( pop )
 	}
 
