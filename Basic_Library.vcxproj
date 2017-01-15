@@ -248,6 +248,7 @@
     <ClInclude Include="Headers\std_extensions.h" />
     <ClInclude Include="Headers\ThreadManager.h" />
     <ClInclude Include="Headers\Timer.h" />
+    <ClInclude Include="Headers\Typelist.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

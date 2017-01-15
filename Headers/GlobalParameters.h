@@ -3,16 +3,15 @@
 #ifndef _GLOBALPARAMETERS_H_
 #define _GLOBALPARAMETERS_H_
 
-#include <string>
+#include <experimental\filesystem>
 
 class GlobalParameters
 {
 protected:
 	GlobalParameters() {};
+	~GlobalParameters() {};
 public:
-	virtual ~GlobalParameters() {};
-	
-	static std::string Path;
+	static std::experimental::filesystem::path Path;
 };
 
 #endif //_GLOBALPARAMETERS_H_

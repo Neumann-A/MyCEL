@@ -103,7 +103,7 @@ public:
 
 
 /// <summary>	Lambda to time a Function Call (C++14). It returns the used time in seconds </summary>
-auto timeFunction = [](auto&& func, auto&&... params)
+const auto timeFunction = [](auto&& func, auto&&... params)
 {
 	auto begin = std::chrono::high_resolution_clock::now();
 	std::forward<decltype(func)>(func)( // invoke func
@@ -118,7 +118,7 @@ auto timeFunction = [](auto&& func, auto&&... params)
 
 
 /// <summary> Returns a formated String for Logging\Debugging or other things for timeFunction </summary>
-auto timeFunctionString = [](const std::string& str, auto&& func, auto&&... params)
+const auto timeFunctionString = [](const std::string& str, auto&& func, auto&&... params)
 {
 	auto begin = std::chrono::high_resolution_clock::now();
 	std::forward<decltype(func)>(func)( // invoke func

@@ -178,7 +178,7 @@ public:
 		return res;
 	}
 
-	uint64_t getNumberOfWorkingThreads() const _NOEXCEPT { return _WorkingThreads; };
+	const uint64_t& getNumberOfWorkingThreads() const _NOEXCEPT { return _WorkingThreads; };
 };
 
 #endif //_THREADMANAGER_H_

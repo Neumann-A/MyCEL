@@ -1,3 +1,3 @@
 #include "GlobalParameters.h"
 
-std::string GlobalParameters::Path{ "empty" };
+std::experimental::filesystem::path GlobalParameters::Path{ "" };
