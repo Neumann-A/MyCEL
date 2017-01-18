@@ -38,29 +38,30 @@ static_assert(std::is_same< T1, T2 >::value, \
 
 #define DEFAULT_COPY_AND_MOVE(TypeName) \
   TypeName(const TypeName&) = default;   \
-  const TypeName& operator=(const TypeName&) = default; \
+  TypeName& operator=(const TypeName&) = default; \
   TypeName(TypeName&&) = default;   \
-  const TypeName& operator=(TypeName&&) = default;
+  TypeName& operator=(TypeName&&) = default;
 
 
 #define DISALLOW_COPY_AND_MOVE(TypeName) \
   TypeName(const TypeName&) = delete;   \
-  void operator=(const TypeName&) = delete; \
+  TypeName& operator=(const TypeName&) = delete; \
   TypeName(TypeName&&) = delete;   \
-  void operator=(TypeName&&) = delete;
+  TypeName& operator=(TypeName&&) = delete;
 
 // Does what the macro says; prohibits coping of a object
 #define DISALLOW_COPY_AND_ASSIGN(TypeName) \
   TypeName(const TypeName&) = delete;   \
-  void operator=(const TypeName&) = delete;
+  TypeName& operator=(const TypeName&) = delete;
 
 #define ALLOW_DEFAULT_COPY_AND_ASSIGN(TypeName) \
   TypeName(const TypeName&) = default;   \
-  const TypeName& operator=(const TypeName&) = default;
+  TypeName& operator=(const TypeName&) = default;
 
 #define DISALLOW_MOVE_AND_ASSIGN(TypeName) \
   TypeName(TypeName&&) = delete;   \
-  void operator=(TypeName&&) = delete;
+  TypeName& operator=(TypeName&&) = delete; \
+  static_assert(false, "Don't delete move members!");
 
 #define ALLOW_DEFAULT_MOVE_AND_ASSIGN(TypeName) \
   TypeName(TypeName&&) = default;   \
