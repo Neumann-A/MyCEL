@@ -218,29 +218,20 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Code\BasicIncludes.cpp" />
-    <ClCompile Include="Code\ConfigFile.cpp" />
     <ClCompile Include="Code\DistributionHelper.cpp" />
     <ClCompile Include="Code\GlobalParameters.cpp" />
-    <ClCompile Include="Code\IConfigFile.cpp" />
-    <ClCompile Include="Code\IMATLABFileWriteable.cpp" />
-    <ClCompile Include="Code\MATLABFileHandler.cpp" />
     <ClCompile Include="Code\StartOptions.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Headers\BasicIncludes.h" />
     <ClInclude Include="Headers\BasicMacros.h" />
-    <ClInclude Include="Headers\ConfigFile.h" />
     <ClInclude Include="Headers\DistributioneCalculator.h" />
     <ClInclude Include="Headers\DistributionHelper.h" />
     <ClInclude Include="Headers\GlobalParameters.h" />
     <ClInclude Include="Headers\has_x.h" />
-    <ClInclude Include="Headers\IConfigFile.h" />
-    <ClInclude Include="Headers\IMATLABFileWriteable.h" />
     <ClInclude Include="Headers\Is_Callable.h" />
     <ClInclude Include="Headers\Is_Container.h" />
     <ClInclude Include="Headers\Logger.h" />
-    <ClInclude Include="Headers\MATLABClassFinder.h" />
-    <ClInclude Include="Headers\MATLABFileHandler.h" />
     <ClInclude Include="Headers\NoCopy.h" />
     <ClInclude Include="Headers\PreprocessorMakros.h" />
     <ClInclude Include="Headers\SimpleSmartEnum.h" />

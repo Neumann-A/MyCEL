@@ -13,24 +13,6 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="Headerdateien\ConfigFile">
-      <UniqueIdentifier>{fa49e2be-e92f-4cd4-8939-e4d1733ff4e3}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Headerdateien\Matlab">
-      <UniqueIdentifier>{0430357e-8dea-4c2e-a8b5-dfdb930baefc}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Quelldateien\ConfigFile">
-      <UniqueIdentifier>{1bf8da5e-bcd0-48e7-8e77-13548f9d4daf}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Quelldateien\Matlab">
-      <UniqueIdentifier>{1e0b5bbc-7340-445d-8422-bb000ef20012}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Headerdateien\Archives">
-      <UniqueIdentifier>{11d86803-729b-4925-ba51-b2c9de9c97b6}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Quelldateien\Archives">
-      <UniqueIdentifier>{9ec5f1e4-9f86-48a9-9abf-14bcd0078392}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Code\BasicIncludes.cpp">
@@ -41,18 +23,6 @@
     </ClCompile>
     <ClCompile Include="Code\StartOptions.cpp">
       <Filter>Quelldateien</Filter>
-    </ClCompile>
-    <ClCompile Include="Code\ConfigFile.cpp">
-      <Filter>Quelldateien\ConfigFile</Filter>
-    </ClCompile>
-    <ClCompile Include="Code\IConfigFile.cpp">
-      <Filter>Quelldateien\ConfigFile</Filter>
-    </ClCompile>
-    <ClCompile Include="Code\MATLABFileHandler.cpp">
-      <Filter>Quelldateien\Matlab</Filter>
-    </ClCompile>
-    <ClCompile Include="Code\IMATLABFileWriteable.cpp">
-      <Filter>Quelldateien\Matlab</Filter>
     </ClCompile>
     <ClCompile Include="Code\DistributionHelper.cpp">
       <Filter>Quelldateien</Filter>
@@ -86,23 +56,8 @@
     <ClInclude Include="Headers\Timer.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
-    <ClInclude Include="Headers\ConfigFile.h">
-      <Filter>Headerdateien\ConfigFile</Filter>
-    </ClInclude>
-    <ClInclude Include="Headers\IConfigFile.h">
-      <Filter>Headerdateien\ConfigFile</Filter>
-    </ClInclude>
-    <ClInclude Include="Headers\MATLABClassFinder.h">
-      <Filter>Headerdateien\Matlab</Filter>
-    </ClInclude>
-    <ClInclude Include="Headers\MATLABFileHandler.h">
-      <Filter>Headerdateien\Matlab</Filter>
-    </ClInclude>
     <ClInclude Include="Headers\Is_Container.h">
       <Filter>Headerdateien</Filter>
-    </ClInclude>
-    <ClInclude Include="Headers\IMATLABFileWriteable.h">
-      <Filter>Headerdateien\Matlab</Filter>
     </ClInclude>
     <ClInclude Include="Headers\DistributionHelper.h">
       <Filter>Headerdateien</Filter>

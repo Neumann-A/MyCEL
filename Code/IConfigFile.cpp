@@ -1,4 +1,0 @@
-
-#include "..\Headers\IConfigFile.h"
-
-
