@@ -17,20 +17,43 @@
 	#define BASIC_NOINLINE
 #endif
 
-//class str_const { // constexpr string
-//private:
-//	const char* const p_;
-//	const std::size_t sz_;
-//public:
-//	template<std::size_t N>
-//	constexpr str_const(const char(&a)[N]) : // ctor
-//		p_(a), sz_(N - 1) {}
-//	constexpr char operator[](std::size_t n) { // []
-//		return n < sz_ ? p_[n] :
-//			throw std::out_of_range("");
-//	}
-//	constexpr std::size_t size() { return sz_; } // size()
-//};
+#if _MSC_VER >= 1900
+
+#define NODISCARD [[nodiscard]]
+#define MAYBE_UNUSED [[maybe_unused]]
+#define FALLTHROUGH [[fallthrough]]
+#define DEPRECATED [[deprecated]]
+#define DEPRECATEDREASON(x) [[deprecated(#x)]]
+#define NORETURN [[noreturn]]
+
+
+#elif __GNUC__ || __clang__ || __llvm__
+
+#if __has_cpp_attribute(nodiscard)
+#define NODISCARD [[nodiscard]]
+#elif __has_cpp_attribute(gnu::warn_unused_result)
+#define NODISCARD [[gnu::warn_unused_result]]
+#endif
+
+#if __has_cpp_attribute(fallthrough)
+#define FALLTHROUGH [[fallthrough]]
+#elif __has_cpp_attribute(clang::fallthrough)
+#define FALLTHROUGH [[clang::fallthrough]]
+#else
+#define FALLTHROUGH
+#endif
+
+#if __has_cpp_attribute(maybe_unused)
+#define MAYBE_UNUSED [[maybe_unused]]
+#elif __has_cpp_attribute(gnu::unused)
+#define MAYBE_UNUSED [[gnu::unused]]
+
+#endif
+#else
+#define NODISCARD
+#define FALLTHROUGH
+#define MAYBE_UNUSED
+#endif
 
 #define IS_SAME_TYPE(T1, T2) \
 static_assert(std::is_same< T1, T2 >::value, \
