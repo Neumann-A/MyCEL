@@ -6,6 +6,8 @@
 #include <locale>
 #include <type_traits>
 
+#define BASIC_NOEXCEPT noexcept
+
 #ifdef _MSC_VER
 	#define BASIC_ALWAYS_INLINE __forceinline
 	#define BASIC_NOINLINE		__declspec(noinline)

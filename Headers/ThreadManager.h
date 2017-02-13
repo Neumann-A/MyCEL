@@ -78,7 +78,6 @@ private:
 
 	void createThread()
 	{
-		std::thread::id tid = std::this_thread::get_id();
 		for (;;) //Forever
 		{
 			Log("Looping");
@@ -88,7 +87,7 @@ private:
 			{
 				std::unique_lock<std::mutex> lock(_TaskDequeMutex);
 
-				_TaskCondVar.wait(lock, [this,&tid] 	{ 
+				_TaskCondVar.wait(lock, [this] 	{ 
 					Log("Waiting...");
 					return (this->_stopped || !this->_Tasks.empty()); 				
 				});   // Wait until dequeue is not empty or ThreadManager is stopped
@@ -178,7 +177,7 @@ public:
 		return res;
 	}
 
-	const uint64_t getNumberOfWorkingThreads() const _NOEXCEPT { return _WorkingThreads; };
+	uint64_t getNumberOfWorkingThreads() const _NOEXCEPT { return _WorkingThreads.load(); };
 };
 
 #endif //_THREADMANAGER_H_
