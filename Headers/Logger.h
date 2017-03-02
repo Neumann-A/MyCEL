@@ -15,6 +15,15 @@ private:
 protected:
 	
 public:
+	// In the near future when fold expressions are a thing
+	//template<typename... Args>
+	//inline static void Log(Args&&... args)
+	//{
+	//	std::stringstream str;
+	//	str << ... << args ;
+	//	Log(str);
+	//}
+
 	inline static void Log(const std::string &msg) 
 	{ 
 		//TODO: Implement Time as an extra
