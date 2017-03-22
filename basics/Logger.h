@@ -35,8 +35,10 @@ public:
 	};
 	inline static void Log(const char* fmt, ...)
 	{
+#ifdef _MSC_VER
 #pragma warning( push )
 #pragma warning( disable : 6386 )
+#endif
 		const int size = 512;
 		char* buffer = nullptr;
 		buffer = new char[size];
@@ -54,7 +56,9 @@ public:
 		va_end(vl);
 		delete[] buffer;
 		Log(ret);
+#ifdef _MSC_VER
 #pragma warning( pop )
+#endif
 	}
 
 	inline static void Error(const std::string &msg)
@@ -67,8 +71,10 @@ public:
 	};
 	inline static void Error(const char* fmt, ...)
 	{
+#ifdef _MSC_VER
 #pragma warning( push )
 #pragma warning( disable : 6386 )
+#endif
 		const int size = 512;
 		char* buffer = nullptr;
 		buffer = new char[size];
@@ -86,13 +92,17 @@ public:
 		va_end(vl);
 		delete[] buffer;
 		Error(ret);
+#ifdef _MSC_VER
 #pragma warning( pop )
+#endif
 	}
 
 	inline static std::string Format(const char* fmt, ...)
 	{
+#ifdef _MSC_VER
 #pragma warning( push )
 #pragma warning( disable : 6386 )
+#endif
 		const int size = 512;
 		char* buffer = 0;;
 		buffer = new char[size];;
@@ -110,7 +120,9 @@ public:
 		va_end(vl);
 		delete[] buffer;
 		return ret;
+#ifdef _MSC_VER
 #pragma warning( pop )
+#endif
 	}
 
 };

@@ -12,7 +12,7 @@
 #define INC_DistributionHelper_H
 ///---------------------------------------------------------------------------------------------------
 #pragma once
-#include "BasicMacros.h"
+#include "../basics/BasicMacros.h"
 
 #include <algorithm>
 #include <type_traits>
@@ -21,7 +21,7 @@
 #include <random>
 #include <map>
 
-#include "Logger.h"
+#include "../basics/Logger.h"
 
 namespace Distribution
 {

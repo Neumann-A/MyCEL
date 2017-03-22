@@ -1,4 +1,4 @@
-#include "..\Headers\DistributionHelper.h"
+#include "DistributionHelper.h"
 
 //std::string to_string(const IDistribution& field)
 //{

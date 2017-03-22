@@ -2,11 +2,17 @@
 
 #include <type_traits>
 
-#include "Is_Callable.h"
-#include "Is_Container.h"
-
 namespace stdext
 {
+
+	// Fix for MSVC 2017 decltype issues!
+	template<typename...>
+	struct my_void {
+		using type = void;
+	};
+	template<typename... T>
+	using void_t = typename my_void<T...>::type;
+
 	// N4502 detection proposal C++17
 	struct nonesuch
 	{
@@ -24,7 +30,7 @@ namespace stdext
 	};
 
 	template <class Default, template<class...> class Op, class... Args>
-	struct DETECTOR<Default, std::void_t<Op<Args...>>, Op, Args...> 
+	struct DETECTOR<Default, void_t<Op<Args...>>, Op, Args...> 
 	{ // exposition only
 		using value_t =std::true_type;
 		using type = Op<Args...>;

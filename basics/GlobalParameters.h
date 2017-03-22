@@ -3,7 +3,7 @@
 #ifndef _GLOBALPARAMETERS_H_
 #define _GLOBALPARAMETERS_H_
 
-#include <experimental\filesystem>
+#include <experimental/filesystem>
 
 class GlobalParameters
 {

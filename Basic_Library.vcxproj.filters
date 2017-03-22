@@ -1,87 +1,84 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Quelldateien">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    <Filter Include="basics">
+      <UniqueIdentifier>{b31538e9-7f3b-4b11-a9cf-60291dca91a3}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Headerdateien">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    <Filter Include="math">
+      <UniqueIdentifier>{2b185366-b537-43ed-821e-c23f81fe1940}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Ressourcendateien">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    <Filter Include="stdext">
+      <UniqueIdentifier>{14837564-f3fb-43a9-b181-81817b5a0572}</UniqueIdentifier>
     </Filter>
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="Code\BasicIncludes.cpp">
-      <Filter>Quelldateien</Filter>
-    </ClCompile>
-    <ClCompile Include="Code\GlobalParameters.cpp">
-      <Filter>Quelldateien</Filter>
-    </ClCompile>
-    <ClCompile Include="Code\StartOptions.cpp">
-      <Filter>Quelldateien</Filter>
-    </ClCompile>
-    <ClCompile Include="Code\DistributionHelper.cpp">
-      <Filter>Quelldateien</Filter>
-    </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="Headers\BasicIncludes.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
-    <ClInclude Include="Headers\BasicMacros.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
-    <ClInclude Include="Headers\DistributioneCalculator.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
-    <ClInclude Include="Headers\GlobalParameters.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
-    <ClInclude Include="Headers\Logger.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
-    <ClInclude Include="Headers\NoCopy.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
-    <ClInclude Include="Headers\StartOptions.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
-    <ClInclude Include="Headers\ThreadManager.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
-    <ClInclude Include="Headers\Timer.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
-    <ClInclude Include="Headers\Is_Container.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
-    <ClInclude Include="Headers\DistributionHelper.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
-    <ClInclude Include="Headers\PreprocessorMakros.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
-    <ClInclude Include="Headers\SimpleSmartEnum.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
-    <ClInclude Include="Headers\Is_Callable.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
-    <ClInclude Include="Headers\has_x.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
-    <ClInclude Include="Headers\std_extensions.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
-    <ClInclude Include="Headers\Typelist.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="basics\BasicIncludes.cpp">
+      <Filter>basics</Filter>
+    </ClCompile>
+    <ClCompile Include="basics\GlobalParameters.cpp">
+      <Filter>basics</Filter>
+    </ClCompile>
+    <ClCompile Include="basics\StartOptions.cpp">
+      <Filter>basics</Filter>
+    </ClCompile>
+    <ClCompile Include="math\DistributionHelper.cpp">
+      <Filter>math</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="basics\BasicIncludes.h">
+      <Filter>basics</Filter>
+    </ClInclude>
+    <ClInclude Include="basics\BasicMacros.h">
+      <Filter>basics</Filter>
+    </ClInclude>
+    <ClInclude Include="basics\ComplexMacros.h">
+      <Filter>basics</Filter>
+    </ClInclude>
+    <ClInclude Include="basics\GlobalParameters.h">
+      <Filter>basics</Filter>
+    </ClInclude>
+    <ClInclude Include="basics\Logger.h">
+      <Filter>basics</Filter>
+    </ClInclude>
+    <ClInclude Include="basics\NoCopy.h">
+      <Filter>basics</Filter>
+    </ClInclude>
+    <ClInclude Include="basics\SimpleSmartEnum.h">
+      <Filter>basics</Filter>
+    </ClInclude>
+    <ClInclude Include="basics\StartOptions.h">
+      <Filter>basics</Filter>
+    </ClInclude>
+    <ClInclude Include="basics\ThreadManager.h">
+      <Filter>basics</Filter>
+    </ClInclude>
+    <ClInclude Include="basics\Timer.h">
+      <Filter>basics</Filter>
+    </ClInclude>
+    <ClInclude Include="basics\Typelist.h">
+      <Filter>basics</Filter>
+    </ClInclude>
+    <ClInclude Include="math\DistributionCalculator.h">
+      <Filter>math</Filter>
+    </ClInclude>
+    <ClInclude Include="math\DistributionHelper.h">
+      <Filter>math</Filter>
+    </ClInclude>
+    <ClInclude Include="stdext\is_callable.h">
+      <Filter>stdext</Filter>
+    </ClInclude>
+    <ClInclude Include="stdext\is_container.h">
+      <Filter>stdext</Filter>
+    </ClInclude>
+    <ClInclude Include="stdext\is_detected.h">
+      <Filter>stdext</Filter>
+    </ClInclude>
+    <ClInclude Include="stdext\std_extensions.h">
+      <Filter>stdext</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

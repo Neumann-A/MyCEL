@@ -71,7 +71,9 @@ private:
 			}
 		}
 		
+#ifdef _DEBUG
 		Log(std::string{ "Created " }  +std::to_string(counter) + std::string{" threads."});
+#endif
 			
 		return counter;
 	};
@@ -80,21 +82,30 @@ private:
 	{
 		for (;;) //Forever
 		{
+#ifdef _DEBUG
 			Log("Looping");
+#endif
 			
 			std::function<void()> task;
 
 			{
 				std::unique_lock<std::mutex> lock(_TaskDequeMutex);
-
+#ifdef _DEBUG
 				_TaskCondVar.wait(lock, [this] 	{ 
 					Log("Waiting...");
 					return (this->_stopped || !this->_Tasks.empty()); 				
 				});   // Wait until dequeue is not empty or ThreadManager is stopped
+#else
+				_TaskCondVar.wait(lock, [this] {
+					return (this->_stopped || !this->_Tasks.empty());
+				});   // Wait until dequeue is not empty or ThreadManager is stopped
+#endif
 
 				if (_stopped && _Tasks.empty())			//ThreadManager is stopped and there are no tasks left
 				{
+#ifdef _DEBUG
 					Log("Stopped!");
+#endif					
 					return;
 				}
 
@@ -103,7 +114,9 @@ private:
 				this->_Tasks.pop_front();				// Remove Task from queue
 				
 			}
+#ifdef _DEBUG
 			Log("Performs task");
+#endif
 			task(); // Perform task;
 			--_WorkingThreads;
 		}
@@ -136,7 +149,9 @@ public:
 
 	~ThreadManager()
 	{
+#ifdef _DEBUG
 		Log("Terminating Pool");
+#endif
 		{
 			std::unique_lock<std::mutex> lock(_TaskDequeMutex); //Make sure no other thread of the pool is running
 			_stopped = true;
@@ -148,12 +163,14 @@ public:
 			if (Thread.joinable())
 				Thread.join();
 		}
+#ifdef _DEBUG
 		Log("Threads joined");
+#endif
 	};
 
 	// Add Task to Task Deque
 	template<class Func, class... Args>
-	auto AddTask(Func&& func, Args&&... args) _NOEXCEPT_OP(false)
+	auto AddTask(Func&& func, Args&&... args) noexcept(false)
 		-> std::future<typename std::result_of<Func(Args...)>::type>
 	{
 		using return_type = typename std::result_of<Func(Args...)>::type;
@@ -173,7 +190,9 @@ public:
 			_Tasks.emplace_back([task]() { (*task)(); });
 		}
 		_TaskCondVar.notify_one();
+#ifdef _DEBUG
 		Log("Task added");
+#endif
 		return res;
 	}
 
