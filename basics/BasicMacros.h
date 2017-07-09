@@ -59,7 +59,7 @@
 
 #define IS_SAME_TYPE(T1, T2) \
 static_assert(std::is_same< T1, T2 >::value, \
-"\n'Cuz " #T1 " and " #T2 " are not the same type.");
+"\n'Reason: " #T1 " and " #T2 " are not the same type.");
 
 #define DEFAULT_COPY_AND_MOVE(TypeName) \
   TypeName(const TypeName&) = default;   \
