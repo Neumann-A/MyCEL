@@ -24,6 +24,7 @@
 #define M_1_PI 0.31830988618379067153776752674503
 #endif
 
+// Two underscroes __{var} means 1/{var}
 #define M_4PI      12.566370614359172953850573533118   // 4 * PI 
 #define M__4PI      0.07957747154594766788444188168626   // 1/4PI 
 #define M_2PI       6.283185307179586476925286766559   // 2 * PI 
@@ -38,12 +39,12 @@ namespace math::geometry
 		template<typename precision>
 		inline static constexpr precision calcSurfaceArea(const precision& radius) noexcept { return M_4PI*std::pow(radius, 2); };
 		template<typename precision>
-		inline static constexpr precision calcRadiusFromSurfaceArea(const precision& radius) noexcept { return std::sqrt(area*M__4PI); };
+		inline static constexpr precision calcRadiusFromSurfaceArea(const precision& area) noexcept { return std::sqrt(area*M__4PI); };
 
 		template<typename precision>
 		inline static constexpr precision calcVolume(const precision& radius) noexcept { return M_4PI_3*std::pow(radius, 3); };
 		template<typename precision>
-		inline static constexpr precision calcRadiusFromVolume(const precision& radius) noexcept { return std::cbrt(volume*M_3__4PI); };
+		inline static constexpr precision calcRadiusFromVolume(const precision& volume) noexcept { return std::cbrt(volume*M_3__4PI); };
 	}
 
 	template<typename precision>
@@ -71,12 +72,12 @@ namespace math::geometry
 		template<typename precision>
 		inline static constexpr precision calcArea(const precision& radius) noexcept { return M_PI*std::pow(radius, 2); };
 		template<typename precision>
-		inline static constexpr precision calcRadiusArea(const precision& radius) noexcept { return std::sqrt(area*M_1_PI, 2); };
+		inline static constexpr precision calcRadiusArea(const precision& area) noexcept { return std::sqrt(area*M_1_PI, 2); };
 
 		template<typename precision>
 		inline static constexpr precision calcCircumference(const precision& radius) noexcept { return M_2PI*radius; };
 		template<typename precision>
-		inline static constexpr precision calcRadiusFromCircumference(const precision& radius) noexcept { return M__2PI*length; };
+		inline static constexpr precision calcRadiusFromCircumference(const precision& length) noexcept { return M__2PI*length; };
 	}
 
 	template<typename precision>
