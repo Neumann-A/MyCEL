@@ -80,5 +80,8 @@
     <ClInclude Include="stdext\std_extensions.h">
       <Filter>stdext</Filter>
     </ClInclude>
+    <ClInclude Include="math\Geometry.h">
+      <Filter>math</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

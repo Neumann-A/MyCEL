@@ -40,7 +40,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release LLB|x64'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v140</PlatformToolset>
+    <PlatformToolset>v141</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
@@ -161,6 +161,7 @@
     <ClInclude Include="basics\Typelist.h" />
     <ClInclude Include="math\DistributionCalculator.h" />
     <ClInclude Include="math\DistributionHelper.h" />
+    <ClInclude Include="math\Geometry.h" />
     <ClInclude Include="stdext\is_callable.h" />
     <ClInclude Include="stdext\is_container.h" />
     <ClInclude Include="stdext\is_detected.h" />
