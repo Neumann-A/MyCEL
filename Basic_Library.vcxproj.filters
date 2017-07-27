@@ -12,9 +12,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
     <ClCompile Include="basics\BasicIncludes.cpp">
       <Filter>basics</Filter>
     </ClCompile>
@@ -83,5 +80,8 @@
     <ClInclude Include="math\Geometry.h">
       <Filter>math</Filter>
     </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
 </Project>
