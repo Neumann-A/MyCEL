@@ -80,6 +80,12 @@
     <ClInclude Include="math\Geometry.h">
       <Filter>math</Filter>
     </ClInclude>
+    <ClInclude Include="stdext\is_string.h">
+      <Filter>stdext</Filter>
+    </ClInclude>
+    <ClInclude Include="stdext\is_arithmetic_container.h">
+      <Filter>stdext</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
