@@ -9,10 +9,14 @@
 
 namespace stdext
 {
+	template<typename T, typename _ = std::void_t<> >
+	struct is_arithmetic_container : std::false_type{};
+
 	template <typename T>
-	using is_arithmetic_container = std::conjunction <  is_container< std::decay_t<T> >,
+	struct is_arithmetic_container<T,
+		std::void_t< typename std::decay_t<T>::value_type >> : std::conjunction <  is_container< std::decay_t<T> >,
 														std::negation< is_string<T> >,
-														std::is_arithmetic< typename std::decay_t<T>::value_type > > ;
+		std::is_arithmetic< typename std::decay_t<T>::value_type > > {};
 	template<typename T>
 	static constexpr bool is_arithmetic_container_v = is_arithmetic_container<T>::value;
 
