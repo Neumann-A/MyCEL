@@ -173,6 +173,7 @@
     <ClInclude Include="stdext\is_container.h" />
     <ClInclude Include="stdext\is_detected.h" />
     <ClInclude Include="stdext\is_eigen3_type.h" />
+    <ClInclude Include="stdext\is_nested_arithmetic_container.h" />
     <ClInclude Include="stdext\is_nested_container.h" />
     <ClInclude Include="stdext\is_string.h" />
     <ClInclude Include="stdext\std_extensions.h" />

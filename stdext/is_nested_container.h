@@ -13,6 +13,53 @@
 ///---------------------------------------------------------------------------------------------------
 #pragma once
 
+#include "is_container.h"
+
+namespace stdext
+{
+	template<typename T, typename _ = std::void_t<>>
+	struct is_nested_container : std::false_type {};
+
+	template<typename T>
+	struct is_nested_container<T, std::void_t<typename std::decay_t<T>::value_type> >
+		: std::conjunction<is_container<std::decay_t<T>>,is_container<std::decay_t<typename std::decay_t<T>::value_type>>> {};
+
+	template<typename T>
+	static constexpr bool is_nested_container_v = is_nested_container<T>::value;
+
+	template<typename T, typename _ = std::void_t<>>
+	struct get_nested_arithmetic_type_helper
+	{
+		using type = typename std::decay<T>::value_type;
+	};
+
+	template<typename T, typename _ = std::void_t<>>
+	struct get_nested_type 
+	{
+		using type = T;
+	};
+
+	template<typename T>
+	struct get_nested_type_helper 
+	{
+		using type = T;
+	};
+
+	template<typename T>
+	struct get_nested_type<T, std::void_t<typename std::decay_t<T>::value_type>> :
+		std::conditional_t<is_container_v<T>, get_nested_type<typename std::decay_t<T>::value_type>, get_nested_type_helper<T>>
+	{};
+
+	template<typename T>
+	using get_nested_type_t = typename get_nested_type<T>::type;
+
+
+	//using NestedContainer = std::vector<std::vector<std::vector<double>>>;
+	//static_assert(is_container_v<NestedContainer>);
+	//static_assert(is_container_v<std::decay_t<NestedContainer>::value_type>);
+	//static_assert(is_nested_container_v<NestedContainer>);
+	//static_assert(std::is_same_v<double, typename get_nested_type_t<NestedContainer>>);
+};
 #endif	// INC_is_nested_container_H
 // end of stdext\is_nested_container.h
 ///---------------------------------------------------------------------------------------------------
