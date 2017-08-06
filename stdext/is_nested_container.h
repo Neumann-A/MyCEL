@@ -1,27 +1,18 @@
 ///---------------------------------------------------------------------------------------------------
-// file:		stdext\std_extensions.h
+// file:		stdext\is_nested_container.h
 //
-// summary: 	Includes all std extension headers
+// summary: 	Declares the is nested container class
 //
 // Copyright (c) 2017 Alexander Neumann.
 //
 // author: Alexander
 // date: 06.08.2017
 
-#ifndef INC_std_extensions_H
-#define INC_std_extensions_H
+#ifndef INC_is_nested_container_H
+#define INC_is_nested_container_H
 ///---------------------------------------------------------------------------------------------------
 #pragma once
 
-#include <type_traits>
-
-#include "is_callable.h"
-#include "is_container.h"
-#include "is_detected.h"
-#include "is_string.h"
-#include "is_arithmetic_container.h"
-#include "is_eigen3_type.h"
-
-#endif	// INC_std_extensions_H
-// end of stdext\std_extensions.h
+#endif	// INC_is_nested_container_H
+// end of stdext\is_nested_container.h
 ///---------------------------------------------------------------------------------------------------

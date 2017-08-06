@@ -1,13 +1,17 @@
+///---------------------------------------------------------------------------------------------------
+// file:		stdext\is_eigen3_type.h
+//
+// summary: 	Declares the is eigen 3 type class
+//
+// Copyright (c) 2017 Alexander Neumann.
+//
+// author: Alexander
+// date: 06.08.2017
+
+#ifndef INC_is_eigen3_type_H
+#define INC_is_eigen3_type_H
+///---------------------------------------------------------------------------------------------------
 #pragma once
-
-//std::enable_if_t<std::conjunction<stdext::is_container<std::decay_t<T>>,
-//	is_eigen_t<std::decay_t<T>>,
-//	std::decay_t<typename T::value_type>>>::value
-
-//std::enable_if_t<std::conjunction<stdext::is_container<std::decay_t<T>>,
-//	std::is_base_of<Eigen::EigenBase<std::decay_t<typename T::value_type>>,
-//	std::decay_t<typename T::value_type>>>::value
-
 
 #include <type_traits>
 
@@ -39,3 +43,7 @@ namespace stdext
 	template<typename T>
 	static constexpr bool is_container_with_eigen_type_v = is_container_with_eigen_t<T>::value;
 }
+
+#endif	// INC_is_eigen3_type_H
+// end of stdext\is_eigen3_type.h
+///---------------------------------------------------------------------------------------------------

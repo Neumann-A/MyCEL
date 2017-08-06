@@ -1,3 +1,16 @@
+///---------------------------------------------------------------------------------------------------
+// file:		stdext\is_container.h
+//
+// summary: 	Declares the is container class
+//
+// Copyright (c) 2017 Alexander Neumann.
+//
+// author: Alexander
+// date: 06.08.2017
+
+#ifndef INC_is_container_H
+#define INC_is_container_H
+///---------------------------------------------------------------------------------------------------
 #pragma once
 
 #include <deque>
@@ -43,6 +56,8 @@ namespace stdext
 		void
 		>
 	> : public std::true_type{};
+	template<typename T>
+	static constexpr bool is_container_v = is_container<T>::value;
 
 	//specialize a type for all of the STL containers.
 	namespace is_stl_container_impl {
@@ -71,3 +86,7 @@ namespace stdext
 	};
 
 }
+
+#endif	// INC_is_container_H
+// end of stdext\is_container.h
+///---------------------------------------------------------------------------------------------------

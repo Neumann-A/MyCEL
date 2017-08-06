@@ -1,3 +1,16 @@
+///---------------------------------------------------------------------------------------------------
+// file:		stdext\is_callable.h
+//
+// summary: 	Declares the is callable class
+//
+// Copyright (c) 2017 Alexander Neumann.
+//
+// author: Alexander
+// date: 06.08.2017
+
+#ifndef INC_is_callable_H
+#define INC_is_callable_H
+///---------------------------------------------------------------------------------------------------
 #pragma once
 
 #include <type_traits>
@@ -47,3 +60,7 @@ namespace stdext
 	//	static constexpr bool value = decltype(test<F>())::value;
 	//};
 }
+
+#endif	// INC_is_callable_H
+// end of stdext\is_callable.h
+///---------------------------------------------------------------------------------------------------

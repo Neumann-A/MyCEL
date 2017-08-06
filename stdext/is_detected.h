@@ -1,3 +1,16 @@
+///---------------------------------------------------------------------------------------------------
+// file:		stdext\is_detected.h
+//
+// summary: 	Declares the is detected class
+//
+// Copyright (c) 2017 Alexander Neumann.
+//
+// author: Alexander
+// date: 06.08.2017
+
+#ifndef INC_is_detected_H
+#define INC_is_detected_H
+///---------------------------------------------------------------------------------------------------
 #pragma once
 
 #include <type_traits>
@@ -56,3 +69,7 @@ namespace stdext
 	constexpr bool is_detected_convertible_v = is_detected_convertible<To, Op, Args...>::value;
 
 }
+
+#endif	// INC_is_detected_H
+// end of stdext\is_detected.h
+///---------------------------------------------------------------------------------------------------

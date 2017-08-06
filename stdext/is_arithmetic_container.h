@@ -1,3 +1,16 @@
+///---------------------------------------------------------------------------------------------------
+// file:		stdext\is_arithmetic_container.h
+//
+// summary: 	Declares the is arithmetic container class
+//
+// Copyright (c) 2017 Alexander Neumann.
+//
+// author: Alexander
+// date: 06.08.2017
+
+#ifndef INC_is_arithmetic_container_H
+#define INC_is_arithmetic_container_H
+///---------------------------------------------------------------------------------------------------
 #pragma once
 
 
@@ -27,3 +40,7 @@ namespace stdext
 	//static_assert(is_arithmetic_container_v<std::string>);
 	
 }
+
+#endif	// INC_is_arithmetic_container_H
+// end of stdext\is_arithmetic_container.h
+///---------------------------------------------------------------------------------------------------

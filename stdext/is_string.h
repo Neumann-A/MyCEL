@@ -1,3 +1,16 @@
+///---------------------------------------------------------------------------------------------------
+// file:		stdext\is_string.h
+//
+// summary: 	Declares the is string class
+//
+// Copyright (c) 2017 Alexander Neumann.
+//
+// author: Alexander
+// date: 06.08.2017
+
+#ifndef INC_is_string_H
+#define INC_is_string_H
+///---------------------------------------------------------------------------------------------------
 #pragma once
 
 #ifndef _IS_STRING_H
@@ -8,27 +21,6 @@
 
 namespace stdext
 {
-	template< class, class = std::void_t<> >
-	struct has_value_type_t : std::false_type { };
-	template< class T >
-	struct has_value_type_t<T, std::void_t<typename T::value_type>> : std::true_type { };
-
-	template< class, class = std::void_t<> >
-	struct has_traits_type_t : std::false_type { };
-	template< class T >
-	struct has_traits_type_t<T, std::void_t<typename T::traits_type>> : std::true_type { };
-
-	template< class, class = std::void_t<> >
-	struct has_allocator_type_t : std::false_type { };
-	template< class T >
-	struct has_allocator_type_t<T, std::void_t<typename T::allocator_type>> : std::true_type { };
-		
-	//template<typename T,
-	//	typename CharT		= typename std::decay_t<T>::value_type,
-	//	typename Traits		= typename std::decay_t<T>::traits_type,
-	//	typename Allocator	= typename std::decay_t<T>::allocator_type>
-	//using is_string = std::is_same< std::decay_t<T>, std::basic_string<CharT, Traits, Allocator> >;
-	
 	template<typename T, typename _ = std::void_t<> >
 	struct is_string : std::false_type {};
 
@@ -65,3 +57,7 @@ namespace stdext
 }
 
 #endif
+
+#endif	// INC_is_string_H
+// end of stdext\is_string.h
+///---------------------------------------------------------------------------------------------------
