@@ -21,6 +21,7 @@
 #include "is_string.h"
 #include "is_arithmetic_container.h"
 #include "is_nested_container.h"
+#include "is_nested_arithmetic_container.h"
 #include "is_eigen3_type.h"
 #include "get_array_size.h"
 
