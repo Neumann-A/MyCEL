@@ -95,6 +95,9 @@
     <ClInclude Include="stdext\is_nested_arithmetic_container.h">
       <Filter>stdext</Filter>
     </ClInclude>
+    <ClInclude Include="stdext\get_array_size.h">
+      <Filter>stdext</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

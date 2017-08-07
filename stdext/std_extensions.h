@@ -22,6 +22,7 @@
 #include "is_arithmetic_container.h"
 #include "is_nested_container.h"
 #include "is_eigen3_type.h"
+#include "get_array_size.h"
 
 #endif	// INC_std_extensions_H
 // end of stdext\std_extensions.h

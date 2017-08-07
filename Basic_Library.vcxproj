@@ -168,6 +168,7 @@
     <ClInclude Include="math\DistributionCalculator.h" />
     <ClInclude Include="math\DistributionHelper.h" />
     <ClInclude Include="math\Geometry.h" />
+    <ClInclude Include="stdext\get_array_size.h" />
     <ClInclude Include="stdext\is_arithmetic_container.h" />
     <ClInclude Include="stdext\is_callable.h" />
     <ClInclude Include="stdext\is_container.h" />
