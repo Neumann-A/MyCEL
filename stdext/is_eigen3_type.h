@@ -23,7 +23,7 @@ namespace Eigen
 	template<typename Derived> struct EigenBase;
 #endif
 #ifndef EIGEN_CXX11_TENSOR_TENSOR_H
-	template<typename Derived, int AccessLevel> class TensorBase;
+	template<typename Derived, int AccessLevel = 0> class TensorBase;
 #endif
 }
 
@@ -32,8 +32,7 @@ namespace stdext
 	template<typename T, typename _ = std::void_t<>>
 	struct is_eigen_type : std::false_type {};
 
-	template<typename T, typename _ = std::void_t<>>
-	struct is_eigen_tensor_type : std::false_type {};
+
 
 	template<typename T, typename _ = std::void_t<>>
 	struct is_container_with_eigen_t : std::false_type {};
@@ -52,6 +51,21 @@ namespace stdext
 
 	template<typename T>
 	static constexpr bool is_container_with_eigen_type_v = is_container_with_eigen_t<T>::value;
+
+
+	template<typename T, typename _ = std::void_t<>>
+	struct is_eigen_tensor : std::false_type {};
+
+	template<typename T>
+	struct is_eigen_tensor<T> : std::is_base_of<Eigen::TensorBase<T>, T> {};
+
+	template<typename T>
+	static constexpr bool is_eigen_tensor_v = is_eigen_tensor<T>::value;
+
+	namespace
+	{
+		//static_assert(is_eigen_tensor_v<Eigen::Tensor<double, 2>>);
+	}
 }
 
 #endif	// INC_is_eigen3_type_H
