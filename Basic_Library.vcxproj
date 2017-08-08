@@ -170,19 +170,21 @@
     <ClInclude Include="math\Geometry.h" />
     <ClInclude Include="stdext\get_array_size.h" />
     <ClInclude Include="stdext\is_arithmetic_container.h" />
+    <ClInclude Include="stdext\is_associative_container.h" />
     <ClInclude Include="stdext\is_callable.h" />
     <ClInclude Include="stdext\is_container.h" />
     <ClInclude Include="stdext\is_detected.h" />
     <ClInclude Include="stdext\is_eigen3_type.h" />
     <ClInclude Include="stdext\is_nested_arithmetic_container.h" />
     <ClInclude Include="stdext\is_nested_container.h" />
+    <ClInclude Include="stdext\is_memory_sequentiel_container.h" />
+    <ClInclude Include="stdext\is_resizeable_container.h" />
+    <ClInclude Include="stdext\is_sequentiel_container.h" />
     <ClInclude Include="stdext\is_string.h" />
     <ClInclude Include="stdext\std_extensions.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
-  <ImportGroup Label="ExtensionTargets">
-    <Import Project="..\packages\Microsoft.Gsl.0.1.2.1\build\native\Microsoft.Gsl.targets" Condition="Exists('..\packages\Microsoft.Gsl.0.1.2.1\build\native\Microsoft.Gsl.targets')" />
-  </ImportGroup>
+  <ImportGroup Label="ExtensionTargets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
       <ErrorText>Dieses Projekt verweist auf mindestens ein NuGet-Paket, das auf diesem Computer fehlt. Verwenden Sie die Wiederherstellung von NuGet-Paketen, um die fehlenden Dateien herunterzuladen. Weitere Informationen finden Sie unter "http://go.microsoft.com/fwlink/?LinkID=322105". Die fehlende Datei ist "{0}".</ErrorText>

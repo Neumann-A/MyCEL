@@ -98,6 +98,18 @@
     <ClInclude Include="stdext\get_array_size.h">
       <Filter>stdext</Filter>
     </ClInclude>
+    <ClInclude Include="stdext\is_memory_sequentiel_container.h">
+      <Filter>stdext</Filter>
+    </ClInclude>
+    <ClInclude Include="stdext\is_sequentiel_container.h">
+      <Filter>stdext</Filter>
+    </ClInclude>
+    <ClInclude Include="stdext\is_associative_container.h">
+      <Filter>stdext</Filter>
+    </ClInclude>
+    <ClInclude Include="stdext\is_resizeable_container.h">
+      <Filter>stdext</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

@@ -13,51 +13,74 @@
 ///---------------------------------------------------------------------------------------------------
 #pragma once
 
+//Sequence Containers
+#include <array>
+#include <vector>
 #include <deque>
 #include <forward_list>
 #include <list>
-#include <map>
-#include <queue>
-#include <set>
+
+//Adaptors (For the seq. containers)
 #include <stack>
-#include <string>
-#include <tuple>
-#include <type_traits>
-#include <unordered_map>
+#include <queue> //queue & priority_queue
+
+//Associative Containers
+#include <set> //set & multiset
+#include <map> //map & multimatp 
+
+//Unordered Versions
 #include <unordered_set>
-#include <utility>
-#include <vector>
+#include <unordered_map>
+
 #include <type_traits>
+#include <utility>
 
 namespace stdext
 {
 	template<typename T, typename _ = void>
 	struct is_container : std::false_type {};
 
-	template<typename... Ts>
-	struct is_container_helper {};
-
 	template<typename T>
 	struct is_container<
 		T,
-		std::conditional_t<
-		false,
-		is_container_helper<
+		std::void_t<
 		typename T::value_type,
 		typename T::size_type,
 		typename T::iterator,
 		typename T::const_iterator,
+		decltype(std::declval<T>().empty()),
 		decltype(std::declval<T>().size()),
 		decltype(std::declval<T>().begin()),
 		decltype(std::declval<T>().end()),
 		decltype(std::declval<T>().cbegin()),
 		decltype(std::declval<T>().cend())
-		>,
-		void
-		>
-	> : public std::true_type{};
+		>	> : public std::true_type{};
+
 	template<typename T>
 	static constexpr bool is_container_v = is_container<T>::value;
+
+	namespace
+	{
+		static_assert(is_container_v<std::array<double,5>>);
+		static_assert(is_container_v<std::vector<float>>);
+		static_assert(is_container_v<std::deque<int>>);
+		static_assert(is_container_v<std::list<std::uint16_t>>);
+		static_assert(is_container_v<std::set<float>>);
+		static_assert(is_container_v<std::multiset<float>>);
+		static_assert(is_container_v<std::map<std::uint16_t,float>>);
+		static_assert(is_container_v<std::multimap<std::uint16_t,float>>);
+		static_assert(is_container_v<std::multiset<float>>);
+		static_assert(is_container_v<std::unordered_set<float>>);
+		static_assert(is_container_v<std::unordered_multiset<float>>);
+		static_assert(is_container_v<std::unordered_map<std::uint16_t,float>>);
+		static_assert(is_container_v<std::unordered_multimap<std::uint16_t,float>>);
+
+		//These are not containers due to lack of some iterators or members! (They use one of the above internally but have a different interface!)
+		static_assert(!is_container_v<std::forward_list<float>>); //Lacks size() method !
+		static_assert(!is_container_v<std::stack<float>>);
+		static_assert(!is_container_v<std::queue<float>>);
+		static_assert(!is_container_v<std::priority_queue<float>>);
+	}
 
 	//specialize a type for all of the STL containers.
 	namespace is_stl_container_impl {
