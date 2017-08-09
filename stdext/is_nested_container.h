@@ -60,14 +60,14 @@ namespace stdext
 		static_assert(is_container_v<NestedContainer>);
 		static_assert(is_container_v<std::decay_t<NestedContainer>::value_type>);
 		static_assert(is_nested_container_v<NestedContainer>);
-		static_assert(std::is_same_v<double, typename get_nested_type_t<NestedContainer>>);
+		static_assert(std::is_same_v<double, get_nested_type_t<NestedContainer>>);
 
 		using IsNotNested = std::vector<double>;
 
 		static_assert(is_container_v<IsNotNested>);
 		static_assert(!is_container_v<std::decay_t<IsNotNested>::value_type>);
 		static_assert(!is_nested_container_v<IsNotNested>);
-		static_assert(std::is_same_v<double, typename get_nested_type_t<IsNotNested>>);
+		static_assert(std::is_same_v<double, get_nested_type_t<IsNotNested>>);
 	}
 	
 
