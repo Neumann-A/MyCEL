@@ -65,9 +65,7 @@ namespace stdext
 
 	namespace
 	{
-
 		static_assert(is_eigen_tensor_v<Eigen::Tensor<double, 2>>);
-
 	}
 #endif
 #endif
