@@ -151,7 +151,6 @@
     <ClCompile Include="basics\BasicIncludes.cpp" />
     <ClCompile Include="basics\GlobalParameters.cpp" />
     <ClCompile Include="basics\StartOptions.cpp" />
-    <ClCompile Include="math\DistributionHelper.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="basics\BasicIncludes.h" />
