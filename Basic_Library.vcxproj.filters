@@ -107,6 +107,9 @@
     <ClInclude Include="stdext\is_resizeable_container.h">
       <Filter>stdext</Filter>
     </ClInclude>
+    <ClInclude Include="stdext\is_complex.h">
+      <Filter>stdext</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

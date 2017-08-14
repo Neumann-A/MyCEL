@@ -171,6 +171,7 @@
     <ClInclude Include="stdext\is_arithmetic_container.h" />
     <ClInclude Include="stdext\is_associative_container.h" />
     <ClInclude Include="stdext\is_callable.h" />
+    <ClInclude Include="stdext\is_complex.h" />
     <ClInclude Include="stdext\is_container.h" />
     <ClInclude Include="stdext\is_detected.h" />
     <ClInclude Include="stdext\is_eigen3_type.h" />
