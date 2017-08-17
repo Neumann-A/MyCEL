@@ -48,6 +48,15 @@ namespace stdext
 	template<typename T>
 	constexpr bool is_string_v = is_string<T>::value;
 
+	template<typename T, typename _ = std::void_t<> >
+	struct is_container_of_strings : std::false_type {};
+
+	template<typename T>
+	struct is_container_of_strings<T, std::void_t<typename T::value_type>> : std::conjunction<stdext::is_string<std::decay_t<typename T::value_type>>,stdext::is_container<std::decay_t<T>>> {};
+	
+	template<typename T>
+	constexpr bool is_container_of_strings_v = is_container_of_strings<T>::value;
+
 	////Tests
 	//static_assert(stdext::is_string_v<std::string>);
 	//static_assert(stdext::is_string_v<std::string&>);
