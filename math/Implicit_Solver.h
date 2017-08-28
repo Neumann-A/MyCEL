@@ -30,7 +30,12 @@ public:
 		const auto fx = funcx(lastx);
 
 		PlainVector dx = jacobi.fullPivLu().solve(-fx);
+
 		//TODO: check if it is really a solution!
+		std::cout << "fx:" << fx << "\n";
+		std::cout << "Jac_fx:" << jacobi << "\n";
+		std::cout << "dx:"<<dx << "\n";
+		std::cout << "dxnorm:" << dx.norm() << "\n";
 
 		//PlainVector dx = jacobi.lu().solve(-fx); // does not work for all cases and might give strange results
 		return dx;
@@ -54,16 +59,18 @@ public:
 	{
 		Derived resx{ guessx };
 
-		auto counter{ 0 };
+		auto counter{ 0ull };
 		for (; ++counter < MaxIterations;)
 		{
 			const auto dx = getDeltaNextIteration(resx, std::forward<FuncFunctor>(funcx), std::forward<FuncJacobiFunctor>(funcjacobix));
 			resx += dx;
+			std::cout << "res:" << resx << "\n";
+			std::cout << "resnorm:" << resx.norm() << "\n";
 			if (reachedGoal(dx, resx))
 				break;
 		}
 		if (counter >= MaxIterations)
-			std::cout << "Implicit solver did not reach requested error goal within Iterationlimit! Number of Iterations: " << counter << "\n";
+			std::cout << "Implicit solver did not reach requested error goal within Iterationlimit! Number of Iterations: " << counter << "Last dx_"<<"\n";
 
 		return resx;
 	};
