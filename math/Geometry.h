@@ -28,7 +28,7 @@ namespace math::geometry
 	extern constexpr T math_1_pi() { return static_cast<T>(0.31830988618379067153776752674503); };
 
 	// Two underscroes __{var} means 1/{var}
-#define M_PI		3.1415926535897932384626433832795
+//#define M_PI		3.1415926535897932384626433832795
 #define M_4PI		12.566370614359172953850573533118;   // 4 * PI
 #define M__4PI      0.07957747154594766788444188168626   // 1/4PI 
 #define M_2PI       6.283185307179586476925286766559   // 2 * PI 

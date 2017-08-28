@@ -46,32 +46,30 @@ namespace stdext
 	template<typename T>
 	static constexpr bool is_eigen_tensor_v = is_eigen_tensor<T>::value;
 
+	template<typename T>
+	static constexpr bool is_container_with_eigen_type_v = is_container_with_eigen_t<T>::value;
+
 #ifdef EIGEN_CORE_H
 	template<typename T>
 	struct is_eigen_type<T> : std::is_base_of<Eigen::EigenBase<std::decay_t<T>>, std::decay_t<T>> {};
-	
-	//template<typename T>
-	//struct is_eigen_tensor_type<T> : std::is_base_of<Eigen::TensorBase<std::decay_t<T>>, std::decay_t<T>> {};
-	
-	template<typename T>
-	struct is_container_with_eigen_t<T, std::void_t<typename std::decay_t<T>::value_type>> : std::conjunction<stdext::is_container<std::decay_t<T>>, is_eigen_type<typename std::decay_t<T>::value_type>> {};
 
 	template<typename T>
-	static constexpr bool is_container_with_eigen_type_v = is_container_with_eigen_t<T>::value;
+	struct is_container_with_eigen_t<T, std::void_t<typename std::decay_t<T>::value_type>> : std::conjunction<stdext::is_container<std::decay_t<T>>, is_eigen_type<typename std::decay_t<T>::value_type>> {};
 	
 #ifdef EIGEN_CXX11_TENSOR_TENSOR_H
 	template<typename T>
 	struct is_eigen_tensor<T, std::void_t<typename T::Scalar, decltype(std::declval<T>().NumIndices) >> : std::is_base_of<Eigen::TensorBase<T>, T> {};
 
-
-
+#ifndef NDEBUG
 	namespace
 	{
 		static_assert(is_eigen_tensor_v<Eigen::Tensor<double, 2>>);
 	}
 #endif
 #endif
+#endif
 }
+
 
 #endif	// INC_is_eigen3_type_H
 // end of stdext\is_eigen3_type.h
