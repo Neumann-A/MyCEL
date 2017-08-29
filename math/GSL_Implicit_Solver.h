@@ -10,6 +10,11 @@
 #include <gsl/gsl_matrix.h>
 #include <gsl/gsl_multiroots.h>
 
+#ifdef _MSC_VER
+#pragma comment (lib, "gsl")
+#pragma comment (lib, "gslcblas")
+#endif
+
 
 template<class Func,class FuncJacobi>
 struct Evaluators
@@ -27,7 +32,7 @@ class GSL_Implicit_Solver
 public:
 	using Precision = prec;
 
-	GSL_Implicit_Solver(Precision abserr, Precision relerr, std::size_t maxiter, std::size_t dims, gsl_solver_type solver) 
+	GSL_Implicit_Solver(Precision abserr, Precision relerr, std::size_t maxiter, std::size_t dims, gsl_solver_type gslsolvertype) 
 		: AbsErrorGoal(abserr), RelErrorGoal(relerr), MaxIterations(maxiter), nDims(dims)
 	{
 		//TODO check errors in comparison with expected value;
@@ -37,7 +42,27 @@ public:
 		// const auto solvertype = gsl_multiroot_fdfsolver_newton;
 		// const auto solvertype = gsl_multiroot_fdfsolver_gnewton;
 
-		const auto solvertype = gsl_multiroot_fdfsolver_hybridsj;
+
+		const gsl_multiroot_fdfsolver_type * solvertype = nullptr; 
+
+		switch (gslsolvertype)
+		{
+		case gsl_solver_type::newton:
+			solvertype = gsl_multiroot_fdfsolver_newton;
+			break;
+		case gsl_solver_type::gnewton:
+			solvertype = gsl_multiroot_fdfsolver_gnewton;
+			break;
+		case gsl_solver_type::hybridj:
+			solvertype = gsl_multiroot_fdfsolver_hybridj;
+			break;
+		case gsl_solver_type::hybridsj:
+			solvertype = gsl_multiroot_fdfsolver_hybridsj;
+			break;
+		default:
+			throw std::runtime_error{ "GSL solver not known!" };
+		}
+
 		solver = gsl_multiroot_fdfsolver_alloc(solvertype, nDims);
 		auto errorhandler = [](const char * reason, const char * file, int line, int gsl_errno) -> void
 		{
