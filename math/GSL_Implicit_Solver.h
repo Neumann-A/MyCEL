@@ -9,6 +9,7 @@
 #include <gsl/gsl_vector.h>
 #include <gsl/gsl_matrix.h>
 #include <gsl/gsl_multiroots.h>
+#include <gsl/gsl_blas.h>
 
 #ifdef _MSC_VER
 #pragma comment (lib, "gsl")
@@ -19,8 +20,8 @@
 template<class Func,class FuncJacobi>
 struct Evaluators
 {
-	const Func f;
-	const FuncJacobi df;
+	Func f;
+	FuncJacobi df;
 };
 
 enum class gsl_solver_type {undefined, newton, gnewton, hybridsj, hybridj};
@@ -42,6 +43,7 @@ public:
 		// const auto solvertype = gsl_multiroot_fdfsolver_newton;
 		// const auto solvertype = gsl_multiroot_fdfsolver_gnewton;
 
+		//std::cout << "Number of Dims: " << nDims << "\n";
 
 		const gsl_multiroot_fdfsolver_type * solvertype = nullptr; 
 
@@ -98,11 +100,11 @@ public:
 	{
 		Eigen::Map<Derived>(solver->x->data) = guessx;
 		
-		const Evaluators<FuncFunctor, FuncJacobiFunctor> Eval { funcx, funcjacobix };
-
+		const Evaluators<FuncFunctor, FuncJacobiFunctor> Eval { std::forward<FuncFunctor>(funcx), std::forward<FuncJacobiFunctor>(funcjacobix) };
+				
 		auto gsl_to_eigen_converter_fdf = [](const gsl_vector * x, void * params, gsl_vector * f, gsl_matrix * df) -> int
 		{
-			Evaluators<FuncFunctor, FuncJacobiFunctor> func{ reinterpret_cast<Evaluators<FuncFunctor, FuncJacobiFunctor>&>(params) };
+			const Evaluators<FuncFunctor, FuncJacobiFunctor>& func{ *reinterpret_cast<Evaluators<FuncFunctor, FuncJacobiFunctor>*>(params) };
 			Eigen::Map<Derived> xivec(x->data); // GSL to Eigen
 			Eigen::Map<Derived>(f->data) = func.f(xivec); // Eigen To GSL
 			Eigen::Map<decltype(func.df(xivec)), Eigen::Unaligned, Eigen::Stride<1, Derived::RowsAtCompileTime> >(df->data) = func.df(xivec); //Eigen to GSL (Eigen column major; GSL row major)
@@ -110,14 +112,14 @@ public:
 		};
 		auto gsl_to_eigen_converter_f = [](const gsl_vector * x, void * params, gsl_vector * f) -> int
 		{
-			Evaluators<FuncFunctor, FuncJacobiFunctor> func{ reinterpret_cast<Evaluators<FuncFunctor, FuncJacobiFunctor>&>(params) };
+			const Evaluators<FuncFunctor, FuncJacobiFunctor>& func{ *reinterpret_cast<Evaluators<FuncFunctor, FuncJacobiFunctor>*>(params) };
 			Eigen::Map<Derived> xivec(x->data); // GSL to Eigen
 			Eigen::Map<Derived>(f->data) = func.f(xivec); // Eigen To GSL
 			return 0;
 		};
 		auto gsl_to_eigen_converter_df = [](const gsl_vector * x, void * params,  gsl_matrix * df) -> int
 		{
-			Evaluators<FuncFunctor, FuncJacobiFunctor> func{ reinterpret_cast<Evaluators<FuncFunctor, FuncJacobiFunctor>&>(params) };
+			const Evaluators<FuncFunctor, FuncJacobiFunctor>& func{ *reinterpret_cast<Evaluators<FuncFunctor, FuncJacobiFunctor>*>(params) };
 			Eigen::Map<Derived> xivec(x->data); // GSL to Eigen
 			Eigen::Map<decltype(func.df(xivec)), Eigen::Unaligned, Eigen::Stride<1, Derived::RowsAtCompileTime> >(df->data) = func.df(xivec); //Eigen to GSL (Eigen column major; GSL row major)
 			return 0;
@@ -139,12 +141,16 @@ public:
 			const auto dx =  gsl_multiroot_fdfsolver_dx(solver); // gets the last stepsize
 			const auto check = gsl_multiroot_test_delta(dx, res, AbsErrorGoal, RelErrorGoal); // Return GSL_SUCCESS if step is below specific epsilons else GSL_CONTINUE 
 
+			//const auto norm = gsl_blas_dnrm2(dx);
+			//std::cout << "dxnorm: " << norm << "\n";
+
 			if (check == GSL_SUCCESS /*|| err == GSL_ENOPROG*/)
 				break;
 		}
 		if (counter == MaxIterations)
 			std::cout << "Implicit solver did not reach requested error goal within Iterationlimit! Number of Iterations: " << counter << "\n";
 
+		//std::cout << "Success after Iteration: " << counter << "\n";
 		//const auto res = gsl_multiroot_fdfsolver_root(solver);
 
 		return Eigen::Map<Derived>(solver->x->data);
@@ -152,8 +158,8 @@ public:
 private:
 	Precision	AbsErrorGoal{ std::numeric_limits<Precision>::epsilon() };
 	Precision	RelErrorGoal{ std::numeric_limits<Precision>::epsilon() };
-	std::size_t	MaxIterations{ 1000 };
-	std::size_t nDims{ 2 };
+	const std::size_t	MaxIterations{ 1 };
+	const std::size_t	nDims;
 
 	gsl_multiroot_fdfsolver * solver = nullptr;
 	gsl_multiroot_function_fdf fdf;
