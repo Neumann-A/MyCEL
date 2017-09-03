@@ -119,6 +119,9 @@
     <ClInclude Include="math\Implicit_Solver.h">
       <Filter>math</Filter>
     </ClInclude>
+    <ClInclude Include="math\GSL_Implicit_Solver_Derivative_Free.h">
+      <Filter>math</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

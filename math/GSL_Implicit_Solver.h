@@ -4,6 +4,8 @@
 
 #include <iostream>
 
+#include "../basics/BasicMacros.h"
+
 #include <Eigen/Core>
 
 #include <gsl/gsl_vector.h>
@@ -34,17 +36,8 @@ public:
 	using Precision = prec;
 
 	GSL_Implicit_Solver(Precision abserr, Precision relerr, std::size_t maxiter, std::size_t dims, gsl_solver_type gslsolvertype) 
-		: AbsErrorGoal(abserr), RelErrorGoal(relerr), MaxIterations(maxiter), nDims(dims)
+		: AbsErrorGoal(abserr), RelErrorGoal(relerr), MaxIterations(maxiter)
 	{
-		//TODO check errors in comparison with expected value;
-
-		// const auto solvertype = gsl_multiroot_fdfsolver_hybridsj;
-		// const auto solvertype = gsl_multiroot_fdfsolver_hybridj;
-		// const auto solvertype = gsl_multiroot_fdfsolver_newton;
-		// const auto solvertype = gsl_multiroot_fdfsolver_gnewton;
-
-		//std::cout << "Number of Dims: " << nDims << "\n";
-
 		const gsl_multiroot_fdfsolver_type * solvertype = nullptr; 
 
 		switch (gslsolvertype)
@@ -65,7 +58,7 @@ public:
 			throw std::runtime_error{ "GSL solver not known!" };
 		}
 
-		solver = gsl_multiroot_fdfsolver_alloc(solvertype, nDims);
+		solver = gsl_multiroot_fdfsolver_alloc(solvertype, dims);
 		auto errorhandler = [](const char * reason, const char * file, int line, int gsl_errno) -> void
 		{
 			gsl_stream_printf("ERROR", file, line, reason);
@@ -73,26 +66,15 @@ public:
 		};
 		gsl_set_error_handler(errorhandler);
 
-		//xi = gsl_vector_alloc(nDims);
+		fdf.n = dims;
 	};
 
 	~GSL_Implicit_Solver() noexcept
 	{
-		//gsl_vector_free(xi);
 		gsl_multiroot_fdfsolver_free(solver);
 	}
 
-	template<class Derived, class Derived2>
-	bool reachedGoal(const Eigen::MatrixBase<Derived>& dx, const Eigen::MatrixBase<Derived2>& x)
-	{
-		const auto dxnorm = dx.norm();
-		const auto relnorm = dxnorm / x.norm();
-
-		if (dxnorm < AbsErrorGoal || relnorm < RelErrorGoal)
-			return true;
-
-		return false;
-	}
+	DISALLOW_COPY_AND_MOVE(GSL_Implicit_Solver)
 
 	//TODO: Use outcome here, either the solver converged or it did not and should say so with an error!
 	template<class Derived, class FuncFunctor, class FuncJacobiFunctor>
@@ -128,7 +110,6 @@ public:
 		fdf.f = gsl_to_eigen_converter_f;
 		fdf.df = gsl_to_eigen_converter_df;
 		fdf.fdf = gsl_to_eigen_converter_fdf;
-		fdf.n = nDims;
 		fdf.params = (void*)(&Eval);
 
 		auto errset = gsl_multiroot_fdfsolver_set(solver, &fdf, solver->x);
@@ -159,10 +140,7 @@ private:
 	Precision	AbsErrorGoal{ std::numeric_limits<Precision>::epsilon() };
 	Precision	RelErrorGoal{ std::numeric_limits<Precision>::epsilon() };
 	const std::size_t	MaxIterations{ 1 };
-	const std::size_t	nDims;
 
 	gsl_multiroot_fdfsolver * solver = nullptr;
 	gsl_multiroot_function_fdf fdf;
-	//gsl_vector * xi = nullptr;
-
 };
