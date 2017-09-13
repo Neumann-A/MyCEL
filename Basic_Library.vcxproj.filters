@@ -122,6 +122,12 @@
     <ClInclude Include="math\GSL_Implicit_Solver_Derivative_Free.h">
       <Filter>math</Filter>
     </ClInclude>
+    <ClInclude Include="math\math_constants.h">
+      <Filter>math</Filter>
+    </ClInclude>
+    <ClInclude Include="math\Coordinates.h">
+      <Filter>math</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

@@ -164,12 +164,14 @@
     <ClInclude Include="basics\ThreadManager.h" />
     <ClInclude Include="basics\Timer.h" />
     <ClInclude Include="basics\Typelist.h" />
+    <ClInclude Include="math\Coordinates.h" />
     <ClInclude Include="math\DistributionCalculator.h" />
     <ClInclude Include="math\DistributionHelper.h" />
     <ClInclude Include="math\Geometry.h" />
     <ClInclude Include="math\GSL_Implicit_Solver.h" />
     <ClInclude Include="math\GSL_Implicit_Solver_Derivative_Free.h" />
     <ClInclude Include="math\Implicit_Solver.h" />
+    <ClInclude Include="math\math_constants.h" />
     <ClInclude Include="stdext\get_array_size.h" />
     <ClInclude Include="stdext\is_arithmetic_container.h" />
     <ClInclude Include="stdext\is_associative_container.h" />
