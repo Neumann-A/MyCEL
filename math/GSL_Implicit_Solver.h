@@ -112,12 +112,12 @@ public:
 		fdf.fdf = gsl_to_eigen_converter_fdf;
 		fdf.params = (void*)(&Eval);
 
-		auto errset = gsl_multiroot_fdfsolver_set(solver, &fdf, solver->x);
+		MAYBE_UNUSED auto errset = gsl_multiroot_fdfsolver_set(solver, &fdf, solver->x);
 	 
 		auto counter{ 0 };
 		for (; ++counter < MaxIterations;)
 		{
-			const auto err = gsl_multiroot_fdfsolver_iterate(solver); //One step of the solver iteration (Error codes: GSL_EBADFUNC, GSL_ENOPROG)
+			MAYBE_UNUSED const auto err = gsl_multiroot_fdfsolver_iterate(solver); //One step of the solver iteration (Error codes: GSL_EBADFUNC, GSL_ENOPROG)
 			const auto res = gsl_multiroot_fdfsolver_root(solver); //Gets the current root
 			const auto dx =  gsl_multiroot_fdfsolver_dx(solver); // gets the last stepsize
 			const auto check = gsl_multiroot_test_delta(dx, res, AbsErrorGoal, RelErrorGoal); // Return GSL_SUCCESS if step is below specific epsilons else GSL_CONTINUE 
