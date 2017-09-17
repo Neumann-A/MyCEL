@@ -13,10 +13,13 @@ namespace math::coordinates
 {
 	using namespace math::constants;
 
-	template<typename Precision>
-	using Vec2D = Eigen::Matrix<Precision, 2, 1>;
-	template<typename Precision>
-	using Vec3D = Eigen::Matrix<Precision, 2, 1>;
+	namespace
+	{
+		template<typename Precision>
+		using Vec2D = Eigen::Matrix<Precision, 2, 1>;
+		template<typename Precision>
+		using Vec3D = Eigen::Matrix<Precision, 3, 1>;
+	}
 
 	namespace helpers
 	{
