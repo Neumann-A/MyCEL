@@ -19,16 +19,20 @@ public:
 		//TODO check errors in comparison with expected value;
 	};
 
-	template<class Derived, class FuncFunctor, class FuncJacobiFunctor>
-	auto getDeltaNextIteration(const Eigen::MatrixBase<Derived>& lastx, const FuncFunctor& funcx, const FuncJacobiFunctor& funcjacobix)
+	template<class Derived, class f_functor, class fd_functor, class fdf_functor>
+	auto getDeltaNextIteration(Eigen::MatrixBase<Derived>& lastx, const f_functor& funcx, const fd_functor& funcjacobix, fdf_functor&& fdfx)
 	{
 		//TODO: add static assert to check correctness of the functors returntype in correspondence with the dimension of the input vector lastx
 		//Since the solve method only returns an expression to be solved we need to find out the correct type it should evaluate into!
 		using PlainVector = std::decay_t<typename Derived::PlainObject>;
 	
-		auto jacobi = funcjacobix(lastx);
-		const auto fx = funcx(lastx);
-
+		//auto jacobi = funcjacobix(lastx);
+		//const auto fx = funcx(lastx);
+		
+		auto func_eval = fdfx(lastx);
+		const auto fx = std::get<0>(func_eval);
+		auto jacobi = std::get<1>(func_eval);
+				
 		PlainVector dx = jacobi.fullPivLu().solve(-fx);
 
 		//TODO: check if it is really a solution!
@@ -54,15 +58,15 @@ public:
 	}
 
 	//TODO: Use outcome here, either the solver converged or it did not and should say so with an error!
-	template<class Derived, class FuncFunctor, class FuncJacobiFunctor>
-	auto getResult(FuncFunctor&& funcx, FuncJacobiFunctor&& funcjacobix, const Eigen::MatrixBase<Derived>& guessx)
+	template<class Derived, class f_functor, class fd_functor, class fdf_functor>
+	auto getResult(f_functor&& funcx, fd_functor&& funcjacobix, fdf_functor&& fdfx, const Eigen::MatrixBase<Derived>& guessx)
 	{
 		Derived resx{ guessx };
 
 		auto counter{ 0ull };
 		for (; ++counter < MaxIterations;)
 		{
-			const auto dx = getDeltaNextIteration(resx, std::forward<FuncFunctor>(funcx), std::forward<FuncJacobiFunctor>(funcjacobix));
+			const auto dx = getDeltaNextIteration(resx, std::forward<f_functor>(funcx), std::forward<fd_functor>(funcjacobix), std::forward<fdf_functor>(fdfx));
 			resx += dx;
 			//std::cout << "res:" << resx << "\n";
 			//std::cout << "resnorm:" << resx.norm() << "\n";

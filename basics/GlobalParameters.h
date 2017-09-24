@@ -8,8 +8,7 @@
 class GlobalParameters
 {
 protected:
-	GlobalParameters() {};
-	~GlobalParameters() {};
+	GlobalParameters() = default;
 public:
 	static std::experimental::filesystem::path Path;
 };

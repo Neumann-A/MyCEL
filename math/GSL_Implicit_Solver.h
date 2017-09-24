@@ -19,11 +19,12 @@
 #endif
 
 
-template<class Func,class FuncJacobi>
+template<class Func,class FuncJacobi, class FuncJacobiFunc>
 struct Evaluators
 {
 	Func f;
 	FuncJacobi df;
+	FuncJacobiFunc fdf;
 };
 
 enum class gsl_solver_type {undefined, newton, gnewton, hybridsj, hybridj};
@@ -77,31 +78,33 @@ public:
 	DISALLOW_COPY_AND_MOVE(GSL_Implicit_Solver)
 
 	//TODO: Use outcome here, either the solver converged or it did not and should say so with an error!
-	template<class Derived, class FuncFunctor, class FuncJacobiFunctor>
-	auto getResult(FuncFunctor&& funcx, FuncJacobiFunctor&& funcjacobix, const Eigen::MatrixBase<Derived>& guessx)
+	template<class Derived, class f_functor, class fd_functor, class fdf_functor>
+	auto getResult(f_functor&& funcx, fd_functor&& funcjacobix, fdf_functor&& fdfx, const Eigen::MatrixBase<Derived>& guessx)
 	{
 		Eigen::Map<Derived>(solver->x->data) = guessx;
 		
-		const Evaluators<FuncFunctor, FuncJacobiFunctor> Eval { std::forward<FuncFunctor>(funcx), std::forward<FuncJacobiFunctor>(funcjacobix) };
+		using EvalFunctor = Evaluators<f_functor, fd_functor, fdf_functor>;
+		const EvalFunctor Eval { std::forward<f_functor>(funcx), std::forward<fd_functor>(funcjacobix), std::forward<fdf_functor>(fdfx) };
 				
 		auto gsl_to_eigen_converter_fdf = [](const gsl_vector * x, void * params, gsl_vector * f, gsl_matrix * df) -> int
 		{
-			const Evaluators<FuncFunctor, FuncJacobiFunctor>& func{ *reinterpret_cast<Evaluators<FuncFunctor, FuncJacobiFunctor>*>(params) };
+			const EvalFunctor& func{ *reinterpret_cast<EvalFunctor*>(params) };
 			Eigen::Map<Derived> xivec(x->data); // GSL to Eigen
-			Eigen::Map<Derived>(f->data) = func.f(xivec); // Eigen To GSL
-			Eigen::Map<decltype(func.df(xivec)), Eigen::Unaligned, Eigen::Stride<1, Derived::RowsAtCompileTime> >(df->data) = func.df(xivec); //Eigen to GSL (Eigen column major; GSL row major)
+			const auto res_fdf = func.fdf(xivec);
+			Eigen::Map<Derived>(f->data) = std::get<0>(res_fdf); // Eigen To GSL
+			Eigen::Map<std::decay_t<decltype(std::get<1>(res_fdf))>, Eigen::Unaligned, Eigen::Stride<1, Derived::RowsAtCompileTime> >(df->data) = std::get<1>(res_fdf); //Eigen to GSL (Eigen column major; GSL row major)
 			return 0; 
 		};
 		auto gsl_to_eigen_converter_f = [](const gsl_vector * x, void * params, gsl_vector * f) -> int
 		{
-			const Evaluators<FuncFunctor, FuncJacobiFunctor>& func{ *reinterpret_cast<Evaluators<FuncFunctor, FuncJacobiFunctor>*>(params) };
+			const EvalFunctor& func{ *reinterpret_cast<EvalFunctor*>(params) };
 			Eigen::Map<Derived> xivec(x->data); // GSL to Eigen
 			Eigen::Map<Derived>(f->data) = func.f(xivec); // Eigen To GSL
 			return 0;
 		};
 		auto gsl_to_eigen_converter_df = [](const gsl_vector * x, void * params,  gsl_matrix * df) -> int
 		{
-			const Evaluators<FuncFunctor, FuncJacobiFunctor>& func{ *reinterpret_cast<Evaluators<FuncFunctor, FuncJacobiFunctor>*>(params) };
+			const EvalFunctor& func{ *reinterpret_cast<EvalFunctor*>(params) };
 			Eigen::Map<Derived> xivec(x->data); // GSL to Eigen
 			Eigen::Map<decltype(func.df(xivec)), Eigen::Unaligned, Eigen::Stride<1, Derived::RowsAtCompileTime> >(df->data) = func.df(xivec); //Eigen to GSL (Eigen column major; GSL row major)
 			return 0;
