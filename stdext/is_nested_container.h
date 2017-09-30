@@ -13,6 +13,8 @@
 ///---------------------------------------------------------------------------------------------------
 #pragma once
 
+#include <type_traits>
+
 #include "is_container.h"
 #include "get_array_size.h"
 
