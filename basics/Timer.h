@@ -62,7 +62,7 @@ public:
 	}
 
 	// Returns the unit conversion factor
-	BASIC_ALWAYS_INLINE static double unitFactor() noexcept
+	BASIC_ALWAYS_INLINE BASIC_CONSTEXPR static double unitFactor() noexcept
 	{
 		const auto num = static_cast<double>(unit::period::num);
 		const auto den = static_cast<double>(unit::period::den);

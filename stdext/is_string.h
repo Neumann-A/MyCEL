@@ -27,23 +27,23 @@ namespace stdext
 	template<typename CharT, typename TraitsT, typename AllocatorT>
 	struct is_string<std::basic_string<CharT, TraitsT, AllocatorT>> : std::true_type {};
 	
-	template <typename T>
-	struct is_string<T,
-		std::void_t<
-		typename std::decay_t<T>::value_type,
-		typename std::decay_t<T>::traits_type,
-		typename std::decay_t<T>::allocator_type
-		>
-	>
-		: std::is_same<
-		std::basic_string<
-		typename std::decay_t<T>::value_type,
-		typename std::decay_t<T>::traits_type,
-		typename std::decay_t<T>::allocator_type
-		>,
-		std::decay_t<T>
-		>
-	{};
+	//template <typename T>
+	//struct is_string<T,
+	//	std::void_t<
+	//	typename std::decay_t<T>::value_type,
+	//	typename std::decay_t<T>::traits_type,
+	//	typename std::decay_t<T>::allocator_type
+	//	>
+	//>
+	//	: std::is_same<
+	//	std::basic_string<
+	//	typename std::decay_t<T>::value_type,
+	//	typename std::decay_t<T>::traits_type,
+	//	typename std::decay_t<T>::allocator_type
+	//	>,
+	//	std::decay_t<T>
+	//	>
+	//{};
 
 	template<typename T>
 	constexpr bool is_string_v = is_string<T>::value;

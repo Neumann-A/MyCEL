@@ -16,9 +16,9 @@ namespace stdext
 
 	namespace
 	{
-		static_assert(is_complex_v<std::complex<double>>);
-		static_assert(is_complex_v<std::complex<float>>);
-		static_assert(is_complex_v<std::complex<long double>>);
-		static_assert(is_complex_v<std::complex<std::size_t>>);
+		static_assert(is_complex_v<std::complex<double>>,"Static test failed");
+		static_assert(is_complex_v<std::complex<float>>, "Static test failed");
+		static_assert(is_complex_v<std::complex<long double>>, "Static test failed");
+		static_assert(is_complex_v<std::complex<std::size_t>>, "Static test failed");
 	}
 }

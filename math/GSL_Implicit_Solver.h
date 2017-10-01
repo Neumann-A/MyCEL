@@ -88,7 +88,7 @@ public:
 				
 		auto gsl_to_eigen_converter_fdf = [](const gsl_vector * x, void * params, gsl_vector * f, gsl_matrix * df) -> int
 		{
-			const EvalFunctor& func{ *reinterpret_cast<EvalFunctor*>(params) };
+			const EvalFunctor& func{ *static_cast<EvalFunctor*>(params) };
 			Eigen::Map<Derived> xivec(x->data); // GSL to Eigen
 			const auto res_fdf = func.fdf(xivec);
 			Eigen::Map<Derived>(f->data) = std::get<0>(res_fdf); // Eigen To GSL
@@ -97,14 +97,14 @@ public:
 		};
 		auto gsl_to_eigen_converter_f = [](const gsl_vector * x, void * params, gsl_vector * f) -> int
 		{
-			const EvalFunctor& func{ *reinterpret_cast<EvalFunctor*>(params) };
+			const EvalFunctor& func{ *static_cast<EvalFunctor*>(params) };
 			Eigen::Map<Derived> xivec(x->data); // GSL to Eigen
 			Eigen::Map<Derived>(f->data) = func.f(xivec); // Eigen To GSL
 			return 0;
 		};
 		auto gsl_to_eigen_converter_df = [](const gsl_vector * x, void * params,  gsl_matrix * df) -> int
 		{
-			const EvalFunctor& func{ *reinterpret_cast<EvalFunctor*>(params) };
+			const EvalFunctor& func{ *static_cast<EvalFunctor*>(params) };
 			Eigen::Map<Derived> xivec(x->data); // GSL to Eigen
 			Eigen::Map<decltype(func.df(xivec)), Eigen::Unaligned, Eigen::Stride<1, Derived::RowsAtCompileTime> >(df->data) = func.df(xivec); //Eigen to GSL (Eigen column major; GSL row major)
 			return 0;
@@ -117,7 +117,7 @@ public:
 
 		MAYBE_UNUSED auto errset = gsl_multiroot_fdfsolver_set(solver, &fdf, solver->x);
 	 
-		auto counter{ 0 };
+		auto counter{ 0ull };
 		for (; ++counter < MaxIterations;)
 		{
 			MAYBE_UNUSED const auto err = gsl_multiroot_fdfsolver_iterate(solver); //One step of the solver iteration (Error codes: GSL_EBADFUNC, GSL_ENOPROG)

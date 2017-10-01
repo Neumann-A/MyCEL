@@ -49,7 +49,7 @@ private:
 	uint64_t createThreads(const uint64_t &NumberOfThreadsToCreate)
 	{
 		uint64_t counter = 0;
-		uint64_t create = NumberOfThreadsToCreate;
+		const uint64_t create = NumberOfThreadsToCreate;
 		
 		//if (NumberOfThreadsToCreate >= std::thread::hardware_concurrency())
 		//{

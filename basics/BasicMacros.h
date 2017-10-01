@@ -19,6 +19,8 @@
 	#define BASIC_NOINLINE
 #endif
 
+#define BASIC_CONSTEXPR constexpr
+
 #if _MSC_VER >= 1900
 
 #define NODISCARD [[nodiscard]]

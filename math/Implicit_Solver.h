@@ -20,7 +20,7 @@ public:
 	};
 
 	template<class Derived, class f_functor, class fd_functor, class fdf_functor>
-	auto getDeltaNextIteration(Eigen::MatrixBase<Derived>& lastx, const f_functor& funcx, const fd_functor& funcjacobix, fdf_functor&& fdfx)
+	auto getDeltaNextIteration(Eigen::MatrixBase<Derived>& lastx, const f_functor&, const fd_functor&, fdf_functor&& fdfx)
 	{
 		//TODO: add static assert to check correctness of the functors returntype in correspondence with the dimension of the input vector lastx
 		//Since the solve method only returns an expression to be solved we need to find out the correct type it should evaluate into!
