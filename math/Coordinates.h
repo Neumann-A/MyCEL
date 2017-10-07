@@ -82,7 +82,7 @@ namespace math::coordinates
 		theta = vec2d(0);
 		phi = vec2d(1);
 
-		if (phi < 0)
+		if (theta < 0)
 		{
 			do {
 				theta += pi<Precision>;
