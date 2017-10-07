@@ -7,10 +7,10 @@
 #include <sstream>			// For Std::sstream
 
 #include <iomanip>			// For manipulation of streams
-
 #include <iostream>			// std::cout ::err ::cin 
 
 #include <typeinfo>			// Typeinformation
+#include <type_traits>
 
 #include <cmath>			// Math constants
 #include <limits>			//limits of math constants
