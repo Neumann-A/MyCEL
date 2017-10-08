@@ -14,8 +14,13 @@
 #include <gsl/gsl_blas.h>
 
 #ifdef _MSC_VER
+#ifdef _DEBUG
+#pragma comment (lib, "gsld")
+#pragma comment (lib, "gslcblasd")
+#else
 #pragma comment (lib, "gsl")
 #pragma comment (lib, "gslcblas")
+#endif
 #endif
 
 

@@ -29,10 +29,14 @@
 #include <gsl/gsl_blas.h>
 
 #ifdef _MSC_VER
+#ifdef _DEBUG
+#pragma comment (lib, "gsld")
+#pragma comment (lib, "gslcblasd")
+#else
 #pragma comment (lib, "gsl")
 #pragma comment (lib, "gslcblas")
 #endif
-
+#endif
 enum class gsl_solver_type_derivative_free { undefined, hybrids, hybrid, dnewton, broyden };
 
 template <typename prec>
@@ -99,7 +103,7 @@ public:
 		
 		f.f = gsl_to_eigen_converter_f;
 
-		f.params = (void*)(&funcx);
+		f.params = static_cast<void*>(&funcx);
 
 		auto errset = gsl_multiroot_fsolver_set(solver, &f, solver->x);
 
