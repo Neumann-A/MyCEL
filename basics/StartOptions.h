@@ -35,8 +35,8 @@ private:
 	typedef std::map<std::string, OptInfo> OptType;
 
 
-	OptType _options;
-	std::map<std::string, std::string> _FoundwithArgument;
+	OptType moptions;
+	std::map<std::string, std::string> FoundwithArgument;
 
 	void registerOption(const std::string optionname, OptInfo Info);
 
@@ -53,10 +53,10 @@ public:
 	void registerOption(const std::string& optionname, const std::string& optionflag, const FuncOptFound& found, const FuncOptNotFound& notfound);
 
 	//Checks if a option is registered
-	bool isOptionRegistered(const std::string option);
+	bool isOptionRegistered(const std::string& option);
 
 	//Checks wether a startargument is an registered option
-	bool isArgumentRegistered(std::string s1, std::smatch &match, std::string &optionname);
+	bool isArgumentRegistered(const std::string& s1, std::smatch &match, std::string &optionname);
 
 	//Method which analyzes the arguments for registered options
 	void analyzeStartArguments(int argc, char** argv);

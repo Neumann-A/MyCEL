@@ -104,6 +104,7 @@
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <LanguageStandard>stdcpplatest</LanguageStandard>
+      <PreprocessorDefinitions>_MBCS;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release LLB|x64'">
@@ -131,9 +132,10 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>
       </SDLCheck>
-      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <RuntimeTypeInfo>
+      </RuntimeTypeInfo>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
-      <AdditionalOptions>-fmsc-version=1900 %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions>-fmsc-version=1910 %(AdditionalOptions)</AdditionalOptions>
       <FloatingPointModel>
       </FloatingPointModel>
       <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
