@@ -39,7 +39,7 @@ public:
 		//std::cout << "fx:" << fx << "\n";
 		//std::cout << "Jac_fx:" << jacobi << "\n";
 		//std::cout << "dx:"<<dx << "\n";
-		std::cout << "dxnorm:" << dx.norm() << "\n";
+		//std::cout << "dxnorm:" << dx.norm() << "\n";
 
 		//PlainVector dx = jacobi.lu().solve(-fx); // does not work for all cases and might give strange results
 		return dx;

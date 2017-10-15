@@ -20,6 +20,7 @@
 #include "../basics/BasicMacros.h"
 
 #include <iostream>
+#include <type_traits>
 
 #include <Eigen/Core>
 
@@ -78,7 +79,6 @@ public:
 		gsl_set_error_handler(errorhandler);
 
 		f.n = dims;
-
 	};
 
 	~GSL_Implicit_Solver_Derivative_Free() noexcept	{	
@@ -91,13 +91,16 @@ public:
 	template<class Derived, class FuncFunctor>
 	auto getResult(FuncFunctor&& funcx, const Eigen::MatrixBase<Derived>& guessx)
 	{
+		using FuncType = std::decay_t<FuncFunctor>;
 		Eigen::Map<Derived>(solver->x->data) = guessx;
 
 		auto gsl_to_eigen_converter_f = [](const gsl_vector * x, void * params, gsl_vector * res) -> int
 		{
-			decltype(funcx) func{ *reinterpret_cast<decltype(funcx)*>(params) };
+			const FuncType& func{ *static_cast<FuncType*>(params) };
 			Eigen::Map<Derived> xivec(x->data); // GSL to Eigen
+			//std::cout << "xivec before: " << xivec.transpose() << '\n';
 			Eigen::Map<Derived>(res->data) = func(xivec); // Eigen To GSL
+			//std::cout << "xivec after: " << xivec.transpose() << '\n';
 			return 0;
 		};
 		
@@ -115,8 +118,16 @@ public:
 			const auto dx = gsl_multiroot_fsolver_dx(solver); // gets the last stepsize
 			const auto check = gsl_multiroot_test_delta(dx, res, AbsErrorGoal, RelErrorGoal); // Return GSL_SUCCESS if step is below specific epsilons else GSL_CONTINUE 
 
-			if (check == GSL_SUCCESS /*|| err == GSL_ENOPROG*/)
+			//Eigen::Map<Derived> dxeigen(dx->data); // GSL to Eigen
+			//std::cout << "dx: " << dxeigen.transpose() << '\n';
+			//std::cout << "dxnorm: " << dxeigen.norm() << '\n';
+			//Eigen::Map<Derived> reseigen(res->data); // GSL to Eigen
+			//std::cout << "res: " << reseigen.transpose() << '\n';
+
+			if (check == GSL_SUCCESS /*|| err == GSL_ENOPROG*/) {
 				break;
+			}
+
 		}
 		if (counter == MaxIterations)
 			std::cout << "Implicit solver did not reach requested error goal within Iterationlimit! Number of Iterations: " << counter << "\n";
@@ -126,8 +137,7 @@ public:
 private:
 	Precision	AbsErrorGoal{ std::numeric_limits<Precision>::epsilon() };
 	Precision	RelErrorGoal{ std::numeric_limits<Precision>::epsilon() };
-	const std::size_t	MaxIterations{ 1 };
-	const std::size_t	nDims;
+	const std::size_t	MaxIterations;
 
 	gsl_multiroot_fsolver * solver = nullptr;
 	gsl_multiroot_function f;
