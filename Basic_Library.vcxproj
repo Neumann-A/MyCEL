@@ -166,6 +166,7 @@
     <ClInclude Include="basics\ThreadManager.h" />
     <ClInclude Include="basics\Timer.h" />
     <ClInclude Include="basics\Typelist.h" />
+    <ClInclude Include="math\ApproxJacobian.h" />
     <ClInclude Include="math\Coordinates.h" />
     <ClInclude Include="math\DistributionCalculator.h" />
     <ClInclude Include="math\DistributionHelper.h" />
