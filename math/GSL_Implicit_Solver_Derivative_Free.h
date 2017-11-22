@@ -27,7 +27,7 @@
 #include <gsl/gsl_vector.h>
 #include <gsl/gsl_matrix.h>
 #include <gsl/gsl_multiroots.h>
-#include <gsl/gsl_blas.h>
+//#include <gsl/gsl_blas.h>
 
 #ifdef _MSC_VER
 #ifdef _DEBUG
@@ -35,7 +35,7 @@
 #pragma comment (lib, "gslcblasd")
 #else
 #pragma comment (lib, "gsl")
-#pragma comment (lib, "gslcblas")
+//#pragma comment (lib, "gslcblas")
 #endif
 #endif
 enum class gsl_solver_type_derivative_free { undefined, hybrids, hybrid, dnewton, broyden };
@@ -131,7 +131,9 @@ public:
 		}
 		if (counter == MaxIterations)
 			std::cout << "Implicit solver did not reach requested error goal within Iterationlimit! Number of Iterations: " << counter << "\n";
-
+		
+		//std::cout << "GSL_DF Solver Number of Iterations: " << counter << '\n';
+		
 		return Eigen::Map<Derived>(solver->x->data);
 	};
 private:

@@ -11,7 +11,7 @@
 #include <gsl/gsl_vector.h>
 #include <gsl/gsl_matrix.h>
 #include <gsl/gsl_multiroots.h>
-#include <gsl/gsl_blas.h>
+//#include <gsl/gsl_blas.h>
 
 #ifdef _MSC_VER
 #ifdef _DEBUG
@@ -19,7 +19,7 @@
 #pragma comment (lib, "gslcblasd")
 #else
 #pragma comment (lib, "gsl")
-#pragma comment (lib, "gslcblas")
+//#pragma comment (lib, "gslcblas")
 #endif
 #endif
 
