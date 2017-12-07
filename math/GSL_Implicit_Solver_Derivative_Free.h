@@ -35,7 +35,7 @@
 #pragma comment (lib, "gslcblasd")
 #else
 #pragma comment (lib, "gsl")
-//#pragma comment (lib, "gslcblas")
+#pragma comment (lib, "gslcblas")
 #endif
 #endif
 enum class gsl_solver_type_derivative_free { undefined, hybrids, hybrid, dnewton, broyden };

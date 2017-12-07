@@ -19,7 +19,7 @@
 #pragma comment (lib, "gslcblasd")
 #else
 #pragma comment (lib, "gsl")
-//#pragma comment (lib, "gslcblas")
+#pragma comment (lib, "gslcblas")
 #endif
 #endif
 
