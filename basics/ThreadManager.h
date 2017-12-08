@@ -171,9 +171,9 @@ public:
 	// Add Task to Task Deque
 	template<class Func, class... Args>
 	auto AddTask(Func&& func, Args&&... args) noexcept(false)
-		-> std::future<typename std::result_of<Func(Args...)>::type>
+		-> std::future<typename std::invoke_result_t<Func,Args...>>
 	{
-		using return_type = typename std::result_of<Func(Args...)>::type;
+		using return_type = typename std::invoke_result_t<Func,Args...>;
 
 		auto task = std::make_shared< std::packaged_task<return_type()> >(
 			std::bind(std::forward<Func>(func), std::forward<Args>(args)...)

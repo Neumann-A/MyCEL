@@ -110,7 +110,7 @@ public:
 
 		auto errset = gsl_multiroot_fsolver_set(solver, &f, solver->x);
 
-		auto counter{ 0 };
+		auto counter{ 0ull };
 		for (; ++counter < MaxIterations;)
 		{
 			const auto err = gsl_multiroot_fsolver_iterate(solver); //One step of the solver iteration (Error codes: GSL_EBADFUNC, GSL_ENOPROG)
