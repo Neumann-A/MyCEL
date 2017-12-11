@@ -64,7 +64,7 @@ void StartOptions::analyzeStartArguments(int argc, char** argv)
 				return;
 			}
 			const auto test = match[0].length();
-			str.erase(0, test);
+			str.erase(0ull, test);
 			std::swap(FoundwithArgument[optionname], str); //push argument in found list
 		}
 		else
