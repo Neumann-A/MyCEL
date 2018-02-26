@@ -20,7 +20,7 @@ public:
 	};
 
 	template<class Derived, class f_functor, class fd_functor, class fdf_functor>
-	auto getDeltaNextIteration(Eigen::MatrixBase<Derived>& lastx, const f_functor&, const fd_functor&, fdf_functor&& fdfx)
+	inline auto getDeltaNextIteration(Eigen::MatrixBase<Derived>& lastx, const f_functor&, const fd_functor&, fdf_functor&& fdfx)
 	{
 		//TODO: add static assert to check correctness of the functors returntype in correspondence with the dimension of the input vector lastx
 		//Since the solve method only returns an expression to be solved we need to find out the correct type it should evaluate into!
@@ -46,7 +46,7 @@ public:
 	}
 
 	template<class Derived, class Derived2>
-	bool reachedGoal(const Eigen::MatrixBase<Derived>& dx, const Eigen::MatrixBase<Derived2>& x)
+	inline bool reachedGoal(const Eigen::MatrixBase<Derived>& dx, const Eigen::MatrixBase<Derived2>& x)
 	{
 		const auto dxnorm = dx.norm();
 		const auto relnorm = dxnorm/x.norm();
@@ -59,7 +59,7 @@ public:
 
 	//TODO: Use outcome here, either the solver converged or it did not and should say so with an error!
 	template<class Derived, class f_functor, class fd_functor, class fdf_functor>
-	auto getResult(f_functor&& funcx, fd_functor&& funcjacobix, fdf_functor&& fdfx, const Eigen::MatrixBase<Derived>& guessx)
+	inline auto getResult(f_functor&& funcx, fd_functor&& funcjacobix, fdf_functor&& fdfx, const Eigen::MatrixBase<Derived>& guessx)
 	{
 		Derived resx{ guessx };
 

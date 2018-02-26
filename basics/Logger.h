@@ -40,16 +40,14 @@ public:
 #pragma warning( disable : 6386 )
 #endif
 		const int size = 512;
-		char* buffer = nullptr;
-		buffer = new char[size];
+		char* buffer = new char[size];
 		va_list vl;
 		va_start(vl, fmt);
 		int nsize = vsnprintf(buffer, size, fmt, vl);
 		if (size <= nsize)
 		{	//fail delete buffer and try again
 			delete[] buffer;
-			buffer = nullptr;
-			buffer = new char[static_cast<size_t>(nsize) + 1]; //+1 for /0
+			buffer = new char[static_cast<size_t>(nsize) + 1]; //+1 for /0;
 			nsize = vsnprintf(buffer, size, fmt, vl);
 		}
 		std::string ret{ buffer };
@@ -76,16 +74,14 @@ public:
 #pragma warning( disable : 6386 )
 #endif
 		const int size = 512;
-		char* buffer = nullptr;
-		buffer = new char[size];
+		char* buffer = new char[size];
 		va_list vl;
 		va_start(vl, fmt);
 		int nsize = vsnprintf(buffer, size, fmt, vl);
 		if (size <= nsize)
 		{	//fail delete buffer and try again
 			delete[] buffer;
-			buffer = nullptr;
-			buffer = new char[static_cast<size_t>(nsize) + 1]; //+1 for /0
+			buffer = new char[static_cast<size_t>(nsize) + 1]; //+1 for /0;
 			nsize = vsnprintf(buffer, size, fmt, vl);
 		}
 		std::string ret{ buffer };

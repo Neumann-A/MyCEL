@@ -25,9 +25,10 @@
 
 namespace Distribution
 {
-
-	enum class IDistribution { Distribution_unknown, Distribution_delta, Distribution_normal, Distribution_lognormal };
-	static const std::map<IDistribution, std::string> IDistributionMap{ { { IDistribution::Distribution_unknown,"unknown" },{ IDistribution::Distribution_delta,"delta" } ,{ IDistribution::Distribution_normal,"normal" },{ IDistribution::Distribution_lognormal,"lognormal" } } };
+	enum class IDistribution { Distribution_unknown, Distribution_delta, Distribution_normal, Distribution_lognormal, Distribution_gamma };
+	static const std::map<IDistribution, std::string> IDistributionMap{ { { IDistribution::Distribution_unknown,"unknown" },
+		{ IDistribution::Distribution_delta,"delta" } ,{ IDistribution::Distribution_normal,"normal" },
+		{ IDistribution::Distribution_lognormal,"lognormal" },{ IDistribution::Distribution_gamma,"gamma" } } };
 
 	inline std::string to_string(const IDistribution& field)
 	{
@@ -60,7 +61,7 @@ namespace Distribution
 	private:
 		prec deltavalue;
 	public:
-		DeltaDistribution(const prec& value) : deltavalue(value) {};
+		explicit DeltaDistribution(const prec& value) : deltavalue(value) {};
 		prec getValueFromDistribution() override final { return deltavalue; };
 
 	};
@@ -76,12 +77,12 @@ namespace Distribution
 	public:
 		//TODO: use better init for PNG see noisefield!
 		template <typename T = distribution>
-		DistributionHelper(const prec &value, typename std::enable_if_t<std::is_same<T, std::discrete_distribution<prec>>::value, prec>* = nullptr)
+		explicit DistributionHelper(const prec &value, typename std::enable_if_t<std::is_same<T, std::discrete_distribution<prec>>::value, prec>* = nullptr)
 			:_distribution(distribution{ value }), _prng(std::random_device{}())
 		{
 			_prng.discard(10'000'000);
 		}
-		DistributionHelper(const DistributionParams &values)
+		explicit DistributionHelper(const DistributionParams &values)
 			: _distribution(distribution{ values.first, values.second }),
 			_prng(std::random_device{}())
 		{
@@ -110,7 +111,7 @@ namespace Distribution
 	public:
 		//TODO: use better init for PNG see noisefield!
 		//TODO: Silence stupid compiler warning due to implicit conversion from inttype to double!
-		DistributionHelperDiscrete(const std::vector<inttype>& values)
+		explicit DistributionHelperDiscrete(const std::vector<inttype>& values)
 			:_distribution(values.begin(), values.end()), _prng((std::random_device{})())
 		{
 			_prng.discard(10'000'000);

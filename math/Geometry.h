@@ -48,8 +48,8 @@ namespace math::geometry
 
 		constexpr explicit Sphere(precision radius) noexcept : _radius(std::move(radius)) {};
 
-		inline const precision& getRadius() const noexcept { return _radius };
-		inline void setRadius(precision radius) noexcept { _radius = std::move(radius) };
+		inline const precision& getRadius() const noexcept { return _radius; };
+		inline void setRadius(precision radius) noexcept { _radius = std::move(radius); };
 
 		inline precision getVolume() const noexcept { return sphere::calcVolume(_radius); };
 		inline precision getSurfaceArea() const noexcept { return sphere::calcSurfaceArea(_radius); };
@@ -80,8 +80,8 @@ namespace math::geometry
 
 		constexpr explicit Circle(precision radius) noexcept : _radius(std::move(radius)) {};
 
-		inline const precision& getRadius() const noexcept { return _radius };
-		inline void setRadius(precision radius) noexcept { _radius = std::move(radius) };
+		inline const precision& getRadius() const noexcept { return _radius; };
+		inline void setRadius(precision radius) noexcept { _radius = std::move(radius); };
 
 		inline precision getArea() const noexcept { return calcArea(_radius); };
 		inline precision getCircumference() const noexcept { return calcCircumference(_radius); };
