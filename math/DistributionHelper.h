@@ -50,7 +50,13 @@ namespace Distribution
 	template<typename ReturnValue>
 	class IDistributionHelper
 	{
+		using ThisClass = IDistributionHelper<ReturnValue>;
 		MY_VIRTUAL_INTERFACE(IDistributionHelper)
+	protected:
+		IDistributionHelper(const ThisClass&) = default;
+		ThisClass& operator=(const ThisClass&) = default;
+		IDistributionHelper(ThisClass&&) = default;
+		ThisClass& operator=(ThisClass&&) = default;
 	public:
 		virtual ReturnValue getValueFromDistribution() = 0;
 	};
