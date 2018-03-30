@@ -1,7 +1,7 @@
 #pragma once
 
-#ifndef _BASICINCLUDES_H_
-#define _BASICINCLUDES_H_
+#ifndef INC_BASICINCLUDES_H_
+#define INC_BASICINCLUDES_H_
 
 #include <string>			// For Std::String
 #include <sstream>			// For Std::sstream

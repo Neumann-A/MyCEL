@@ -3,8 +3,8 @@
 //http://progsch.net/wordpress/?p=81
 //https://github.com/progschj/ThreadManager
 
-#ifndef _THREADMANAGER_H_
-#define _THREADMANAGER_H_
+#ifndef INC_THREADMANAGER_H_
+#define INC_THREADMANAGER_H_
 
 //rename to thread manager
 

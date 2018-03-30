@@ -1,7 +1,7 @@
 #pragma once
 
-#ifndef _BASICMACROS_H_
-#define _BASICMACROS_H_
+#ifndef INC_BASICMACROS_H_
+#define INC_BASICMACROS_H_
 
 #include <locale>
 #include <type_traits>
@@ -21,7 +21,7 @@
 
 #define BASIC_CONSTEXPR constexpr
 
-#if _MSC_VER >= 1900
+#if (_MSC_VER >= 1900)
 
 #define NODISCARD [[nodiscard]]
 #define MAYBE_UNUSED [[maybe_unused]]

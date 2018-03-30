@@ -100,11 +100,10 @@ public:
 #pragma warning( disable : 6386 )
 #endif
 		const int size = 512;
-		char* buffer = 0;;
-		buffer = new char[size];;
-		va_list vl;;
+		char* buffer = new char[size];
+		va_list vl;
 		va_start(vl, fmt);;
-		int nsize = vsnprintf(buffer, size, fmt, vl);;
+		int nsize = vsnprintf(buffer, size, fmt, vl);
 		if (size <= nsize)
 		{	//fail delete buffer and try again
 			delete[] buffer;

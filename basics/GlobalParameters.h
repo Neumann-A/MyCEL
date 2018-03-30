@@ -1,7 +1,7 @@
 #pragma once
 
-#ifndef _GLOBALPARAMETERS_H_
-#define _GLOBALPARAMETERS_H_
+#ifndef INC_GLOBALPARAMETERS_H_
+#define INC_GLOBALPARAMETERS_H_
 
 #ifdef _MSC_VER
 #include <experimental/filesystem>

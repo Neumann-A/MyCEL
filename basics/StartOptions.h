@@ -1,7 +1,7 @@
 #pragma once
 
-#ifndef _STARTOPTIONS_H_
-#define _STARTOPTIONS_H_
+#ifndef INC_STARTOPTIONS_H_
+#define INC_STARTOPTIONS_H_
 
 #include "BasicMacros.h"
 
