@@ -1,5 +1,5 @@
 cmake_minimum_required (VERSION 3.4)
-project (Basic_Library)
+project(Basic_Library CXX)
 
 #extension to std in namespace stdext
 include_directories(stdext)
