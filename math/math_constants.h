@@ -1,5 +1,6 @@
 #pragma once
 
+#include <type_traits>
 // Two underscroes __{var} means 1/{var}
 //#define M_4PI		12.566370614359172953850573533118;   // 4 * PI
 //#define M__4PI      0.07957747154594766788444188168626   // 1/4PI 
@@ -16,22 +17,22 @@ namespace math::constants
 		extern constexpr T pi() { return static_cast<T>(3.1415926535897932384626433832795); };
 
 		template<typename T>
-		extern constexpr T two_pi() { return static_cast<T>(2.0*pi()); };
+		extern constexpr T two_pi() { return static_cast<T>(2.0*pi<T>()); };
 
 		template<typename T>
-		extern constexpr T four_third_pi() { return static_cast<T>((4.0 / 3.0)*pi()); };
+		extern constexpr T four_third_pi() { return static_cast<T>((4.0 / 3.0)*pi<T>()); };
 
 		template<typename T>
-		extern constexpr T inv_pi() { return static_cast<T>(1.0 / pi()); };
+		extern constexpr T inv_pi() { return static_cast<T>(1.0 / pi<T>()); };
 
 		template<typename T>
-		extern constexpr T inv_two_pi() { return static_cast<T>(0.5 * inv_pi()); };
+		extern constexpr T inv_two_pi() { return static_cast<T>(0.5 * inv_pi<T>()); };
 
 		template<typename T>
-		extern constexpr T inv_four_pi() { return static_cast<T>(0.25 * inv_pi()); };
+		extern constexpr T inv_four_pi() { return static_cast<T>(0.25 * inv_pi<T>()); };
 
 		template<typename T>
-		extern constexpr T inv_four_third_pi() { return static_cast<T>((3.0 / 4.0)*inv_pi()); };
+		extern constexpr T inv_four_third_pi() { return static_cast<T>((3.0 / 4.0)*inv_pi<T>()); };
 	}
 
 	template<typename T>
