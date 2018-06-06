@@ -13,8 +13,8 @@
 ///---------------------------------------------------------------------------------------------------
 #pragma once
 
-#ifndef _IS_STRING_H
-#define _IS_STRING_H
+#ifndef STDEXT_IS_STRING_H
+#define STDEXT_IS_STRING_H
 
 #include <type_traits>
 #include <string>
