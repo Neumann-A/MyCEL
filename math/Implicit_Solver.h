@@ -25,10 +25,7 @@ public:
 		//TODO: add static assert to check correctness of the functors returntype in correspondence with the dimension of the input vector lastx
 		//Since the solve method only returns an expression to be solved we need to find out the correct type it should evaluate into!
 		using PlainVector = std::decay_t<typename Derived::PlainObject>;
-	
-		//auto jacobi = funcjacobix(lastx);
-		//const auto fx = funcx(lastx);
-		
+
 		auto func_eval = fdfx(lastx);
 		const auto fx = std::get<0>(func_eval);
 		auto jacobi = std::get<1>(func_eval);
@@ -74,29 +71,10 @@ public:
 				break;
 		}
 		if (counter >= MaxIterations)
-			std::cout << "Implicit solver did not reach requested error goal within Iterationlimit! Number of Iterations: " << counter << "Last dx_"<<"\n";
+			std::cout << "Implicit solver did not reach requested error goal within Iterationlimit! Number of Iterations: " << counter << "\n";
 
 		return resx;
 	};
-
-	//template<class Derived, class FDF_FuncFunctor>
-	//auto getResult(FDF_FuncFunctor&& funcx, const Eigen::MatrixBase<Derived>& guessx)
-	//{
-	//	Derived resx{ guessx };
-
-	//	auto counter{ 0 };
-	//	for (; ++counter < MaxIterations;)
-	//	{
-	//		const auto dx = getDeltaNextIteration(resx, std::forward<FuncFunctor>(funcx), std::forward<FuncJacobiFunctor>(funcjacobix));
-	//		resx += dx;
-	//		if (reachedGoal(dx, resx))
-	//			break;
-	//	}
-	//	if (counter == MaxIterations)
-	//		std::cout << "Implicit solver did not reach requested error goal within Iterationlimit! Number of Iterations: " << counter << "\n";
-
-	//	return resx;
-	//};
 
 private:
 	Precision	AbsErrorGoal{std::numeric_limits<Precision>::epsilon()};
