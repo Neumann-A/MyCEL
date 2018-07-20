@@ -16,6 +16,7 @@
 #include <string>
 #include <vector>
 #include <queue>
+#include <cstdint>
 
 #include <memory>
 
@@ -26,6 +27,12 @@
 
 #include <functional>
 #include <stdexcept>
+
+#ifdef _WIN32
+#include <Windows.h>
+#include <processthreadsapi.h>
+#include <processtopologyapi.h>
+#endif
 
 // ThreadManager Class
 // A Class for holding a number of threads.
@@ -48,20 +55,36 @@ private:
 
 	uint64_t createThreads(const uint64_t &NumberOfThreadsToCreate)
 	{
+
+#ifdef _WIN32
+		const auto mainThreadHandle = GetCurrentThread();
+		auto noGroups = GetActiveProcessorGroupCount();
+
+#endif
+
 		uint64_t counter = 0;
 		const uint64_t create = NumberOfThreadsToCreate;
-		
-		//if (NumberOfThreadsToCreate >= std::thread::hardware_concurrency())
-		//{
-		//	Log("Limit number of threads to hardware limit of concurrent threads");
-		//	create = (std::thread::hardware_concurrency() - 1); // -1 because there is also a calling thread!
-		//}
+		const auto implementation = std::thread::hardware_concurrency();
+		if (NumberOfThreadsToCreate*1.1 >= implementation)
+		{
+			Log("Much more threads requested than supported by implementation!");
+			Log(std::string{ "Requested: " } +std::to_string(create) + "\t Available: " + std::to_string(implementation));
+		}
 		
 		for (uint64_t i = 0; i < create; ++i, ++counter)
 		{
+
 			try
 			{
 				_Threads.emplace_back([this] {this->createThread(); });
+#ifdef _WIN32
+				for (auto& thread : _Threads) {
+					PGROUP_AFFINITY affinity;
+					GetThreadGroupAffinity(thread.native_handle(), affinity);
+					auto test = SetThreadGroupAffinity();
+				}
+#endif
+					
 				//_Threads.emplace_back(std::bind(&ThreadManager::createThread,this));
 			}
 			catch(std::exception &e) // May run into out of memory exception if too many threads are created
