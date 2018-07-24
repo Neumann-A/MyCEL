@@ -29,9 +29,8 @@
 #include <stdexcept>
 
 #ifdef _WIN32
-#include <Windows.h>
-#include <processthreadsapi.h>
-#include <processtopologyapi.h>
+#include "../../ThreadAffinity/ThreadDispatcher.h"
+#include "../../ThreadAffinity/HPCEnvReader.h"
 #endif
 
 // ThreadManager Class
@@ -57,9 +56,7 @@ private:
 	{
 
 #ifdef _WIN32
-		const auto mainThreadHandle = GetCurrentThread();
-		auto noGroups = GetActiveProcessorGroupCount();
-
+		const HPCEnvReader HPCEnv{};
 #endif
 
 		uint64_t counter = 0;
@@ -77,14 +74,7 @@ private:
 			try
 			{
 				_Threads.emplace_back([this] {this->createThread(); });
-#ifdef _WIN32
-				for (auto& thread : _Threads) {
-					PGROUP_AFFINITY affinity;
-					GetThreadGroupAffinity(thread.native_handle(), affinity);
-					auto test = SetThreadGroupAffinity();
-				}
-#endif
-					
+				
 				//_Threads.emplace_back(std::bind(&ThreadManager::createThread,this));
 			}
 			catch(std::exception &e) // May run into out of memory exception if too many threads are created
@@ -93,6 +83,12 @@ private:
 				break;
 			}
 		}
+
+#ifdef _WIN32
+		using Dispatcher = ThreadDispatcher;
+		using Strategy = ThreadStrategy_OneThreadOneLogicalCore<void, void>;
+		Dispatcher::assignThreads<Strategy>(_Threads, HPCEnv.AssignedCores);
+#endif
 		
 #ifdef _DEBUG
 		Log(std::string{ "Created " }  +std::to_string(counter) + std::string{" threads."});
