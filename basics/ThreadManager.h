@@ -29,8 +29,8 @@
 #include <stdexcept>
 
 #ifdef _WIN32
-#include "../../ThreadAffinity/ThreadDispatcher.h"
-#include "../../ThreadAffinity/HPCEnvReader.h"
+#include "../../Playground/ThreadAffinity/ThreadDispatcher.h"
+#include "../../Playground/ThreadAffinity/HPCEnvReader.h"
 #endif
 
 // ThreadManager Class
