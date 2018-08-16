@@ -215,7 +215,7 @@ public:
 		return res;
 	}
 
-	uint64_t getNumberOfWorkingThreads() const _NOEXCEPT { return _WorkingThreads.load(); };
+	uint64_t getNumberOfWorkingThreads() const BASIC_NOEXCEPT { return _WorkingThreads.load(); };
 };
 
 #endif //_THREADMANAGER_H_
