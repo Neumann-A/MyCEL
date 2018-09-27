@@ -41,8 +41,8 @@ private:
 	DISALLOW_COPY_AND_ASSIGN(ThreadManager)
 
 	std::atomic<bool>			_stopped{ false };	// ThreadManager was stopped
-	uint64_t					_NumberOfThreads;   // NumberOfCreated Threads 
-	std::atomic<uint64_t>		_WorkingThreads{ 0 };// Number of Working Threads
+	std::uint64_t				_NumberOfThreads;   // NumberOfCreated Threads 
+	std::atomic<std::uint64_t>	_WorkingThreads{ 0 };// Number of Working Threads
 	const std::thread::id		_tid;				// Thread ID of the owner of the ThreadManager
 	std::vector<std::thread>	_Threads;			// Threads
 
@@ -52,15 +52,15 @@ private:
 	std::mutex _TaskDequeMutex;						// Mutex for the Task list
 	std::condition_variable _TaskCondVar;			// Condition variable to wake sleeping threads waiting for the task list to update
 
-	uint64_t createThreads(const uint64_t &NumberOfThreadsToCreate)
+	std::uint64_t createThreads(const std::uint64_t &NumberOfThreadsToCreate)
 	{
 
 #ifdef _WIN32
 		const HPCEnvReader HPCEnv{};
 #endif
 
-		uint64_t counter = 0;
-		const uint64_t create = NumberOfThreadsToCreate;
+		std::uint64_t counter = 0;
+		const std::uint64_t create = NumberOfThreadsToCreate;
 		const auto implementation = std::thread::hardware_concurrency();
 		if (NumberOfThreadsToCreate*1.1 >= implementation)
 		{
@@ -68,7 +68,7 @@ private:
 			Log(std::string{ "Requested: " } +std::to_string(create) + "\t Available: " + std::to_string(implementation));
 		}
 		
-		for (uint64_t i = 0; i < create; ++i, ++counter)
+		for (std::uint64_t i = 0; i < create; ++i, ++counter)
 		{
 
 			try
@@ -161,7 +161,7 @@ private:
 	}
 protected:
 public:
-	ThreadManager(const uint64_t NumberOfThreadsToCreate) : _tid(std::this_thread::get_id())
+	ThreadManager(const std::uint64_t NumberOfThreadsToCreate) : _tid(std::this_thread::get_id())
 	{
 		_NumberOfThreads = createThreads(NumberOfThreadsToCreate);
 	}
@@ -215,7 +215,7 @@ public:
 		return res;
 	}
 
-	uint64_t getNumberOfWorkingThreads() const BASIC_NOEXCEPT { return _WorkingThreads.load(); };
+	std::uint64_t getNumberOfWorkingThreads() const BASIC_NOEXCEPT { return _WorkingThreads.load(); };
 };
 
 #endif //_THREADMANAGER_H_
