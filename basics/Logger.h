@@ -39,6 +39,10 @@ public:
 #pragma warning( push )
 #pragma warning( disable : 6386 )
 #endif
+#ifdef __llvm__
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wformat-nonliteral"
+#endif
 		const int size = 512;
 		char* buffer = new char[size];
 		va_list vl;
@@ -54,6 +58,9 @@ public:
 		va_end(vl);
 		delete[] buffer;
 		Log(ret);
+#ifdef __llvm__
+#pragma clang diagnostic pop
+#endif
 #ifdef _MSC_VER
 #pragma warning( pop )
 #endif
@@ -73,6 +80,10 @@ public:
 #pragma warning( push )
 #pragma warning( disable : 6386 )
 #endif
+#ifdef __llvm__
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wformat-nonliteral"
+#endif
 		const int size = 512;
 		char* buffer = new char[size];
 		va_list vl;
@@ -88,6 +99,9 @@ public:
 		va_end(vl);
 		delete[] buffer;
 		Error(ret);
+#ifdef __llvm__
+#pragma clang diagnostic pop
+#endif
 #ifdef _MSC_VER
 #pragma warning( pop )
 #endif
@@ -98,6 +112,10 @@ public:
 #ifdef _MSC_VER
 #pragma warning( push )
 #pragma warning( disable : 6386 )
+#endif
+#ifdef __llvm__
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wformat-nonliteral"
 #endif
 		const int size = 512;
 		char* buffer = new char[size];
@@ -115,6 +133,9 @@ public:
 		va_end(vl);
 		delete[] buffer;
 		return ret;
+#ifdef __llvm__
+#pragma clang diagnostic pop
+#endif
 #ifdef _MSC_VER
 #pragma warning( pop )
 #endif
