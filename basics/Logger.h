@@ -28,11 +28,11 @@ public:
 	{ 
 		//TODO: Implement Time as an extra
 		std::cout << msg << std::endl;
-	};
+	}
 	inline static void Log(const std::stringstream &msg) 
 	{ 
 		Log(msg.str());
-	};
+	}
 	inline static void Log(const char* fmt, ...)
 	{
 #ifdef _MSC_VER
@@ -69,11 +69,11 @@ public:
 	inline static void Error(const std::string &msg)
 	{
 		std::cerr << msg << std::endl;
-	};
+	}
 	inline static void Error(const std::stringstream &msg)
 	{
 		Error(msg.str());
-	};
+	}
 	inline static void Error(const char* fmt, ...)
 	{
 #ifdef _MSC_VER

@@ -43,7 +43,7 @@ private:
 protected:
 public:
 
-	StartOptions() {};
+	StartOptions() {}
 	virtual ~StartOptions() = default;
 
 	// Register a Startoption 
