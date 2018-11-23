@@ -29,8 +29,8 @@
 #include <stdexcept>
 
 #ifdef _WIN32
-#include "../../Playground/ThreadAffinity/ThreadDispatcher.h"
-#include "../../Playground/ThreadAffinity/HPCEnvReader.h"
+#include "../utils/ThreadDispatcher.h"
+#include "../utils/HPCEnvReader.h"
 #endif
 
 // ThreadManager Class
@@ -56,7 +56,7 @@ private:
 	{
 
 #ifdef _WIN32
-		const HPCEnvReader HPCEnv{};
+		const utils::HPCEnvReader HPCEnv{};
 #endif
 
 		std::uint64_t counter = 0;
@@ -85,8 +85,8 @@ private:
 		}
 
 #ifdef _WIN32
-		using Dispatcher = ThreadDispatcher;
-		using Strategy = ThreadStrategy_OneThreadOneLogicalCore<void, void>;
+		using Dispatcher = utils::ThreadDispatcher;
+		using Strategy = utils::ThreadStrategy_OneThreadOneLogicalCore<void, void>;
 		Dispatcher::assignThreads<Strategy>(_Threads, HPCEnv.AssignedCores);
 #endif
 		
