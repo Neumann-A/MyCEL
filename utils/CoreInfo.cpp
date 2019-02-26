@@ -34,7 +34,7 @@ namespace utils
             {
                 return std::optional<LogicalCoreInfo>{ core };
             }
-        };
+        }
         return {};
     }
 

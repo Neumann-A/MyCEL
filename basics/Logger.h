@@ -120,7 +120,7 @@ public:
 		const int size = 512;
 		char* buffer = new char[size];
 		va_list vl;
-		va_start(vl, fmt);;
+		va_start(vl, fmt);
 		int nsize = vsnprintf(buffer, size, fmt, vl);
 		if (size <= nsize)
 		{	//fail delete buffer and try again
