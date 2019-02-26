@@ -18,10 +18,12 @@
 #include <type_traits>
 #include <vector>
 #include <utility>
-#include <random>
 #include <map>
 
 #include "../basics/Logger.h"
+
+#include <random>
+#include "../math/random_helpers.h"
 
 namespace Distribution
 {
@@ -84,13 +86,13 @@ namespace Distribution
 		//TODO: use better init for PNG see noisefield!
 		template <typename T = distribution>
 		explicit DistributionHelper(const prec &value, typename std::enable_if_t<std::is_same<T, std::discrete_distribution<prec>>::value, prec>* = nullptr)
-			:_distribution(distribution{ value }), _prng(std::random_device{}())
+            :_distribution(distribution{ value }), _prng(math::random_helpers::create_seeded_PRNG<std::mt19937_64>(std::random_device{}))
 		{
 			_prng.discard(10'000'000);
 		}
 		explicit DistributionHelper(const DistributionParams &values)
 			: _distribution(distribution{ values.first, values.second }),
-			_prng(std::random_device{}())
+			_prng(math::random_helpers::create_seeded_PRNG<std::mt19937_64>(std::random_device{}))
 		{
 			_prng.discard(10'000'000);
 		};
@@ -118,7 +120,7 @@ namespace Distribution
 		//TODO: use better init for PNG see noisefield!
 		//TODO: Silence stupid compiler warning due to implicit conversion from inttype to double!
 		explicit DistributionHelperDiscrete(const std::vector<inttype>& values)
-			:_distribution(values.begin(), values.end()), _prng((std::random_device{})())
+			:_distribution(values.begin(), values.end()), _prng(math::random_helpers::create_seeded_PRNG<std::mt19937_64>(std::random_device{}))
 		{
 			_prng.discard(10'000'000);
 		}

@@ -8,7 +8,9 @@
 #include <type_traits>
 #include <vector>
 #include <utility>
+
 #include <random>
+#include "..\math\random_helpers.h"
 
 #include "DistributionHelper.h"
 
