@@ -48,7 +48,7 @@ namespace math::random_helpers
         }
         else
         {
-            std::array<EntropySource::result_type, Generator::state_size> seed_data;
+            std::array<typename std::decay_t<EntropySource>::result_type, Generator::state_size> seed_data;
             std::generate(seed_data.begin(), seed_data.end(), [&]() {return src(); });
             std::seed_seq seq(std::begin(seed_data), std::end(seed_data));
             return Generator{ seq };
