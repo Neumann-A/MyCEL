@@ -1,3 +1,3 @@
 #include "GlobalParameters.h"
 
-std::experimental::filesystem::path GlobalParameters::Path{ "" };
+std::filesystem::path GlobalParameters::Path{ "" };

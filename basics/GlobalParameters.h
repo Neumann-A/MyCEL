@@ -14,7 +14,7 @@ class GlobalParameters
 protected:
 	GlobalParameters() = default;
 public:
-	static std::experimental::filesystem::path Path;
+	static std::filesystem::path Path;
 };
 
 #endif //_GLOBALPARAMETERS_H_
