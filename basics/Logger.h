@@ -4,6 +4,7 @@
 #include <iostream>
 #include <string>
 #include <sstream> // Stringstream
+#include <string_view>
 #include <chrono>
 
 #include <cstdarg>
@@ -24,10 +25,19 @@ public:
 	//	Log(str);
 	//}
 
-	inline static void Log(const std::string &msg) 
+	inline static void Log(std::string_view msg) 
 	{ 
-		//TODO: Implement Time as an extra
-		std::cout << msg << std::endl;
+		////TODO: Implement Time as an extra
+        //  if (msg.back() == '\n')
+        // {
+        std::cout << msg << std::flush;
+        //}
+        //else
+        //{
+        //    std::cout << "FIXME: " << msg;
+        //    std::string fixasync{ std::string{msg} +'\n' };
+        //    std::cout << fixasync;
+        //}
 	}
 	inline static void Log(const std::stringstream &msg) 
 	{ 

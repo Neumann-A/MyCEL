@@ -61,7 +61,7 @@ namespace utils
         template<typename... Args>
         static void Log(Args&&... args)
         {
-            (std::cout << ... << args) << '\n';
+            (std::cout << ... << args);
         }
 
     private:

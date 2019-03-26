@@ -6,7 +6,7 @@ void StartOptions::registerOption(const std::string optionname, OptInfo Info)
 	// Do not allow to register the same option twice
 	if (isOptionRegistered(optionname))
 	{
-		Logger::Error("Error on line %d in file %s: Option %s is already registered!", __LINE__, __FILE__, optionname.c_str());
+		Logger::Error("Error on line %d in file %s: Option %s is already registered!\n", __LINE__, __FILE__, optionname.c_str());
 		return;
 	}
 
@@ -39,7 +39,7 @@ bool StartOptions::isArgumentRegistered(const std::string& s1, std::smatch &matc
 		found = std::regex_search(s1, match, rx);
 		if (found)
 		{
-			Logger::Log("StartOptions: Found Option " + it.first + " using " + rxstr + ".Parameter is:");
+            Logger::Log("StartOptions: Found Option " + it.first + " using " + rxstr + " Input is: "+ s1 + '\n');
 			optionname = it.first;
 			break;
 		}
@@ -60,7 +60,7 @@ void StartOptions::analyzeStartArguments(int argc, char** argv)
 		{
 			if (FoundwithArgument.find(optionname) != FoundwithArgument.end())
 			{
-				Logger::Error("Error on line %d in file %s: Argument %s was already found as an option!", __LINE__, __FILE__, argv[i]);
+				Logger::Error("Error on line %d in file %s: Argument %s was already found as an option!\n", __LINE__, __FILE__, argv[i]);
 				return;
 			}
 			const auto test = match[0].length();
@@ -71,7 +71,7 @@ void StartOptions::analyzeStartArguments(int argc, char** argv)
 		else
 		{
 			if (i != 0)
-				Logger::Error("Error on line %d in file %s: Argument %s is not registered as an option!", __LINE__, __FILE__, argv[i]);
+				Logger::Error("Error on line %d in file %s: Argument %s is not registered as an option!\n", __LINE__, __FILE__, argv[i]);
 		}
 
 	}
@@ -117,12 +117,12 @@ std::map<std::string, std::pair<std::string, std::string>> StartOptions::getOpti
 
 void StartOptions::printOptions()
 {
-	Logger::Log("Valid command line parameters are: (without the)");
-	Logger::Log("Flag : Name // Comment");
+	Logger::Log("Valid command line parameters are: (without the)\n");
+	Logger::Log("Flag : Name // Comment\n");
 
 	for (const auto &i : moptions)
 	{
-		Logger::Log(std::get<0>(i.second) + " : " + i.first + " // " + std::get<3>(i.second));
+		Logger::Log(std::get<0>(i.second) + " : " + i.first + " // " + std::get<3>(i.second) +'\n');
 	}
 
 }
