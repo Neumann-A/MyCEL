@@ -147,7 +147,7 @@ private:
             catch(...)
             {
                 Log("Unknown excpetion thrown by task!");
-                throw;
+                //throw;
             }
 			--_WorkingThreads;
 		}
