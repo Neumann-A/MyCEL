@@ -136,7 +136,19 @@ private:
 #ifdef _DEBUG
 			Log("Performs task");
 #endif
-			task(); // Perform task;
+            try
+            {
+                task(); // Perform task;
+            }
+            catch (std::runtime_error &err)
+            {
+                Log(std::string{ "Runtime exception in task: " } +err.what());
+            }
+            catch(...)
+            {
+                Log("Unknown excpetion thrown by task!");
+                throw;
+            }
 			--_WorkingThreads;
 		}
 
@@ -153,9 +165,9 @@ private:
 		const std::thread::id tid{ std::this_thread::get_id() };
 
 		if( _tid != tid )
-			smsg << "ThreadManager: Thread " << (tid) << ": " << msg;
+			smsg << "ThreadManager: Thread " << (tid) << ": " << msg << '\n';
 		else
-			smsg << "ThreadManager: " << msg;
+			smsg << "ThreadManager: " << msg << '\n';
 		
 		Logger::Log(smsg.str());
 	}
