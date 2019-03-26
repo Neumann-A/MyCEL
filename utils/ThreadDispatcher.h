@@ -88,7 +88,7 @@ namespace utils
                     }
                     else
                     {
-                        throw std::runtime_error{ "ThreadDispatcher: Assigned logical core does not exist or is not active!" };
+                        throw std::runtime_error{ "ThreadDispatcher: Assigned logical core does not exist or is not active!\n" };
                     }
                 }
 

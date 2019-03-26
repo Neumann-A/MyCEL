@@ -33,15 +33,13 @@ namespace utils
             auto err = getenv_s(&reqSize, nullptr, 0, envvar);
             if (!(reqSize == 0))
             {
-                //std::unique_ptr<char> readval(new char[reqSize]);
                 auto readval = std::make_unique<char[]>(reqSize);
-                //char* readval = (char*)malloc(reqSize * sizeof(char));
                 if (readval)
                 {
                     // Get the value of the environment variable.  
                     err = getenv_s(&reqSize, readval.get(), reqSize, envvar);
 
-                    Log("EnvVar:\t", envvar, "\tis set to:\t", readval.get());
+                    Log("EnvVar:\t", envvar, "\tis set to:\t", readval.get(),'\n');
 
                     return readval;
                 }
