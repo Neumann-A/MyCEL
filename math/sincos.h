@@ -65,50 +65,85 @@ namespace math
 {
 	/*std::enable_if_t<stdext::is_eigen_type_v<std::decay_t<In>>>*/
 
+	template<int offset, typename Out, typename In>
+	void sincos_unroller(Eigen::EigenBase<Out>& sinres, Eigen::EigenBase<Out>& cosres, const Eigen::EigenBase<In>& input)
+	{
+		using FullType = typename Eigen::internal::packet_traits<typename In::Scalar>::type;
+		using HalfType = typename Eigen::internal::packet_traits<typename In::Scalar>::half;
+
+		constexpr const auto size = In::RowsAtCompileTime * In::ColsAtCompileTime;
+		constexpr const auto elements_packed = Eigen::internal::packet_traits<typename In::Scalar>::size;
+		constexpr const auto remain = size - offset;
+
+		if constexpr (remain >= elements_packed)
+		{
+			const auto indata = input.derived().template packet<alignof(*(input.derived().data() + offset))>(offset);
+			FullType rescos;
+			const auto ressin = Eigen::internal::psincos(&rescos, indata);
+			cosres.derived().template writePacket<alignof(*(cosres.derived().data() + offset))>(offset, rescos);
+			sinres.derived().template writePacket<alignof(*(sinres.derived().data() + offset))>(offset, ressin);
+			sincos_unroller<offset + elements_packed, Out, In>(sinres, cosres, input);
+		}
+		else if constexpr (remain >= elements_packed / 2)
+		{
+			const auto indata = Eigen::internal::evaluator<In>(input.derived()).template packet<alignof(*(input.derived().data() + offset)), HalfType>(offset);
+			HalfType rescos;
+			const auto ressin = Eigen::internal::psincos(&rescos, indata);
+			Eigen::internal::evaluator<Out>(cosres.derived()).template writePacket<alignof(*(cosres.derived().data() + offset)), HalfType>(offset, rescos);
+			Eigen::internal::evaluator<Out>(sinres.derived()).template writePacket<alignof(*(sinres.derived().data() + offset)), HalfType>(offset, ressin);
+			sincos_unroller<offset + elements_packed/2, Out, In>(sinres, cosres, input);
+		}
+		else if constexpr (remain != 0) // Only if odd number of elements or AVX512
+		{
+			*(sinres.derived().data() + offset) = ::std::sin(*(input.derived().data() + offset));
+			*(cosres.derived().data() + offset) = ::std::cos(*(input.derived().data() + offset));
+			sincos_unroller<offset + 1, Out, In>(sinres, cosres, input);
+		}
+		else
+		{
+			//Finsihed
+		}
+	}
+
 	template<typename Out, typename In>
 	void sincos(Eigen::EigenBase<Out>& sinres, Eigen::EigenBase<Out>& cosres, const Eigen::EigenBase<In>& input)
 	{
 		static_assert(In::RowsAtCompileTime * In::ColsAtCompileTime == Out::RowsAtCompileTime * Out::ColsAtCompileTime);
 
 		constexpr const std::int64_t size = In::RowsAtCompileTime * In::ColsAtCompileTime;
-		//constexpr const std::int64_t type_size = sizeof(typename In::Scalar);
-		constexpr const auto elements_packed = Eigen::internal::packet_traits<typename In::Scalar>::size;
-		auto remaining{ size };
-		std::int64_t offset{ 0 };
 
-		using FullType = typename Eigen::internal::packet_traits<typename In::Scalar>::type;
-		using HalfType = typename Eigen::internal::packet_traits<typename In::Scalar>::half;
-		while (offset < size)
-		{
-			if (remaining >= elements_packed)
-			{
-				const auto indata = input.derived().template packet<alignof(*(input.derived().data() + offset))>(offset);
-				FullType rescos;
-				const auto ressin = Eigen::internal::psincos(&rescos, indata);
-				cosres.derived().template writePacket<alignof(*(cosres.derived().data() + offset))>(offset, rescos);
-				sinres.derived().template writePacket<alignof(*(cosres.derived().data() + offset))>(offset, ressin);
-				remaining = remaining - elements_packed;
-				offset += elements_packed;
-			}
+		sincos_unroller<0, Out, In>(sinres, cosres, input);
+		//while (offset < size)
+		//{
+		//	if (remaining >= elements_packed)
+		//	{
+		//		const auto indata = input.derived().template packet<alignof(*(input.derived().data() + offset))>(offset);
+		//		FullType rescos;
+		//		const auto ressin = Eigen::internal::psincos(&rescos, indata);
+		//		cosres.derived().template writePacket<alignof(*(cosres.derived().data() + offset))>(offset, rescos);
+		//		sinres.derived().template writePacket<alignof(*(cosres.derived().data() + offset))>(offset, ressin);
+		//		remaining = remaining - elements_packed;
+		//		offset += elements_packed;
+		//	}
 
-			if (remaining >= elements_packed / 2)
-			{
-				const auto indata = Eigen::internal::evaluator<In>(input.derived()).template packet<alignof(*(input.derived().data() + offset)), HalfType>(offset);
-				HalfType rescos;
-				const auto ressin = Eigen::internal::psincos(&rescos, indata);
-				Eigen::internal::evaluator<Out>(cosres.derived()).template writePacket<alignof(*(cosres.derived().data() + offset)), HalfType>(offset, rescos);
-				Eigen::internal::evaluator<Out>(sinres.derived()).template writePacket<alignof(*(sinres.derived().data() + offset)), HalfType>(offset, ressin);
-				remaining = remaining - (elements_packed / 2);
-				offset += elements_packed / 2;
-			}
+		//	if (remaining >= elements_packed / 2)
+		//	{
+		//		const auto indata = Eigen::internal::evaluator<In>(input.derived()).template packet<alignof(*(input.derived().data() + offset)), HalfType>(offset);
+		//		HalfType rescos;
+		//		const auto ressin = Eigen::internal::psincos(&rescos, indata);
+		//		Eigen::internal::evaluator<Out>(cosres.derived()).template writePacket<alignof(*(cosres.derived().data() + offset)), HalfType>(offset, rescos);
+		//		Eigen::internal::evaluator<Out>(sinres.derived()).template writePacket<alignof(*(sinres.derived().data() + offset)), HalfType>(offset, ressin);
+		//		remaining = remaining - (elements_packed / 2);
+		//		offset += elements_packed / 2;
+		//	}
 
-			if (offset < size);
-			{
-				*(cosres.derived().data() + offset) = ::std::cos(*(input.derived().data() + offset));
-				*(sinres.derived().data() + offset) = ::std::sin(*(input.derived().data() + offset));
-				offset += 1;
-			}
-		}
+		//	if (offset < size);
+		//	{
+		//		*(cosres.derived().data() + offset) = ::std::cos(*(input.derived().data() + offset));
+		//		*(sinres.derived().data() + offset) = ::std::sin(*(input.derived().data() + offset));
+		//		offset += 1;
+		//	}
+		//}
 	}
 }
 #endif

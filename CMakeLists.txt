@@ -63,8 +63,8 @@ set(H_FILES_UTILS   utils/CoreInfo.h
 
 set(CPP_FILES_INTRIN )
 set(H_FILES_INTRIN   intrin/svml_prolog.h
-                     intrin/generated_code/avx_svml_intrin.h
-                     intrin/generated_code/avx512_svml_intrin.h)
+                     intrin/svml/avx_svml_intrin.h
+                     intrin/svml/avx512_svml_intrin.h)
 
 set(CPP_FILES ${CPP_FILES_STDEXT} ${CPP_FILES_BASICS} ${CPP_FILES_MATH} ${CPP_FILES_UTILS}  ${CPP_FILES_INTRIN})
 set(H_FILES ${H_FILES_STDEXT} ${H_FILES_BASICS} ${H_FILES_MATH} ${H_FILES_UTILS}  ${H_FILES_INTRIN})
