@@ -58,12 +58,43 @@ namespace Eigen::internal {
 	{
 		return _mm512_sincos_ps(cosres, Input);
 	}
+
+	template<> EIGEN_STRONG_INLINE Packet8d psincos_mask(Packet8d* cosres const Packet8d& sinmask, const Packet8d& cosmask, __mmask8 mask, const Packet8d& Input)
+	{
+		return _mm512_mask_sincos_pd(cosres, sinmask, cosmask, mask, Input);
+	}
+	template<> EIGEN_STRONG_INLINE Packet16f psincos_mask(Packet16f* cosres const Packet16f& sinmask, const Packet16f& cosmask, __mmask16 mask, const Packet16f& Input)
+	{
+		return _mm512_mask_sincos_ps(cosres, sinmask, cosmask, mask, Input);
+	}
 #endif
 }
+
+
 
 namespace math
 {
 	/*std::enable_if_t<stdext::is_eigen_type_v<std::decay_t<In>>>*/
+	template<typename precision>
+	struct mask_type_selector {
+		using type = std::enable_if_t<!std::is_floating_point<precision>>;
+	};
+
+	template<>
+	struct mask_type_selector<double>
+	{
+		using uint_t = std::uint8_t;
+		using int_t = std::int8_t;
+		using mask_t = __mmask8;
+	};
+
+	template<>
+	struct mask_type_selector<float>
+	{
+		using uint_t = std::uint16_t;
+		using int_t = std::int16_t;
+		using mask_t = __mmask16;
+	};
 
 	template<int offset, typename Out, typename In>
 	void sincos_unroller(Eigen::EigenBase<Out>& sinres, Eigen::EigenBase<Out>& cosres, const Eigen::EigenBase<In>& input)
@@ -84,6 +115,7 @@ namespace math
 			sinres.derived().template writePacket<alignof(*(sinres.derived().data() + offset))>(offset, ressin);
 			sincos_unroller<offset + elements_packed, Out, In>(sinres, cosres, input);
 		}
+#ifndef __AVX512__
 		else if constexpr (remain >= elements_packed / 2)
 		{
 			const auto indata = Eigen::internal::evaluator<In>(input.derived()).template packet<alignof(*(input.derived().data() + offset)), HalfType>(offset);
@@ -99,8 +131,22 @@ namespace math
 			*(cosres.derived().data() + offset) = ::std::cos(*(input.derived().data() + offset));
 			sincos_unroller<offset + 1, Out, In>(sinres, cosres, input);
 		}
+#else
+		else if constexpr (remain != 0) // Only if odd number of elements or AVX512
+		{
+			constexpr mask_type_selector<typename In::Scalar>::uint_t uint_mask = -1;
+			mask = uint_mask >> (elements_packed - remain);
+			constexpr mask_type_selector<typename In::Scalar>::mask_t mask = (mask_type_selector<typename In::Scalar>::mask_t)uint_mask;
+			const auto indata = input.derived().template packet<alignof(*(input.derived().data() + offset))>(offset);
+			FullType rescos;
+			const auto ressin = Eigen::internal::psincos(&rescos, indata, indata, mask, indata);
+			cosres.derived().template writePacket<alignof(*(cosres.derived().data() + offset))>(offset, rescos);
+			sinres.derived().template writePacket<alignof(*(sinres.derived().data() + offset))>(offset, ressin);
+		}
+#endif
 		else
 		{
+			
 			//Finsihed
 		}
 	}
