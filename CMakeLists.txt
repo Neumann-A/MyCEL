@@ -1,4 +1,4 @@
-cmake_minimum_required (VERSION 3.11)
+cmake_minimum_required (VERSION 3.16)
 project(Basic_Library CXX)
 
 #extension to std in namespace stdext
@@ -66,8 +66,14 @@ set(H_FILES_INTRIN   intrin/svml_prolog.h
                      intrin/svml/avx_svml_intrin.h
                      intrin/svml/avx512_svml_intrin.h)
 
-set(CPP_FILES ${CPP_FILES_STDEXT} ${CPP_FILES_BASICS} ${CPP_FILES_MATH} ${CPP_FILES_UTILS}  ${CPP_FILES_INTRIN})
-set(H_FILES ${H_FILES_STDEXT} ${H_FILES_BASICS} ${H_FILES_MATH} ${H_FILES_UTILS}  ${H_FILES_INTRIN})
+set(CPP_FILES_SIMD_RAND )
+set(H_FILES_SIMD_RAND   simd_rand/constants.h
+                        simd_rand/definitions.h
+                        simd_rand/simd_lcg.h
+                        simd_rand/simd_normal_dist.h)
+
+set(CPP_FILES ${CPP_FILES_STDEXT} ${CPP_FILES_BASICS} ${CPP_FILES_MATH} ${CPP_FILES_UTILS} ${CPP_FILES_INTRIN} ${CPP_FILES_SIMD_RAND})
+set(H_FILES ${H_FILES_STDEXT} ${H_FILES_BASICS} ${H_FILES_MATH} ${H_FILES_UTILS} ${H_FILES_INTRIN} ${H_FILES_SIMD_RAND})
 
 add_library(${PROJECT_NAME} STATIC)
 
@@ -85,6 +91,8 @@ source_group("utils\\headers"            FILES ${H_FILES_UTILS})
 source_group("utils\\sources"            FILES ${CPP_FILES_UTILS})
 source_group("intrin\\headers"           FILES ${H_FILES_INTRIN})
 source_group("intrin\\sources"           FILES ${CPP_FILES_INTRIN})
+source_group("simd_rand\\headers"        FILES ${CPP_FILES_SIMD_RAND})
+source_group("simd_rand\\sources"        FILES ${H_FILES_SIMD_RAND})
 
 # Required on Unix OS family to be able to be linked into shared libraries.
 set_target_properties(${PROJECT_NAME}
