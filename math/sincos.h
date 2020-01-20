@@ -77,7 +77,7 @@ namespace math
 	/*std::enable_if_t<stdext::is_eigen_type_v<std::decay_t<In>>>*/
 	template<typename precision>
 	struct mask_type_selector {
-		using type = std::enable_if_t<!std::is_floating_point<precision>>;
+		using type = std::enable_if_t<!std::is_floating_point<precision>::value>;
 	};
 
 	template<>
@@ -108,21 +108,21 @@ namespace math
 
 		if constexpr (remain >= elements_packed)
 		{
-			const auto indata = input.derived().template packet<alignof(*(input.derived().data() + offset))>(offset);
+			const auto indata = input.derived().template packet<alignof(decltype(*(input.derived().data())))>(offset);
 			FullType rescos;
 			const auto ressin = Eigen::internal::psincos(&rescos, indata);
-			cosres.derived().template writePacket<alignof(*(cosres.derived().data() + offset))>(offset, rescos);
-			sinres.derived().template writePacket<alignof(*(sinres.derived().data() + offset))>(offset, ressin);
+			cosres.derived().template writePacket<alignof(decltype(*cosres.derived().data()))>(offset, rescos);
+			sinres.derived().template writePacket<alignof(decltype(*sinres.derived().data()))>(offset, ressin);
 			sincos_unroller<offset + elements_packed, Out, In>(sinres, cosres, input);
 		}
 #ifndef __AVX512__
 		else if constexpr (remain >= elements_packed / 2)
 		{
-			const auto indata = Eigen::internal::evaluator<In>(input.derived()).template packet<alignof(*(input.derived().data() + offset)), HalfType>(offset);
+			const auto indata = Eigen::internal::evaluator<In>(input.derived()).template packet<alignof(decltype (*(input.derived().data() ))), HalfType>(offset);
 			HalfType rescos;
 			const auto ressin = Eigen::internal::psincos(&rescos, indata);
-			Eigen::internal::evaluator<Out>(cosres.derived()).template writePacket<alignof(*(cosres.derived().data() + offset)), HalfType>(offset, rescos);
-			Eigen::internal::evaluator<Out>(sinres.derived()).template writePacket<alignof(*(sinres.derived().data() + offset)), HalfType>(offset, ressin);
+			Eigen::internal::evaluator<Out>(cosres.derived()).template writePacket<alignof(decltype (*(cosres.derived().data() ))), HalfType>(offset, rescos);
+			Eigen::internal::evaluator<Out>(sinres.derived()).template writePacket<alignof(decltype (*(sinres.derived().data() ))), HalfType>(offset, ressin);
 			sincos_unroller<offset + elements_packed/2, Out, In>(sinres, cosres, input);
 		}
 		else if constexpr (remain != 0) // Only if odd number of elements or AVX512
