@@ -85,7 +85,9 @@ namespace math
 	{
 		using uint_t = std::uint8_t;
 		using int_t = std::int8_t;
+#ifdef __AVX512F__
 		using mask_t = __mmask8;
+#endif
 	};
 
 	template<>
@@ -93,7 +95,9 @@ namespace math
 	{
 		using uint_t = std::uint16_t;
 		using int_t = std::int16_t;
+#ifdef __AVX512F__
 		using mask_t = __mmask16;
+#endif
 	};
 
 	template<int offset, typename Out, typename In>
