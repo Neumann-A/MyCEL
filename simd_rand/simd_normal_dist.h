@@ -27,7 +27,7 @@ namespace array_simd_pcg {
 		return _mm256_add_pd(_mm256_mul_pd(ucast<double>(In), norm_const::divisor256_64_pd),norm_const::divisor256_64_pd);
 	}
 
-#ifdef __AVX512F__
+#ifdef SIMD_RNG_AVX512
 	template<>
 	inline auto normalize<double>(__m256i In) {
 		return _mm512_add_pd(_mm512_mul_pd(ucast<double>(In), norm_const::divisor512_64_pd), norm_const::divisor512_64_pd);
@@ -47,7 +47,7 @@ namespace array_simd_pcg {
 		return _mm256_mul_pd(cdfnorminv(In), sigma);
 	};
 
-#ifdef __AVX512F__
+#ifdef SIMD_RNG_AVX512
 	inline auto norm_dist(__m512d In, __m512d sigma) {
 		return _mm512_mul_pd(cdfnorminv(In), sigma);
 	};
@@ -126,7 +126,7 @@ namespace array_simd_pcg {
 		constexpr static int independent_generators=Engine::num_generators;
 
 		using f_AVX = std::conditional_t<used_arch == InstructionSet::AVX512, __m256, __m128>;
-#if __AVX512F__
+#if SIMD_RNG_AVX512
 		using d_AVX = std::conditional_t<used_arch == InstructionSet::AVX512, __m512d, __m256d>;
 #else
 		using d_AVX = __m256d;

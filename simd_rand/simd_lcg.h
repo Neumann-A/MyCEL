@@ -239,8 +239,6 @@ namespace array_simd_pcg {
 		packed_PCG(const packed_PCG<independent_generators, table_k, arch, optimal_output>& rng);
 
 
-
-
 		inline auto operator()() {
 			return output<U>();
 		};
@@ -378,7 +376,7 @@ namespace array_simd_pcg {
 			}
 			else if (used_arch == InstructionSet::AVX512)
 			{
-#ifdef __AVX512F__
+#ifdef SIMD_RNG_AVX512
 				uint64_t last_elements[packed_elements];
 				for (int i = 0; i < min_required_state_registers; i++) {
 					if ((i + 1) * packed_elements > independent_generators) {
@@ -433,7 +431,7 @@ namespace array_simd_pcg {
 			}
 			else if (used_arch == InstructionSet::AVX512)
 			{
-#ifdef __AVX512F__
+#ifdef SIMD_RNG_AVX512
 				uint64_t last_elements[packed_elements];
 				for (int i = 0; i < min_required_state_registers; i++) {
 					if ((i + 1) * packed_elements > independent_generators) {
@@ -488,7 +486,7 @@ namespace array_simd_pcg {
 			}
 			else if (used_arch == InstructionSet::AVX512)
 			{
-#ifdef __AVX512F__
+#ifdef SIMD_RNG_AVX512
 				uint64_t last_elements[packed_elements];
 				for (int i = 0; i < min_required_state_registers; i++) {
 					if ((i + 1) * packed_elements > independent_generators) {
@@ -556,7 +554,7 @@ namespace array_simd_pcg {
 							else if (j == 3) {
 								table[i * packed_elements + j][k] = Extractor< extractor_const[3]>::template extract<std::uint32_t>(table_init.storage);
 							}
-#ifdef __AVX512F__
+#ifdef SIMD_RNG_AVX512
 							else if (j == 4 && isAVX512) {
 								table[i * packed_elements + j][k] = Extractor< extractor_const[4 % m]>::template extract<uint32_t>(table_init.storage);
 							}
@@ -587,7 +585,7 @@ namespace array_simd_pcg {
 							else if (j == 3) {
 								table[i * packed_elements + j][k] = Extractor< extractor_const[3]>::template extract<std::uint32_t>(table_init.storage);
 							}
-#ifdef __AVX512F__
+#ifdef SIMD_RNG_AVX512
 							else if (j == 4 && isAVX512) {
 								table[i * packed_elements + j][k] = Extractor< extractor_const[4 % m]>::template extract<uint32_t>(table_init.storage);
 							}
@@ -688,7 +686,7 @@ namespace array_simd_pcg {
 
 		}
 
-#ifdef __AVX512F__
+#ifdef SIMD_RNG_AVX512
 
 		inline Packed_result extract_table_val(__m512i current_state, int64_t(&idx)[packed_elements]) {
 

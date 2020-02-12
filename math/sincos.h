@@ -19,7 +19,7 @@
 #ifdef __clang__
 #include "../intrin/svml_prolog.h"
 #include "../intrin/svml/avx_svml_intrin.h"
-#ifdef __AVX512__
+#ifdef SIMD_SINCOS_MATH_AVX512
 #include "../intrin/svml/avx512_svml_intrin.h"
 #endif
 #endif
@@ -49,7 +49,7 @@ namespace Eigen::internal {
 		return _mm256_sincos_ps(cosres, Input);
 	}
 
-#ifdef __AVX512__
+#ifdef SIMD_SINCOS_MATH_AVX512
 	template<> EIGEN_STRONG_INLINE Packet8d psincos(Packet8d* cosres, const Packet8d& Input)
 	{
 		return _mm512_sincos_pd(cosres, Input);
@@ -85,7 +85,7 @@ namespace math
 	{
 		using uint_t = std::uint8_t;
 		using int_t = std::int8_t;
-#ifdef __AVX512F__
+#ifdef SIMD_SINCOS_MATH_AVX512
 		using mask_t = __mmask8;
 #endif
 	};
@@ -95,7 +95,7 @@ namespace math
 	{
 		using uint_t = std::uint16_t;
 		using int_t = std::int16_t;
-#ifdef __AVX512F__
+#ifdef SIMD_SINCOS_MATH_AVX512
 		using mask_t = __mmask16;
 #endif
 	};
@@ -119,7 +119,7 @@ namespace math
 			sinres.derived().template writePacket<alignof(decltype(*sinres.derived().data()))>(offset, ressin);
 			sincos_unroller<offset + elements_packed, Out, In>(sinres, cosres, input);
 		}
-#ifndef __AVX512__
+#ifndef SIMD_SINCOS_MATH_AVX512
 		else if constexpr (remain >= elements_packed / 2)
 		{
 			const auto indata = Eigen::internal::evaluator<In>(input.derived()).template packet<alignof(decltype (*(input.derived().data() ))), HalfType>(offset);
