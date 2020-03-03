@@ -113,7 +113,7 @@ const auto timeFunction = [](auto&& func, auto&&... params)
 
 	constexpr auto unit = static_cast<double>(std::chrono::high_resolution_clock::period::num)/static_cast<double>(std::chrono::high_resolution_clock::period::den);
 	
-	return static_cast<double>((end-begin).count()*unit);
+	return static_cast<double>((end-begin).count())*unit;
 };
 
 
@@ -127,7 +127,7 @@ const auto timeFunctionString = [](const std::string& str, auto&& func, auto&&..
 	auto end = std::chrono::high_resolution_clock::now();
 
 	constexpr auto unit = static_cast<double>(std::chrono::high_resolution_clock::period::num) / static_cast<double>(std::chrono::high_resolution_clock::period::den);
-	auto time = static_cast<double>((end - begin).count()*unit);
+	auto time = static_cast<double>((end - begin).count())*unit;
 
 	return (str + std::to_string(time*1000) + " ms.");
 };

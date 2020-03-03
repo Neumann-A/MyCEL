@@ -6,6 +6,7 @@
 
 #include "HPCEnvReader.h"
 #include <charconv>
+#include <cassert>
 namespace utils
 {
     HPCEnvReader::HPCEnvReader() :
@@ -23,7 +24,8 @@ namespace utils
             while (token != nullptr)
             {
                 std::size_t number;
-                const auto res = std::from_chars(token, token + strlen(token), number);
+                [[maybe_unused]] const auto res = std::from_chars(token, token + strlen(token), number);
+                assert(res.ec == std::errc());
                 vec.emplace_back(std::move(number));
                 token = strtok_s(nullptr, delimiter, &next_token);
             }

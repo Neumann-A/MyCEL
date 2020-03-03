@@ -62,7 +62,7 @@ private:
 		std::uint64_t counter = 0;
 		const std::uint64_t create = NumberOfThreadsToCreate;
 		const auto implementation = std::thread::hardware_concurrency();
-		if (NumberOfThreadsToCreate*1.1 >= implementation)
+		if ((NumberOfThreadsToCreate+NumberOfThreadsToCreate/10) >= implementation)
 		{
 			Log("Much more threads requested than supported by implementation!");
 			Log(std::string{ "Requested: " } +std::to_string(create) + "\t Available: " + std::to_string(implementation));
