@@ -160,7 +160,7 @@ namespace math
 	{
 		static_assert(In::RowsAtCompileTime * In::ColsAtCompileTime == Out::RowsAtCompileTime * Out::ColsAtCompileTime);
 
-		constexpr const std::int64_t size = In::RowsAtCompileTime * In::ColsAtCompileTime;
+		[[maybe_unused]] constexpr const std::int64_t size = In::RowsAtCompileTime * In::ColsAtCompileTime;
 
 		sincos_unroller<0, Out, In>(sinres, cosres, input);
 		//while (offset < size)
