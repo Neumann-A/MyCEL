@@ -605,16 +605,15 @@ namespace array_simd_pcg
 		inline void mask_store<InstructionSet::AVX512>(double* mem_addr, int elem, __m512d a) {
 			_mm512_mask_storeu_pd(mem_addr, (0b00000001<<elem)|1, a);
 		}
+		template<>
+		inline void mask_store<InstructionSet::AVX512>(int* mem_addr, int elem, __m256i a) {
+			_mm256_maskstore_epi32(mem_addr, mask::select_element8[elem], a);
+		}
 #endif
 
 		template<>
 		inline void mask_store<InstructionSet::AVX2>(double* mem_addr, int elem, __m256d a) {
 			_mm256_maskstore_pd(mem_addr, mask::select_element4_pd[elem], a);
-		}
-
-		template<>
-		inline void mask_store<InstructionSet::AVX512>(int* mem_addr, int elem, __m256i a) {
-			_mm256_maskstore_epi32(mem_addr, mask::select_element8[elem], a);
 		}
 
 		template<>
