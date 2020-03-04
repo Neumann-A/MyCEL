@@ -1,6 +1,7 @@
 cmake_minimum_required (VERSION 3.16)
-project(Basic_Library CXX)
-
+project(Basic_Library VERSION 1.0.0 LANGUAGES CXX)
+include(GNUInstallDirs)
+include(CMakePackageConfigHelpers)
 #extension to std in namespace stdext
 #include_directories(stdext)
 set(H_FILES_STDEXT  stdext/get_array_size.h
@@ -94,17 +95,39 @@ source_group("intrin\\sources"           FILES ${CPP_FILES_INTRIN})
 source_group("simd_rand\\headers"        FILES ${CPP_FILES_SIMD_RAND})
 source_group("simd_rand\\sources"        FILES ${H_FILES_SIMD_RAND})
 
-# Required on Unix OS family to be able to be linked into shared libraries.
-set_target_properties(${PROJECT_NAME}
-                      PROPERTIES POSITION_INDEPENDENT_CODE ON)
-
-include(CheckIPOSupported)
-check_ipo_supported(RESULT IPO)
-if(IPO)
-	set_property(TARGET ${PROJECT_NAME} PROPERTY INTERPROCEDURAL_OPTIMIZATION TRUE)
-endif()
-
 find_package(Threads REQUIRED)
 target_link_libraries(${PROJECT_NAME} PUBLIC Threads::Threads)
 
-install(TARGETS ${PROJECT_NAME} DESTINATION ${CMAKE_BINARY_DIR}/lib)
+install(TARGETS ${PROJECT_NAME}
+        EXPORT ${PROJECT_NAME}-exports
+        LIBRARY 
+            DESTINATION ${CMAKE_INSTALL_LIBDIR}
+        ARCHIVE 
+            DESTINATION ${CMAKE_INSTALL_LIBDIR}
+        INCLUDES 
+            DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
+)
+
+install(EXPORT ${PROJECT_NAME}-exports
+        FILE
+            ${PROJECT_NAME}Targets.cmake
+        NAMESPACE
+            ${PROJECT_NAME}::
+        DESTINATION
+            ${CMAKE_INSTALL_LIBDIR}/cmake/${PROJECT_NAME}
+)
+
+write_basic_package_version_file(${PROJECT_NAME}ConfigVersion.cmake COMPATIBILITY SameMajorVersion)
+
+configure_package_config_file(
+    ${PROJECT_NAME}Config.cmake.in
+    ${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}Config.cmake
+  INSTALL_DESTINATION 
+    ${CMAKE_INSTALL_LIBDIR}/cmake/${PROJECT_NAME}
+)
+install(FILES 
+            ${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}Config.cmake
+            ${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}ConfigVersion.cmake
+        DESTINATION 
+            ${CMAKE_INSTALL_LIBDIR}/cmake/${PROJECT_NAME} 
+)
