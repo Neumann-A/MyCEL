@@ -4,74 +4,74 @@ include(GNUInstallDirs)
 include(CMakePackageConfigHelpers)
 #extension to std in namespace stdext
 #include_directories(stdext)
-set(H_FILES_STDEXT  stdext/get_array_size.h
-                    stdext/is_arithmetic_container.h
-                    stdext/is_associative_container.h
-                    stdext/is_boost_multiarray.h
-                    stdext/is_callable.h
-                    stdext/is_complex.h
-                    stdext/is_container.h
-                    stdext/is_detected.h
-                    stdext/is_eigen3_type.h
-                    stdext/is_memory_sequentiel_container.h
-                    stdext/is_nested_arithmetic_container.h
-                    stdext/is_nested_container.h
-                    stdext/is_resizeable_container.h
-                    stdext/is_sequentiel_container.h
-                    stdext/is_string.h
-                    stdext/std_extensions.h)
+set(H_FILES_STDEXT  include/stdext/get_array_size.h
+                    include/stdext/is_arithmetic_container.h
+                    include/stdext/is_associative_container.h
+                    include/stdext/is_boost_multiarray.h
+                    include/stdext/is_callable.h
+                    include/stdext/is_complex.h
+                    include/stdext/is_container.h
+                    include/stdext/is_detected.h
+                    include/stdext/is_eigen3_type.h
+                    include/stdext/is_memory_sequentiel_container.h
+                    include/stdext/is_nested_arithmetic_container.h
+                    include/stdext/is_nested_container.h
+                    include/stdext/is_resizeable_container.h
+                    include/stdext/is_sequentiel_container.h
+                    include/stdext/is_string.h
+                    include/stdext/std_extensions.h)
 
 #some basic helpers
 #include_directories(basics)
-set(CPP_FILES_BASICS    basics/BasicIncludes.cpp
-                        basics/GlobalParameters.cpp
-                        basics/StartOptions.cpp)
-set(H_FILES_BASICS      basics/BasicIncludes.h
-                        basics/BasicMacros.h
-                        basics/ComplexMacros.h
-                        basics/GlobalParameters.h
-                        basics/Logger.h
-                        basics/NoCopy.h
-                        basics/SimpleSmartEnum.h
-                        basics/StartOptions.h
-                        basics/ThreadManager.h
-                        basics/Timer.h
-                        basics/Typelist.h)
+set(CPP_FILES_BASICS    src/basics/BasicIncludes.cpp
+                        src/basics/GlobalParameters.cpp
+                        src/basics/StartOptions.cpp)
+set(H_FILES_BASICS      include/basics/BasicIncludes.h
+                        include/basics/BasicMacros.h
+                        include/basics/ComplexMacros.h
+                        include/basics/GlobalParameters.h
+                        include/basics/Logger.h
+                        include/basics/NoCopy.h
+                        include/basics/SimpleSmartEnum.h
+                        include/basics/StartOptions.h
+                        include/basics/ThreadManager.h
+                        include/basics/Timer.h
+                        include/basics/Typelist.h)
 
 #some fundamental math helpers and functions
 #include_directories(math)
-set(H_FILES_MATH    math/ApproxJacobian.h
-                    math/Coordinates.h
-                    math/DistributionCalculator.h
-                    math/DistributionHelper.h
-                    math/Geometry.h
-                    math/GSL_Implicit_Solver.h
-                    math/GSL_Implicit_Solver_Derivative_Free.h
-                    math/Implicit_Solver.h
-                    math/math_constants.h
-                    math/random_helpers.h
-                    math/sincos.h)
+set(H_FILES_MATH    include/math/ApproxJacobian.h
+                    include/math/Coordinates.h
+                    include/math/DistributionCalculator.h
+                    include/math/DistributionHelper.h
+                    include/math/Geometry.h
+                    include/math/GSL_Implicit_Solver.h
+                    include/math/GSL_Implicit_Solver_Derivative_Free.h
+                    include/math/Implicit_Solver.h
+                    include/math/include/math_constants.h
+                    include/math/random_helpers.h
+                    include/math/sincos.h)
 
 #include_directories(utils)
-set(CPP_FILES_UTILS utils/CoreInfo.cpp
-                    utils/hpcenvreader.cpp
-                    utils/ProcessorInformation.cpp)
-set(H_FILES_UTILS   utils/CoreInfo.h
-                    utils/HPCEnvReader.h
-                    utils/ProcessorInformation.h
-                    utils/ThreadDispatcher.h
-                    utils/ThreadPool.h)
+set(CPP_FILES_UTILS src/utils/CoreInfo.cpp
+                    src/utils/hpcenvreader.cpp
+                    src/utils/ProcessorInformation.cpp)
+set(H_FILES_UTILS   include/utils/CoreInfo.h
+                    include/utils/HPCEnvReader.h
+                    include/utils/ProcessorInformation.h
+                    include/utils/ThreadDispatcher.h
+                    include/utils/ThreadPool.h)
 
 set(CPP_FILES_INTRIN )
-set(H_FILES_INTRIN   intrin/svml_prolog.h
-                     intrin/svml/avx_svml_intrin.h
-                     intrin/svml/avx512_svml_intrin.h)
+set(H_FILES_INTRIN   include/intrin/svml_prolog.h
+                     include/intrin/svml/avx_svml_include/intrin.h
+                     include/intrin/svml/avx512_svml_include/intrin.h)
 
 set(CPP_FILES_SIMD_RAND )
-set(H_FILES_SIMD_RAND   simd_rand/constants.h
-                        simd_rand/definitions.h
-                        simd_rand/simd_lcg.h
-                        simd_rand/simd_normal_dist.h)
+set(H_FILES_SIMD_RAND   include/simd_rand/constants.h
+                        include/simd_rand/definitions.h
+                        include/simd_rand/simd_lcg.h
+                        include/simd_rand/simd_normal_dist.h)
 
 set(CPP_FILES ${CPP_FILES_STDEXT} ${CPP_FILES_BASICS} ${CPP_FILES_MATH} ${CPP_FILES_UTILS} ${CPP_FILES_INTRIN} ${CPP_FILES_SIMD_RAND})
 set(H_FILES ${H_FILES_STDEXT} ${H_FILES_BASICS} ${H_FILES_MATH} ${H_FILES_UTILS} ${H_FILES_INTRIN} ${H_FILES_SIMD_RAND})
