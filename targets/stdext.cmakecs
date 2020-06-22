@@ -1,0 +1,25 @@
+TARGET_NAME
+    stdext
+LIBRARY_TYPE
+    INTERFACE    
+INTERFACE_COMPILE_FEATURES
+    cxx_std_17
+INTERFACE_SOURCES
+    $<BUILD_INTERFACE:$<TARGET_PROPERTY:SOURCE_DIR>/include/stdext/get_array_size.h>
+    $<BUILD_INTERFACE:$<TARGET_PROPERTY:SOURCE_DIR>/include/stdext/is_arithmetic_container.h>
+    $<BUILD_INTERFACE:$<TARGET_PROPERTY:SOURCE_DIR>/include/stdext/is_associative_container.h>
+    $<BUILD_INTERFACE:$<TARGET_PROPERTY:SOURCE_DIR>/include/stdext/is_boost_multiarray.h>
+    $<BUILD_INTERFACE:$<TARGET_PROPERTY:SOURCE_DIR>/include/stdext/is_callable.h>
+    $<BUILD_INTERFACE:$<TARGET_PROPERTY:SOURCE_DIR>/include/stdext/is_complex.h>
+    $<BUILD_INTERFACE:$<TARGET_PROPERTY:SOURCE_DIR>/include/stdext/is_container.h>
+    $<BUILD_INTERFACE:$<TARGET_PROPERTY:SOURCE_DIR>/include/stdext/is_detected.h>
+    $<BUILD_INTERFACE:$<TARGET_PROPERTY:SOURCE_DIR>/include/stdext/is_eigen3_type.h>
+    $<BUILD_INTERFACE:$<TARGET_PROPERTY:SOURCE_DIR>/include/stdext/is_memory_sequentiel_container.h>
+    $<BUILD_INTERFACE:$<TARGET_PROPERTY:SOURCE_DIR>/include/stdext/is_nested_arithmetic_container.h>
+    $<BUILD_INTERFACE:$<TARGET_PROPERTY:SOURCE_DIR>/include/stdext/is_nested_container.h>
+    $<BUILD_INTERFACE:$<TARGET_PROPERTY:SOURCE_DIR>/include/stdext/is_resizeable_container.h>
+    $<BUILD_INTERFACE:$<TARGET_PROPERTY:SOURCE_DIR>/include/stdext/is_sequentiel_container.h>
+    $<BUILD_INTERFACE:$<TARGET_PROPERTY:SOURCE_DIR>/include/stdext/is_string.h>
+    $<BUILD_INTERFACE:$<TARGET_PROPERTY:SOURCE_DIR>/include/stdext/std_extensions.h>
+# INTERFACE_INCLUDE_DIRECTORIES
+#     include

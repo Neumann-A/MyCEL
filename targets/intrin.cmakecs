@@ -1,0 +1,12 @@
+TARGET_NAME
+    intrin
+LIBRARY_TYPE
+    INTERFACE    
+INTERFACE_COMPILE_FEATURES
+    cxx_std_17
+INTERFACE_SOURCES
+    $<BUILD_INTERFACE:$<TARGET_PROPERTY:SOURCE_DIR>/include/intrin/svml_prolog.h>
+    $<BUILD_INTERFACE:$<TARGET_PROPERTY:SOURCE_DIR>/include/intrin/svml/avx_svml_intrin.h>
+    $<BUILD_INTERFACE:$<TARGET_PROPERTY:SOURCE_DIR>/include/intrin/svml/avx512_svml_intrin.h>
+# INTERFACE_INCLUDE_DIRECTORIES
+#     $<BUILD_INTERFACE:include>

@@ -1,0 +1,18 @@
+TARGET_NAME
+    utils
+LIBRARY_TYPE
+    OBJECT
+PUBLIC_COMPILE_FEATURES
+    cxx_std_17
+SOURCES
+    src/utils/CoreInfo.cpp
+    src/utils/hpcenvreader.cpp
+    src/utils/ProcessorInformation.cpp
+HEADERS
+    include/utils/CoreInfo.h
+    include/utils/HPCEnvReader.h
+    include/utils/ProcessorInformation.h
+    include/utils/ThreadDispatcher.h
+    include/utils/ThreadPool.h
+PRIVATE_INCLUDE_DIRECTORIES
+    include/utils

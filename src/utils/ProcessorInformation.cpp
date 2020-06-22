@@ -1,6 +1,4 @@
 ///-------------------------------------------------------------------------------------------------
-// file:	C:\Sources\Repos\Everything\Basic_Library\utils\ProcessorInformation.cpp
-//
 // summary:	Implements the processor information class
 ///-------------------------------------------------------------------------------------------------
 

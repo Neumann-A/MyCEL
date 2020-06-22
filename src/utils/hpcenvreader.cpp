@@ -1,6 +1,4 @@
 ///-------------------------------------------------------------------------------------------------
-// file:	C:\Sources\Repos\Everything\Basic_Library\utils\HPCEnvReader.cpp
-//
 // summary:	Implements the hpc environment reader class
 ///-------------------------------------------------------------------------------------------------
 

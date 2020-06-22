@@ -3,14 +3,13 @@
 #ifndef INC_STARTOPTIONS_H_
 #define INC_STARTOPTIONS_H_
 
-#include "BasicMacros.h"
-
 #include <string>
+#include <regex>
 #include <map>
 #include <utility>
-#include <regex>
 #include <functional>
 
+#include "BasicMacros.h"
 #include "Logger.h"
 
 class IStartOptionDependeable
@@ -31,9 +30,8 @@ class StartOptions
 private:
 	typedef void(*FuncOptNotFound)(void);
 	typedef void(*FuncOptFound)(std::string);
-	typedef std::tuple<std::string, FuncOptFound, FuncOptNotFound, std::string> OptInfo;
-	typedef std::map<std::string, OptInfo> OptType;
-
+	using OptInfo = std::tuple<std::string, FuncOptFound, FuncOptNotFound, std::string> ;
+	using OptType = std::map<std::string, OptInfo>;
 
 	OptType moptions;
 	std::map<std::string, std::string> FoundwithArgument;
@@ -42,7 +40,6 @@ private:
 
 protected:
 public:
-
 	StartOptions() {}
 	virtual ~StartOptions() = default;
 
@@ -64,8 +61,6 @@ public:
 	std::map<std::string, std::pair<std::string, std::string>> getOptions();
 
 	void printOptions();
-
-
 };
 
 #endif //_STARTOPTIONS_H_

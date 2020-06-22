@@ -1,5 +1,7 @@
 #include "StartOptions.h"
 
+#include <regex>
+#include <string>
 
 void StartOptions::registerOption(const std::string optionname, OptInfo Info)
 {

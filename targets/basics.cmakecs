@@ -1,0 +1,28 @@
+TARGET_NAME
+    basics
+LIBRARY_TYPE
+    OBJECT    
+PUBLIC_DEPENDS 
+    Threads::Threads
+PUBLIC_COMPILE_FEATURES
+    cxx_std_17
+SOURCES
+    src/basics/BasicIncludes.cpp
+    src/basics/GlobalParameters.cpp
+    src/basics/StartOptions.cpp
+HEADERS
+    include/basics/BasicIncludes.h
+    include/basics/BasicMacros.h
+    include/basics/ComplexMacros.h
+    include/basics/GlobalParameters.h
+    include/basics/Logger.h
+    include/basics/NoCopy.h
+    include/basics/SimpleSmartEnum.h
+    include/basics/StartOptions.h
+    include/basics/ThreadManager.h
+    include/basics/Timer.h
+    include/basics/Typelist.h
+# INTERFACE_INCLUDE_DIRECTORIES
+#     $<BUILD_INTERFACE:include>
+PRIVATE_INCLUDE_DIRECTORIES
+    include/basics
