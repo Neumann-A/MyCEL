@@ -16,5 +16,3 @@ INTERFACE_SOURCES
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include/math/math_constants.h>
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include/math/random_helpers.h>
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include/math/sincos.h>
-# INTERFACE_INCLUDE_DIRECTORIES
-#     $<BUILD_INTERFACE:include>

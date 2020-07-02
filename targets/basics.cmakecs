@@ -22,7 +22,5 @@ HEADERS
     include/basics/ThreadManager.h
     include/basics/Timer.h
     include/basics/Typelist.h
-# INTERFACE_INCLUDE_DIRECTORIES
-#     $<BUILD_INTERFACE:include>
 PRIVATE_INCLUDE_DIRECTORIES
     include/basics
