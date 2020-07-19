@@ -1,18 +1,22 @@
 TARGET_NAME
     math
 LIBRARY_TYPE
-    INTERFACE    
-INTERFACE_COMPILE_FEATURES
+    OBJECT    
+PUBLIC_COMPILE_FEATURES
     cxx_std_17
-INTERFACE_SOURCES
-    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include/math/ApproxJacobian.h>
-    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include/math/Coordinates.h>
-    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include/math/DistributionCalculator.h>
-    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include/math/DistributionHelper.h>
-    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include/math/Geometry.h>
-    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include/math/GSL_Implicit_Solver.h>
-    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include/math/GSL_Implicit_Solver_Derivative_Free.h>
-    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include/math/Implicit_Solver.h>
-    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include/math/math_constants.h>
-    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include/math/random_helpers.h>
-    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include/math/sincos.h>
+HEADERS
+   include/math/ApproxJacobian.h
+   include/math/Coordinates.h
+   include/math/DistributionCalculator.h
+   include/math/DistributionHelper.h
+   include/math/Geometry.h
+   include/math/GSL_Implicit_Solver.h
+   include/math/GSL_Implicit_Solver_Derivative_Free.h
+   include/math/Implicit_Solver.h
+   include/math/math_constants.h
+   include/math/random_helpers.h
+   include/math/sincos.h
+SOURCES
+    src/math/DistributionHelper.cpp
+PRIVATE_INCLUDE_DIRECTORIES
+    include/math

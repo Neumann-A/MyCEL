@@ -17,8 +17,10 @@
 #include <immintrin.h>
 
 #ifdef __clang__
+#ifdef __AVX__
 #include "../intrin/svml_prolog.h"
 #include "../intrin/svml/avx_svml_intrin.h"
+#endif
 #ifdef SIMD_SINCOS_MATH_AVX512
 #include "../intrin/svml/avx512_svml_intrin.h"
 #endif
@@ -27,7 +29,7 @@
 #include "../stdext/is_eigen3_type.h"
 #include <Eigen/Core>
 
-#ifdef EIGEN_CORE_H
+#if defined(EIGEN_CORE_H) && defined(__AVX__)
 namespace Eigen::internal {
 	template<typename T> EIGEN_STRONG_INLINE T psincos(T* cosres, const T& In) {};
 

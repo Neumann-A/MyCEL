@@ -4,12 +4,12 @@ LIBRARY_TYPE
     STATIC    
 PRIVATE_DEPENDS 
     stdext
-    math
     intrin
     simd_rand
 SOURCES
     $<TARGET_OBJECTS:utils>
     $<TARGET_OBJECTS:basics>
+    $<TARGET_OBJECTS:math>
 PRIVATE_DEFINITIONS
     CMakeCS::CompilerWarnings
 PUBLIC_COMPILE_FEATURES

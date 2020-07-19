@@ -19,35 +19,25 @@
 #include <vector>
 #include <utility>
 #include <map>
+#include <random>
 
 #include "../basics/Logger.h"
+#include "random_helpers.h"
 
-#include <random>
-#include "../math/random_helpers.h"
+
 
 namespace Distribution
 {
 	enum class IDistribution { Distribution_unknown, Distribution_delta, Distribution_normal, Distribution_lognormal, Distribution_gamma };
-	static const std::map<IDistribution, std::string> IDistributionMap{ { { IDistribution::Distribution_unknown,"unknown" },
-		{ IDistribution::Distribution_delta,"delta" } ,{ IDistribution::Distribution_normal,"normal" },
-		{ IDistribution::Distribution_lognormal,"lognormal" },{ IDistribution::Distribution_gamma,"gamma" } } };
+	extern const std::map<IDistribution, std::string> IDistributionMap;
 
-	inline std::string to_string(const IDistribution& field)
-	{
-		return IDistributionMap.at(field);
-	};
+	std::string to_string(const IDistribution& field);
+
 
 	template<typename T>
-	T from_string(const std::string &);
+	T from_string(const std::string &String);
 	template<>
-	inline IDistribution from_string<IDistribution>(const std::string &String) //TODO: Remoe inline move to cpp; currently gives linker errors!
-	{
-		for (auto it : IDistributionMap)
-			if (it.second == String)
-				return it.first;
-
-		throw std::runtime_error{ std::string{ "Type of Distribution unknown! " } +String };
-	};
+	IDistribution from_string<IDistribution>(const std::string &String);
 
 	template<typename ReturnValue>
 	class IDistributionHelper
@@ -101,9 +91,6 @@ namespace Distribution
 		{
 			return _distribution(_prng);
 		}
-
-
-
 	};
 
 	template <typename inttype>
