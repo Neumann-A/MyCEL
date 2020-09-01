@@ -33,10 +33,16 @@
 
 #elif __GNUC__ || __clang__ || __llvm__
 
+#define DEPRECATED
+#define DEPRECATEDREASON(x) 
+#define NORETURN 
+
 #if __has_cpp_attribute(nodiscard)
 #define NODISCARD [[nodiscard]]
 #elif __has_cpp_attribute(gnu::warn_unused_result)
 #define NODISCARD [[gnu::warn_unused_result]]
+#else
+#define NODISCARD
 #endif
 
 #if __has_cpp_attribute(fallthrough)
@@ -51,12 +57,18 @@
 #define MAYBE_UNUSED [[maybe_unused]]
 #elif __has_cpp_attribute(gnu::unused)
 #define MAYBE_UNUSED [[gnu::unused]]
-
+#else
+#define MAYBE_UNUSED
 #endif
+
+
 #else
 #define NODISCARD
 #define FALLTHROUGH
 #define MAYBE_UNUSED
+#define DEPRECATED
+#define DEPRECATEDREASON(x) 
+#define NORETURN 
 #endif
 
 #define IS_SAME_TYPE(T1, T2) \
