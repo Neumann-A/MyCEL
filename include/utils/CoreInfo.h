@@ -22,6 +22,7 @@
 
 #include "ProcessorInformation.h"
 
+#ifdef WIN32
 namespace utils {
     // A single logical Core
     struct LogicalCoreInfo
@@ -83,6 +84,9 @@ namespace utils {
         bool isSameCore(const std::uint64_t& CoreNumber1, const std::uint64_t& CoreNumber2);
     };
 }
+
+#endif
+
 #endif	// INC_ProcessorInfo_H
 // end of ProcessorInfo.h
 ///---------------------------------------------------------------------------------------------------

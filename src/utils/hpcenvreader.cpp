@@ -5,6 +5,8 @@
 #include "HPCEnvReader.h"
 #include <charconv>
 #include <cassert>
+
+#ifdef WIN32
 namespace utils
 {
     HPCEnvReader::HPCEnvReader() :
@@ -32,3 +34,4 @@ namespace utils
         return {};
     }
 }
+#endif

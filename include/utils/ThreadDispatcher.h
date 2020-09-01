@@ -18,6 +18,7 @@
 
 #include "CoreInfo.h"
 
+#ifdef WIN32
 namespace utils
 {
     struct ThreadDispatcher
@@ -123,6 +124,9 @@ namespace utils
     };
 
 }
+
+#endif
+
 #endif	// INC_ThreadDispatcher_H
 // end of ThreadDispatcher.h
 ///---------------------------------------------------------------------------------------------------

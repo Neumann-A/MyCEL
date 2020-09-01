@@ -2,7 +2,10 @@
 // summary:	Implements the core information class
 ///-------------------------------------------------------------------------------------------------
 
+
 #include "CoreInfo.h"
+
+#ifdef WIN32
 
 #include <numeric>
 #include <limits>
@@ -121,3 +124,5 @@ namespace utils
     }
 
 }
+
+#endif

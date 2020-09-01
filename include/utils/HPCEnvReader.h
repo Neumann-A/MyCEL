@@ -17,6 +17,9 @@
 #include <memory>
 #include <vector>
 #include <iostream>
+
+#ifdef WIN32
+
 namespace utils
 {
     struct HPCEnvReader
@@ -67,6 +70,9 @@ namespace utils
         static std::vector<std::size_t> createCoreList(char* envvar);
     };
 }
+
+#endif
+
 #endif	// INC_HPCEnvReader_H
 // end of HPCEnvReader.h
 ///---------------------------------------------------------------------------------------------------

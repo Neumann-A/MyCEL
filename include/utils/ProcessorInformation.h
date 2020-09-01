@@ -13,6 +13,7 @@
 ///---------------------------------------------------------------------------------------------------
 #pragma once
 
+#ifdef WIN32
 //Silly guarding using the preprocessor
 #ifndef WIN32_LEAN_AND_MEAN
 #define INC_ProcessorInformation_H_WIN32_LEAN_AND_MEAN
@@ -53,6 +54,8 @@ namespace utils
 
 
 }
+#endif
+
 #endif	// INC_ProcessorInformation_H
 // end of ProcessorInformation.h
 ///---------------------------------------------------------------------------------------------------
