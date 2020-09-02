@@ -44,12 +44,17 @@ namespace BasicTools
 	};
 
 	// Conversion from a std::string to a arithmetic type
+	#ifdef WIN32
 	template<typename Number>
 	std::enable_if_t<std::is_arithmetic<Number>::value, std::decay_t<Number>> stringToNumber(const std::string&, size_t &)
 	{
 		//assert(false); // should not be called!
 		return 0;
 	};
+	#else
+	template<typename Number>
+	Number stringToNumber(const std::string&, size_t &);
+	#endif
 
 	// Conversion from a std::string to a arithmetic type
 	template<typename Number>
