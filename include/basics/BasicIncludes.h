@@ -72,7 +72,7 @@ namespace BasicTools
 	long double stringToNumber<long double>(const std::string& stringtoconvert, size_t& pos);
 
 	template<>
-	int stringToNumber<short>(const std::string& stringtoconvert, size_t& pos);
+	short stringToNumber<short>(const std::string& stringtoconvert, size_t& pos);
 	template<>
 	int stringToNumber<int>(const std::string& stringtoconvert, size_t& pos);
 	template<>
