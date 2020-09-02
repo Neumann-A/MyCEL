@@ -21,9 +21,21 @@ namespace BasicTools
 	}
 
 	template<>
+	short stringToNumber<short>(const std::string& stringtoconvert, size_t& pos)
+	{
+		return (short)(std::stoi(stringtoconvert, &pos));
+	}
+
+	template<>
 	int stringToNumber<int>(const std::string& stringtoconvert, size_t& pos)
 	{
 		return std::stoi(stringtoconvert, &pos);
+	}
+
+	template<>
+	int stringToNumber<unsigned int>(const std::string& stringtoconvert, size_t& pos)
+	{
+		return (unsigned int)(std::stoul(stringtoconvert, &pos));
 	}
 
 	template<>
