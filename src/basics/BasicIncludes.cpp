@@ -33,7 +33,7 @@ namespace BasicTools
 	}
 
 	template<>
-	int stringToNumber<unsigned int>(const std::string& stringtoconvert, size_t& pos)
+	unsigned int stringToNumber<unsigned int>(const std::string& stringtoconvert, size_t& pos)
 	{
 		return (unsigned int)(std::stoul(stringtoconvert, &pos));
 	}
