@@ -1,0 +1,22 @@
+TARGET_NAME
+    MyCEL
+LIBRARY_TYPE
+    STATIC    
+PRIVATE_DEPENDS 
+    stdext
+    intrin
+    simd_rand
+SOURCES
+    $<TARGET_OBJECTS:utils>
+    $<TARGET_OBJECTS:basics>
+    $<TARGET_OBJECTS:math>
+PRIVATE_DEFINITIONS
+    CMakeCS::CompilerWarnings
+PUBLIC_COMPILE_FEATURES
+    cxx_std_17
+HEADER_DIRECTORIES_TO_INSTALL
+    include/                    # The extra / is needed so that we don't get include/include/ installed
+PRIVATE_INCLUDE_DIRECTORIES
+    include
+PROPERTIES
+    LINKER_LANGUAGE;CXX

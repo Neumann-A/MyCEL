@@ -1,0 +1,11 @@
+TARGET_NAME
+    simd_rand
+LIBRARY_TYPE
+    INTERFACE    
+INTERFACE_COMPILE_FEATURES
+    cxx_std_17
+INTERFACE_SOURCES
+    $<BUILD_INTERFACE:$<TARGET_PROPERTY:SOURCE_DIR>/include/simd_rand/constants.h>
+    $<BUILD_INTERFACE:$<TARGET_PROPERTY:SOURCE_DIR>/include/simd_rand/definitions.h>
+    $<BUILD_INTERFACE:$<TARGET_PROPERTY:SOURCE_DIR>/include/simd_rand/simd_lcg.h>
+    $<BUILD_INTERFACE:$<TARGET_PROPERTY:SOURCE_DIR>/include/simd_rand/simd_normal_dist.h>

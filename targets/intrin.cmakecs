@@ -1,0 +1,10 @@
+TARGET_NAME
+    intrin
+LIBRARY_TYPE
+    INTERFACE    
+INTERFACE_COMPILE_FEATURES
+    cxx_std_17
+INTERFACE_SOURCES
+    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include/intrin/svml_prolog.h>
+    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include/intrin/svml/avx_svml_intrin.h>
+    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include/intrin/svml/avx512_svml_intrin.h>
