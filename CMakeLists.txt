@@ -6,3 +6,5 @@ if(NOT CMakeCS_FOUND)
 endif()
 
 project("Project.MyCEL.cmakecs")
+
+add_subdirectory(tests)

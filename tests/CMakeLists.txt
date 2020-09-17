@@ -1,0 +1,2 @@
+add_executable(MyCEL_Testing EXCLUDE_FROM_ALL testing.cpp )
+target_link_libraries(MyCEL_Testing PRIVATE MyCEL)

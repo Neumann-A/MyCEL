@@ -1,8 +1,8 @@
 TARGET_NAME
     MyCEL
 LIBRARY_TYPE
-    STATIC    
-PRIVATE_DEPENDS 
+    STATIC
+PRIVATE_DEPENDS
     stdext
     intrin
     simd_rand
