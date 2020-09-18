@@ -20,6 +20,7 @@
 #include <utility>
 #include <map>
 #include <random>
+#include <string>
 
 #include "../basics/Logger.h"
 #include "random_helpers.h"
