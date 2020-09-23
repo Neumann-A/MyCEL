@@ -21,48 +21,30 @@
 
 namespace stdext
 {
-	template<typename T, typename _ = std::void_t<> >
-	struct is_string : std::false_type {};
+    namespace detail
+    {
+        template<typename T, typename _ = std::void_t<> >
+        struct is_string_impl : std::false_type {};
 
-	template<typename CharT, typename TraitsT, typename AllocatorT>
-	struct is_string<std::basic_string<CharT, TraitsT, AllocatorT>> : std::true_type {};
-	
-	//template <typename T>
-	//struct is_string<T,
-	//	std::void_t<
-	//	typename std::decay_t<T>::value_type,
-	//	typename std::decay_t<T>::traits_type,
-	//	typename std::decay_t<T>::allocator_type
-	//	>
-	//>
-	//	: std::is_same<
-	//	std::basic_string<
-	//	typename std::decay_t<T>::value_type,
-	//	typename std::decay_t<T>::traits_type,
-	//	typename std::decay_t<T>::allocator_type
-	//	>,
-	//	std::decay_t<T>
-	//	>
-	//{};
+        template<typename CharT, typename TraitsT, typename AllocatorT>
+        struct is_string_impl<std::basic_string<CharT, TraitsT, AllocatorT>> : std::true_type {};
+    }
 
-	template<typename T>
-	constexpr bool is_string_v = is_string<T>::value;
+    template <typename T>
+    struct is_string :  detail::is_string_impl<std::decay_t<T>> {};
 
-	template<typename T, typename _ = std::void_t<> >
-	struct is_container_of_strings : std::false_type {};
+    template<typename T>
+    constexpr bool is_string_v = is_string<T>::value;
 
-	template<typename T>
-	struct is_container_of_strings<T, std::void_t<typename T::value_type>> : std::conjunction<stdext::is_string<std::decay_t<typename T::value_type>>,stdext::is_container<std::decay_t<T>>> {};
-	
-	template<typename T>
-	constexpr bool is_container_of_strings_v = is_container_of_strings<T>::value;
+    template<typename T, typename _ = std::void_t<> >
+    struct is_container_of_strings : std::false_type {};
 
-	////Tests
-	//static_assert(stdext::is_string_v<std::string>);
-	//static_assert(stdext::is_string_v<std::string&>);
-	//static_assert(stdext::is_string_v<const std::string&>);
-	//static_assert(stdext::is_string_v<volatile std::string&>);
-
+    template<typename T>
+    struct is_container_of_strings<T, std::void_t<typename T::value_type>> : 
+            std::conjunction<stdext::is_string<std::decay_t<typename T::value_type>>,stdext::is_container<std::decay_t<T>>> {};
+    
+    template<typename T>
+    constexpr bool is_container_of_strings_v = is_container_of_strings<T>::value;
 }
 
 #endif

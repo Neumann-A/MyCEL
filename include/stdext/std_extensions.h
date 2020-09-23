@@ -15,7 +15,6 @@
 
 #include <type_traits>
 
-//#include "is_callable.h" (not need -> use stdext::is_detected instead)
 #include "is_complex.h"
 #include "is_container.h"
 #include "is_detected.h"
