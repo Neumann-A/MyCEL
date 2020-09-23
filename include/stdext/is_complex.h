@@ -4,21 +4,13 @@
 
 namespace stdext
 {
-	template<typename T, typename _ = std::void_t<> >
-	struct is_complex : std::false_type {};
+    template<typename T, typename _ = std::void_t<> >
+    struct is_complex : std::false_type {};
 
-	template <typename T>
-	struct is_complex<T,
-		std::void_t< typename std::decay_t<T>::value_type >> : std::conjunction<std::is_same<T, std::complex<typename T::value_type> >, std::is_arithmetic<std::decay_t<typename T::value_type>>> {};
+    template <typename T>
+    struct is_complex<T,
+        std::void_t< typename std::decay_t<T>::value_type >> : std::conjunction<std::is_same<T, std::complex<typename T::value_type> >, std::is_arithmetic<std::decay_t<typename T::value_type>>> {};
 
-	template<typename T>
-	static constexpr bool is_complex_v = is_complex<T>::value;
-
-	namespace
-	{
-		static_assert(is_complex_v<std::complex<double>>,"Static test failed");
-		static_assert(is_complex_v<std::complex<float>>, "Static test failed");
-		static_assert(is_complex_v<std::complex<long double>>, "Static test failed");
-		static_assert(is_complex_v<std::complex<std::size_t>>, "Static test failed");
-	}
+    template<typename T>
+    static constexpr bool is_complex_v = is_complex<T>::value;
 }

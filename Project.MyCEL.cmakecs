@@ -20,6 +20,7 @@ TARGET_FILES
     targets/math.cmakecs
     targets/utils.cmakecs
     targets/stdext.cmakecs
+    targets/stdext_test.cmakecs
     targets/intrin.cmakecs
     targets/simd_rand.cmakecs
     targets/MyCEL.cmakecs

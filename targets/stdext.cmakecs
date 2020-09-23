@@ -9,7 +9,6 @@ INTERFACE_SOURCES
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include/stdext/is_arithmetic_container.h>
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include/stdext/is_associative_container.h>
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include/stdext/is_boost_multiarray.h>
-    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include/stdext/is_callable.h>
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include/stdext/is_complex.h>
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include/stdext/is_container.h>
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include/stdext/is_detected.h>
