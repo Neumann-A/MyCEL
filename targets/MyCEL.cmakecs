@@ -6,6 +6,7 @@ PRIVATE_DEPENDS
     stdext
     intrin
     simd_rand
+    types
 SOURCES
     $<TARGET_OBJECTS:utils>
     $<TARGET_OBJECTS:basics>
@@ -13,7 +14,7 @@ SOURCES
 PRIVATE_DEFINITIONS
     CMakeCS::CompilerWarnings
 PUBLIC_COMPILE_FEATURES
-    cxx_std_17
+    cxx_std_20
 HEADER_DIRECTORIES_TO_INSTALL
     include/                    # The extra / is needed so that we don't get include/include/ installed
 PRIVATE_INCLUDE_DIRECTORIES
