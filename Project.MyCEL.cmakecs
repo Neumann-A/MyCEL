@@ -23,5 +23,6 @@ TARGET_FILES
     targets/stdext_test.cmakecs
     targets/intrin.cmakecs
     targets/simd_rand.cmakecs
+    targets/types.cmakecs
     targets/MyCEL.cmakecs
 SYMLINKED_BUILD_INCLUDEDIR
