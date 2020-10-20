@@ -5,6 +5,6 @@ LIBRARY_TYPE
 INTERFACE_COMPILE_FEATURES
     cxx_std_20
 INTERFACE_SOURCES
-    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include/types/operators.hpp>
-    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include/types/static_map.hpp>
-    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include/types/strongtype.hpp>
+    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include/MyCEL/types/operators.hpp>
+    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include/MyCEL/types/static_map.hpp>
+    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include/MyCEL/types/strongtype.hpp>

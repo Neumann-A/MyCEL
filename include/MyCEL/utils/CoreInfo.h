@@ -19,7 +19,6 @@
 #include <vector>
 #include <optional>
 
-
 #include "ProcessorInformation.h"
 
 #ifdef WIN32

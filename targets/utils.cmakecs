@@ -9,10 +9,10 @@ SOURCES
     src/utils/hpcenvreader.cpp
     src/utils/ProcessorInformation.cpp
 HEADERS
-    include/utils/CoreInfo.h
-    include/utils/HPCEnvReader.h
-    include/utils/ProcessorInformation.h
-    include/utils/ThreadDispatcher.h
-    include/utils/ThreadPool.h
+    include/MyCEL/utils/CoreInfo.h
+    include/MyCEL/utils/HPCEnvReader.h
+    include/MyCEL/utils/ProcessorInformation.h
+    include/MyCEL/utils/ThreadDispatcher.h
+    include/MyCEL/utils/ThreadPool.h
 PRIVATE_INCLUDE_DIRECTORIES
-    include/utils
+    include/MyCEL/utils
