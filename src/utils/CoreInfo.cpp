@@ -10,6 +10,7 @@
 #include <numeric>
 #include <limits>
 
+
 namespace utils
 {
     PhysicalCoreInfo::PhysicalCoreInfo(std::uint8_t grp, const std::uint64_t msk, const std::size_t CoreOffset)

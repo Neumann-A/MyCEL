@@ -9,5 +9,5 @@ PUBLIC_COMPILE_FEATURES
 SOURCES
     src/stdext/test.cpp
 PRIVATE_INCLUDE_DIRECTORIES
-    include/stdext
+    include/MyCEL/stdext
 NO_TARGET_EXPORT

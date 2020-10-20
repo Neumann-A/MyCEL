@@ -5,18 +5,18 @@ LIBRARY_TYPE
 PUBLIC_COMPILE_FEATURES
     cxx_std_17
 HEADERS
-   include/math/ApproxJacobian.h
-   include/math/Coordinates.h
-   include/math/DistributionCalculator.h
-   include/math/DistributionHelper.h
-   include/math/Geometry.h
-   include/math/GSL_Implicit_Solver.h
-   include/math/GSL_Implicit_Solver_Derivative_Free.h
-   include/math/Implicit_Solver.h
-   include/math/math_constants.h
-   include/math/random_helpers.h
-   include/math/sincos.h
+   include/MyCEL/math/ApproxJacobian.h
+   include/MyCEL/math/Coordinates.h
+   include/MyCEL/math/DistributionCalculator.h
+   include/MyCEL/math/DistributionHelper.h
+   include/MyCEL/math/Geometry.h
+   include/MyCEL/math/GSL_Implicit_Solver.h
+   include/MyCEL/math/GSL_Implicit_Solver_Derivative_Free.h
+   include/MyCEL/math/Implicit_Solver.h
+   include/MyCEL/math/math_constants.h
+   include/MyCEL/math/random_helpers.h
+   include/MyCEL/math/sincos.h
 SOURCES
     src/math/DistributionHelper.cpp
 PRIVATE_INCLUDE_DIRECTORIES
-    include/math
+    include/MyCEL/math
