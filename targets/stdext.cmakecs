@@ -20,3 +20,5 @@ INTERFACE_SOURCES
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include/MyCEL/stdext/is_sequentiel_container.h>
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include/MyCEL/stdext/is_string.h>
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include/MyCEL/stdext/std_extensions.h>
+INTERFACE_INCLUDE_DIRECTORIES
+    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include/>
