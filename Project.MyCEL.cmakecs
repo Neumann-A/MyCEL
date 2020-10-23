@@ -25,4 +25,3 @@ TARGET_FILES
     targets/simd_rand.cmakecs
     targets/types.cmakecs
     targets/MyCEL.cmakecs
-SYMLINKED_BUILD_INCLUDEDIR

@@ -19,5 +19,7 @@ HEADER_DIRECTORIES_TO_INSTALL
     include/                    # The extra / is needed so that we don't get include/ installed
 PRIVATE_INCLUDE_DIRECTORIES
     include
+INTERFACE_INCLUDE_DIRECTORIES
+    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include/>
 PROPERTIES
     LINKER_LANGUAGE;CXX

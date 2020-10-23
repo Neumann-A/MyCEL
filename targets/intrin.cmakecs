@@ -8,3 +8,5 @@ INTERFACE_SOURCES
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include/MyCEL/intrin/svml_prolog.h>
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include/MyCEL/intrin/svml/avx_svml_intrin.h>
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include/MyCEL/intrin/svml/avx512_svml_intrin.h>
+INTERFACE_INCLUDE_DIRECTORIES
+    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include/>
