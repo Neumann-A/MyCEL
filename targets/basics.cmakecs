@@ -5,7 +5,7 @@ LIBRARY_TYPE
 PUBLIC_DEPENDS 
     Threads::Threads
 PUBLIC_COMPILE_FEATURES
-    cxx_std_17
+    cxx_std_20
 SOURCES
     src/basics/BasicIncludes.cpp
     src/basics/GlobalParameters.cpp
@@ -18,6 +18,9 @@ HEADERS
     include/MyCEL/basics/Logger.h
     include/MyCEL/basics/NoCopy.h
     include/MyCEL/basics/SimpleSmartEnum.h
+    include/MyCEL/basics/enumhelpers.h
+    include/MyCEL/basics/concepts.h
+    include/MyCEL/basics/templatehelpers.h
     include/MyCEL/basics/StartOptions.h
     include/MyCEL/basics/ThreadManager.h
     include/MyCEL/basics/Timer.h
