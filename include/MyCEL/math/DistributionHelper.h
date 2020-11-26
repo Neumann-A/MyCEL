@@ -25,15 +25,12 @@
 #include "../basics/Logger.h"
 #include "random_helpers.h"
 
-
-
 namespace Distribution
 {
     enum class IDistribution { Distribution_unknown, Distribution_delta, Distribution_normal, Distribution_lognormal, Distribution_gamma };
     extern const std::map<IDistribution, std::string> IDistributionMap;
 
     std::string to_string(const IDistribution& field);
-
 
     template<typename T>
     T from_string(const std::string &String);
