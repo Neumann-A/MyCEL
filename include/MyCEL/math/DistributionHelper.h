@@ -57,9 +57,8 @@ namespace Distribution
     private:
         prec deltavalue;
     public:
-        explicit DeltaDistribution(const prec& value) : deltavalue(value) {};
-        prec getValueFromDistribution() override final { return deltavalue; };
-
+        explicit DeltaDistribution(const prec& value) : deltavalue(value) {}
+        prec getValueFromDistribution() override final { return deltavalue; }
     };
 
     template <typename prec, typename distribution >
