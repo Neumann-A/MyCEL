@@ -16,7 +16,7 @@
 #include <cmath>
 #include <immintrin.h>
 
-#if defined(__clang__) && defined(WIN32)
+#if defined(__clang__) && defined(_WIN32)
 #ifdef __AVX__
 #include "../intrin/svml_prolog.h"
 #include "../intrin/svml/avx_svml_intrin.h"

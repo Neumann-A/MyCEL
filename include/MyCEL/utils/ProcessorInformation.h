@@ -13,7 +13,7 @@
 ///---------------------------------------------------------------------------------------------------
 #pragma once
 
-#ifdef WIN32
+#if defined(_WIN32)
 //Silly guarding using the preprocessor
 #ifndef WIN32_LEAN_AND_MEAN
 #define INC_ProcessorInformation_H_WIN32_LEAN_AND_MEAN

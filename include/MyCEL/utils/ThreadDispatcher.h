@@ -18,7 +18,7 @@
 
 #include "CoreInfo.h"
 
-#ifdef WIN32
+#if defined(WIN32)
 namespace utils
 {
     struct ThreadDispatcher
