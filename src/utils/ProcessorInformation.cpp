@@ -4,7 +4,7 @@
 
 #include "ProcessorInformation.h"
 
-#ifdef WIN32
+#if defined(_WIN32)
 namespace utils
 {
     template<typename T>

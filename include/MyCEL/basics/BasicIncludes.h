@@ -44,7 +44,7 @@ namespace BasicTools
 	};
 
 	// Conversion from a std::string to a arithmetic type
-	#ifdef WIN32
+	#if defined(_WIN32)
 	template<typename Number>
 	std::enable_if_t<std::is_arithmetic<Number>::value, std::decay_t<Number>> stringToNumber(const std::string&, size_t &)
 	{

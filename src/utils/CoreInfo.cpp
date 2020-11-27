@@ -5,7 +5,7 @@
 
 #include "CoreInfo.h"
 
-#ifdef WIN32
+#if defined(_WIN32)
 
 #include <numeric>
 #include <limits>

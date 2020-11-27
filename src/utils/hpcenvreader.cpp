@@ -6,7 +6,7 @@
 #include <charconv>
 #include <cassert>
 
-#ifdef WIN32
+#if defined(_WIN32)
 namespace utils
 {
     HPCEnvReader::HPCEnvReader() :

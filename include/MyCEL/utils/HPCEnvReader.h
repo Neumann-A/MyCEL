@@ -18,7 +18,7 @@
 #include <vector>
 #include <iostream>
 
-#ifdef WIN32
+#if defined(_WIN32)
 
 namespace utils
 {
