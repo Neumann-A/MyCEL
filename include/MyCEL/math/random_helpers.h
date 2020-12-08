@@ -53,6 +53,6 @@ namespace math::random_helpers
             std::seed_seq seq(std::begin(seed_data), std::end(seed_data));
             return Generator{ seq };
         }
-    };
+    }
 }
 ///---------------------------------------------------------------------------------------------------

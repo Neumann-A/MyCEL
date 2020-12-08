@@ -42,7 +42,7 @@ namespace stdext
     template<typename Container>
     std::enable_if_t<(is_nested_arithmetic_container_v<std::decay_t<Container>> || is_arithmetic_container_v<std::decay_t<Container>>), std::vector<std::size_t>> calcNestedContainerMaxDimReversed(const Container& container)
     {
-        using Contained = std::decay_t<typename std::decay_t<Container>::value_type>;
+        //using Contained = std::decay_t<typename std::decay_t<Container>::value_type>;
 
         if constexpr (is_arithmetic_container_v<Container>)
         {
@@ -73,7 +73,7 @@ namespace stdext
         }
 
         //return  std::vector<std::size_t>{};
-    };
+    }
 
     template<typename Container>
     std::enable_if_t<(is_nested_arithmetic_container_v<std::remove_cv<Container>> || is_arithmetic_container_v<std::remove_cv<Container>>), std::vector<std::size_t>> calcNestedContainerMaxDim(const Container& container)

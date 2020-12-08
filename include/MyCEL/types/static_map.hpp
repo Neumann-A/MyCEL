@@ -1,11 +1,14 @@
+#pragma once
+
+#ifndef MYCEL_STATIC_MAP_HPP
+#define MYCEL_STATIC_MAP_HPP
+
 #include <array>
 #include <cstdint>
 #include <utility>
 #include <stdexcept>
 #include <optional>
 #include <algorithm>
-
-#pragma once
 
 namespace MyCEL
 {
@@ -42,26 +45,32 @@ namespace MyCEL
         };
         [[nodiscard]] constexpr static_map<Value, Key, Size> switch_key_value() const noexcept
         {
-            std::array<std::pair<Value, Key>, Size> ret;
+            std::array<std::pair<Value, Key>, Size> val;
             for (std::size_t i = 0; i < this->size(); ++i) {
-                ret[i] = std::make_pair(Value{static_cast<array_type>(*this)[i].second},
+                val[i] = std::make_pair(Value{static_cast<array_type>(*this)[i].second},
                                         Key{static_cast<array_type>(*this)[i].first});
             }
-            return static_map<Value, Key, Size>{ret};
+            return static_map<Value, Key, Size>{ {val} };
         }
 
         [[nodiscard]] constexpr auto get_key_array() const noexcept
         {
             std::array<Key, Size> ret;
-            std::transform(std::begin(*this),std::end(*this),std::begin(ret),[](const auto& in) {return in.first;});
+            std::transform(std::begin(*this),std::end(*this), std::begin(ret),[](const auto& in) {return in.first;});
             return ret;
         }
 
         [[nodiscard]] constexpr auto get_value_array() const noexcept
         {
-            std::array<Value, Size> ret;
+            std::array<Value, Size> ret();
             std::transform(std::begin(*this),std::end(*this),std::begin(ret),[](const auto& in) {return in.second;});
             return ret;
         }
     };
+    template <std::size_t Element, typename Key, typename Value, std::size_t Size>
+    constexpr auto get(static_map<Key,Value,Size>& map) noexcept
+    {
+        return std::get<Element>(static_cast<std::array<std::pair<Key, Value>, Size>>(map));
+    }
 } // namespace MyCEL
+#endif
