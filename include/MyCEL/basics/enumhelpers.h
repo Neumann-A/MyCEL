@@ -138,7 +138,7 @@ namespace MyCEL
                 static_assert(switch_size == 0);
                 return DefaultCaseFunctor{}(std::forward<Args>(args)...);
             }
-        };
+        }
 
         template <typename EnumType, typename DefaultCaseFunctor, template <EnumType> typename EnumFunctor,
                   typename... Args>
@@ -148,7 +148,7 @@ namespace MyCEL
             using EnumTuple = decltype(make_enum_tuple<EnumType>());
             return switch_impl<EnumTuple::count, EnumTuple, DefaultCaseFunctor, EnumFunctor, Args...>(
                 Value, std::forward<Args>(args)...);
-        };
+        }
     };
 
     

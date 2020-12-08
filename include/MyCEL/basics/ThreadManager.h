@@ -40,17 +40,17 @@ class ThreadManager
 private:
     DISALLOW_COPY_AND_ASSIGN(ThreadManager)
 
-    std::atomic<bool>			_stopped{ false };	// ThreadManager was stopped
-    std::uint64_t				_NumberOfThreads;   // NumberOfCreated Threads 
-    std::atomic<std::uint64_t>	_WorkingThreads{ 0 };// Number of Working Threads
-    const std::thread::id		_tid;				// Thread ID of the owner of the ThreadManager
-    std::vector<std::thread>	_Threads;			// Threads
+    std::atomic<bool>            _stopped{ false };    // ThreadManager was stopped
+    const std::thread::id        _tid;                // Thread ID of the owner of the ThreadManager
+    std::uint64_t                _NumberOfThreads;   // NumberOfCreated Threads 
+    std::atomic<std::uint64_t>   _WorkingThreads{ 0 };// Number of Working Threads
+    std::vector<std::thread>     _Threads;            // Threads
 
-    std::deque<std::function<void()>> _Tasks;		// List with Task 
+    std::deque<std::function<void()>> _Tasks;        // List with Task 
 
     //For synchronization
-    std::mutex _TaskDequeMutex;						// Mutex for the Task list
-    std::condition_variable _TaskCondVar;			// Condition variable to wake sleeping threads waiting for the task list to update
+    std::mutex _TaskDequeMutex;                        // Mutex for the Task list
+    std::condition_variable _TaskCondVar;            // Condition variable to wake sleeping threads waiting for the task list to update
 
     std::uint64_t createThreads(const std::uint64_t &NumberOfThreadsToCreate)
     {
@@ -110,9 +110,9 @@ private:
             {
                 std::unique_lock<std::mutex> lock(_TaskDequeMutex);
 #ifdef _DEBUG
-                _TaskCondVar.wait(lock, [this] 	{ 
+                _TaskCondVar.wait(lock, [this] { 
                     Log("Waiting...");
-                    return (this->_stopped || !this->_Tasks.empty()); 				
+                    return (this->_stopped || !this->_Tasks.empty());                 
                 });   // Wait until dequeue is not empty or ThreadManager is stopped
 #else
                 _TaskCondVar.wait(lock, [this] {
@@ -120,17 +120,17 @@ private:
                 });   // Wait until dequeue is not empty or ThreadManager is stopped
 #endif
 
-                if (_stopped && _Tasks.empty())			//ThreadManager is stopped and there are no tasks left
+                if (_stopped && _Tasks.empty())            //ThreadManager is stopped and there are no tasks left
                 {
 #ifdef _DEBUG
                     Log("Stopped!");
-#endif					
+#endif                    
                     return;
                 }
 
                 ++_WorkingThreads;
-                task = std::move(this->_Tasks.front());	// Get Task
-                this->_Tasks.pop_front();				// Remove Task from queue
+                task = std::move(this->_Tasks.front());    // Get Task
+                this->_Tasks.pop_front();                // Remove Task from queue
                 
             }
 #ifdef _DEBUG
@@ -173,10 +173,8 @@ private:
     }
 protected:
 public:
-    ThreadManager(const std::uint64_t NumberOfThreadsToCreate) : _tid(std::this_thread::get_id())
-    {
-        _NumberOfThreads = createThreads(NumberOfThreadsToCreate);
-    }
+    ThreadManager(const std::uint64_t NumberOfThreadsToCreate) : _tid(std::this_thread::get_id()), _NumberOfThreads(createThreads(NumberOfThreadsToCreate))
+    {}
 
     ~ThreadManager()
     {
@@ -190,7 +188,7 @@ public:
         _TaskCondVar.notify_all();
 
         for (std::thread &Thread : _Threads)
-        {	
+        {    
             if (Thread.joinable())
                 Thread.join();
         }

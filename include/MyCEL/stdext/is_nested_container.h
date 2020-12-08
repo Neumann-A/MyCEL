@@ -55,7 +55,7 @@ namespace stdext
 
     template<typename T>
     using get_nested_type_t = typename get_nested_type<T>::type;
-};
+}
 #endif	// INC_is_nested_container_H
 // end of stdext\is_nested_container.h
 ///---------------------------------------------------------------------------------------------------

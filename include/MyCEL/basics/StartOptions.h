@@ -14,13 +14,13 @@
 
 class IStartOptionDependeable
 {
-	MY_INTERFACE(IStartOptionDependeable)
+    MY_INTERFACE(IStartOptionDependeable)
 private:
 protected:
 public:
-	virtual void fromOption(std::smatch match) = 0;
-	virtual std::string getOptionString() = 0;
-	virtual std::regex getOptionRegex() = 0;
+    virtual void fromOption(std::smatch match) = 0;
+    virtual std::string getOptionString() = 0;
+    virtual std::regex getOptionRegex() = 0;
 };
 
 // Class StartOptions
@@ -28,39 +28,39 @@ public:
 class StartOptions
 {
 private:
-	typedef void(*FuncOptNotFound)(void);
-	typedef void(*FuncOptFound)(std::string);
-	using OptInfo = std::tuple<std::string, FuncOptFound, FuncOptNotFound, std::string> ;
-	using OptType = std::map<std::string, OptInfo>;
+    typedef void(*FuncOptNotFound)(void);
+    typedef void(*FuncOptFound)(std::string);
+    using OptInfo = std::tuple<std::string, FuncOptFound, FuncOptNotFound, std::string> ;
+    using OptType = std::map<std::string, OptInfo>;
 
-	OptType moptions;
-	std::map<std::string, std::string> FoundwithArgument;
+    OptType moptions;
+    std::map<std::string, std::string> FoundwithArgument;
 
-	void registerOption(const std::string optionname, OptInfo Info);
+    void registerOption(const std::string optionname, OptInfo Info);
 
 protected:
 public:
-	StartOptions() {}
-	virtual ~StartOptions() = default;
+    StartOptions() {}
+    virtual ~StartOptions() = default;
 
-	// Register a Startoption 
-	// the Optionregex must be formated in a way so that match is the optionflag  
+    // Register a Startoption 
+    // the Optionregex must be formated in a way so that match is the optionflag  
 
-	void registerOption(const std::string& optionname, const std::string& optionflag, const FuncOptFound& found, const FuncOptNotFound& notfound, const std::string& comment);
-	void registerOption(const std::string& optionname, const std::string& optionflag, const FuncOptFound& found, const FuncOptNotFound& notfound);
+    void registerOption(const std::string& optionname, const std::string& optionflag, const FuncOptFound& found, const FuncOptNotFound& notfound, const std::string& comment);
+    void registerOption(const std::string& optionname, const std::string& optionflag, const FuncOptFound& found, const FuncOptNotFound& notfound);
 
-	//Checks if a option is registered
-	bool isOptionRegistered(const std::string& option);
+    //Checks if a option is registered
+    bool isOptionRegistered(const std::string& option);
 
-	//Checks wether a startargument is an registered option
-	bool isArgumentRegistered(const std::string& s1, std::smatch &match, std::string &optionname);
+    //Checks wether a startargument is an registered option
+    bool isArgumentRegistered(const std::string& s1, std::smatch &match, std::string &optionname);
 
-	//Method which analyzes the arguments for registered options
-	void analyzeStartArguments(int argc, char** argv);
+    //Method which analyzes the arguments for registered options
+    void analyzeStartArguments(int argc, char** argv);
 
-	std::map<std::string, std::pair<std::string, std::string>> getOptions();
+    std::map<std::string, std::pair<std::string, std::string>> getOptions();
 
-	void printOptions();
+    void printOptions();
 };
 
 #endif //_STARTOPTIONS_H_

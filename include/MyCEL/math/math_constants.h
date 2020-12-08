@@ -11,49 +11,49 @@
 
 namespace math::constants
 {
-	namespace detail
-	{
-		template<typename T>
-		extern constexpr T pi() { return static_cast<T>(3.1415926535897932384626433832795); };
+    namespace detail
+    {
+        template<typename T>
+        extern constexpr T pi() { return static_cast<T>(3.1415926535897932384626433832795); }
 
-		template<typename T>
-		extern constexpr T two_pi() { return static_cast<T>(2.0*pi<T>()); };
+        template<typename T>
+        extern constexpr T two_pi() { return static_cast<T>(2.0*pi<T>()); }
 
-		template<typename T>
-		extern constexpr T four_third_pi() { return static_cast<T>((4.0 / 3.0)*pi<T>()); };
+        template<typename T>
+        extern constexpr T four_third_pi() { return static_cast<T>((4.0 / 3.0)*pi<T>()); }
 
-		template<typename T>
-		extern constexpr T inv_pi() { return static_cast<T>(1.0 / pi<T>()); };
+        template<typename T>
+        extern constexpr T inv_pi() { return static_cast<T>(1.0 / pi<T>()); }
 
-		template<typename T>
-		extern constexpr T inv_two_pi() { return static_cast<T>(0.5 * inv_pi<T>()); };
+        template<typename T>
+        extern constexpr T inv_two_pi() { return static_cast<T>(0.5 * inv_pi<T>()); }
 
-		template<typename T>
-		extern constexpr T inv_four_pi() { return static_cast<T>(0.25 * inv_pi<T>()); };
+        template<typename T>
+        extern constexpr T inv_four_pi() { return static_cast<T>(0.25 * inv_pi<T>()); }
 
-		template<typename T>
-		extern constexpr T inv_four_third_pi() { return static_cast<T>((3.0 / 4.0)*inv_pi<T>()); };
-	}
+        template<typename T>
+        extern constexpr T inv_four_third_pi() { return static_cast<T>((3.0 / 4.0)*inv_pi<T>()); }
+    }
 
-	template<typename T>
-	static constexpr T pi = detail::pi<T>();
+    template<typename T>
+    static constexpr T pi = detail::pi<T>();
 
-	template<typename T>
-	static constexpr T two_pi = 2.0*pi<T>;
+    template<typename T>
+    static constexpr T two_pi = 2.0*pi<T>;
 
-	template<typename T>
-	static constexpr T four_third_pi = (4.0/3.0)*pi<T>;
+    template<typename T>
+    static constexpr T four_third_pi = (4.0/3.0)*pi<T>;
 
-	template<typename T>
-	static constexpr T inv_pi = 1/pi<T>;
+    template<typename T>
+    static constexpr T inv_pi = 1/pi<T>;
 
-	template<typename T>
-	static constexpr T inv_two_pi = 0.5*inv_pi<T>;
+    template<typename T>
+    static constexpr T inv_two_pi = 0.5*inv_pi<T>;
 
-	template<typename T>
-	static constexpr T inv_four_pi = 0.25*inv_pi<T>;
+    template<typename T>
+    static constexpr T inv_four_pi = 0.25*inv_pi<T>;
 
-	template<typename T>
-	static constexpr T inv_four_third_pi = 3.0/4.0*inv_pi<T>;
+    template<typename T>
+    static constexpr T inv_four_third_pi = 3.0/4.0*inv_pi<T>;
 
 }

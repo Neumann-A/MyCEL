@@ -132,4 +132,4 @@ static_assert(stdext::is_string_v<volatile std::string&>);
 int main()
 {
     return 0;
-};
+}

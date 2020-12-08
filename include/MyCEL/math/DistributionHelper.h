@@ -117,45 +117,44 @@ namespace Distribution
 
     template<typename prec>
     std::unique_ptr<Distribution::IDistributionHelper<prec>> initDistribution(const Distribution::IDistribution& Type, const prec& mean, const prec& width)
+    {
+        std::unique_ptr<Distribution::IDistributionHelper<prec>> ptr;
+        switch (Type)
         {
-            std::unique_ptr<Distribution::IDistributionHelper<prec>> ptr;
-            switch (Type)
+        case Distribution::IDistribution::Distribution_delta:
+            ptr = std::make_unique< Distribution::DeltaDistribution<prec>>(mean);
+            break;
+        case Distribution::IDistribution::Distribution_lognormal:
             {
-            case Distribution::IDistribution::Distribution_delta:
-                ptr = std::make_unique< Distribution::DeltaDistribution<prec>>(mean);
-                break;
-            case Distribution::IDistribution::Distribution_lognormal:
-                {
-                    const prec meansquare{ std::pow(mean, 2) };
-                    const prec var{ std::pow(width, 2) };
-                    const prec meanlog{ std::log(meansquare / std::sqrt(var + meansquare)) };
-                    const prec stdlog{ std::log1p(var / meansquare) };
-                    ptr = std::make_unique < Distribution::DistributionHelper<prec, std::lognormal_distribution<prec>>>(std::pair<prec, prec>{meanlog, stdlog});
-                }
-                break;
-            case Distribution::IDistribution::Distribution_gamma:
-                {
-                //Mean = shape * scale
-                //Variance = shape * scale^2
-                    const prec var{ std::pow(width, 2) };
-                    const prec scale{var/mean};
-                    const prec shape{mean/scale};
-                    ptr = std::make_unique < Distribution::DistributionHelper<prec, std::gamma_distribution<prec>>>(std::pair<prec, prec>{shape, scale});
-                }
-                break;
-            case Distribution::IDistribution::Distribution_normal:
-                ptr = std::make_unique < Distribution::DistributionHelper<prec, std::normal_distribution<prec>>>(std::pair<prec, prec>{mean, width});
-                break;
-            case Distribution::IDistribution::Distribution_unknown:
-                throw std::runtime_error{ "Cannot instantiate unknown distribution!" };
-            default:
-                ptr = std::make_unique< Distribution::DeltaDistribution<prec>>(mean);
-                break;
+                const prec meansquare{ std::pow(mean, 2) };
+                const prec var{ std::pow(width, 2) };
+                const prec meanlog{ std::log(meansquare / std::sqrt(var + meansquare)) };
+                const prec stdlog{ std::log1p(var / meansquare) };
+                ptr = std::make_unique < Distribution::DistributionHelper<prec, std::lognormal_distribution<prec>>>(std::pair<prec, prec>{meanlog, stdlog});
             }
-            return std::move(ptr);
-        };
-
-};
+            break;
+        case Distribution::IDistribution::Distribution_gamma:
+            {
+            //Mean = shape * scale
+            //Variance = shape * scale^2
+                const prec var{ std::pow(width, 2) };
+                const prec scale{var/mean};
+                const prec shape{mean/scale};
+                ptr = std::make_unique < Distribution::DistributionHelper<prec, std::gamma_distribution<prec>>>(std::pair<prec, prec>{shape, scale});
+            }
+            break;
+        case Distribution::IDistribution::Distribution_normal:
+            ptr = std::make_unique < Distribution::DistributionHelper<prec, std::normal_distribution<prec>>>(std::pair<prec, prec>{mean, width});
+            break;
+        case Distribution::IDistribution::Distribution_unknown:
+            throw std::runtime_error{ "Cannot instantiate unknown distribution!" };
+        default:
+            ptr = std::make_unique< Distribution::DeltaDistribution<prec>>(mean);
+            break;
+        }
+        return ptr;
+    }
+}
 #endif	// INC_DistributionHelper_H
 // end of DistributionHelper.h
 ///---------------------------------------------------------------------------------------------------
