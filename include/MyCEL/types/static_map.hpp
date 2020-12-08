@@ -62,7 +62,7 @@ namespace MyCEL
 
         [[nodiscard]] constexpr auto get_value_array() const noexcept
         {
-            std::array<Value, Size> ret();
+            std::array<Value, Size> ret;
             std::transform(std::begin(*this),std::end(*this),std::begin(ret),[](const auto& in) {return in.second;});
             return ret;
         }
