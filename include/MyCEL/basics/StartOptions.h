@@ -40,7 +40,7 @@ private:
 
 protected:
 public:
-    StartOptions() {}
+    StartOptions() : moptions(), FoundwithArgument() {}
     virtual ~StartOptions() = default;
 
     // Register a Startoption 
