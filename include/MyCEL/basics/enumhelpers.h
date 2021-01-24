@@ -28,6 +28,12 @@ namespace MyCEL
 
         template <EnumType NewValue>
         using prepend_enum_value = enum_tuple<EnumType, NewValue, EnumVals...>;
+
+        template <EnumType... NewValues>
+        using append_enum_values = enum_tuple<EnumType, EnumVals..., NewValues...>;
+
+        template <EnumType... NewValues>
+        using prepend_enum_values = enum_tuple<EnumType, NewValues..., EnumVals...>;
     };
 
     template <std::size_t Index, typename EnumTuple>
@@ -84,6 +90,12 @@ namespace MyCEL
         return make_enum_tuple_impl<EnumType, magic_enum::enum_count<EnumType>(), 1,
                                     enum_tuple<EnumType, magic_enum::enum_value<EnumType>(0)>>();
     }
+
+    template <typename EnumType, size_t... I>
+    constexpr enum_tuple<EnumType, magic_enum::enum_value<EnumType>(I)...> make_enum_tuple_type_impl(std::index_sequence<I...>);
+
+    template <typename EnumType>
+    using make_enum_tuple_type = decltype( make_enum_tuple_type_impl<EnumType>( std::make_index_sequence< magic_enum::enum_count<EnumType>() >() ));
 
     struct enum_switch
     {
