@@ -23,37 +23,37 @@
 ///-------------------------------------------------------------------------------------------------
 namespace Basics
 {
-	class EndOfList {};
-	class NoList {};
+    class EndOfList {};
+    class NoList {};
 
-	template<typename Head, typename ...Args>
-	class Typelist
-	{
-	public:
-		using FirstType = Head;
-		using TailList = Typelist<Args...>;
-		using NextType = TailList::Head;
+    template<typename Head, typename ...Args>
+    class Typelist
+    {
+    public:
+        using FirstType = Head;
+        using TailList = Typelist<Args...>;
+        using NextType = TailList::Head;
 
-		static constexpr size_t TypeCount{ 1 + sizeof...(Args) };
-	};
+        static constexpr size_t TypeCount{ 1 + sizeof...(Args) };
+    };
 
-	template<typename Head>
-	class Typelist
-	{
-	public:
-		using FirstType = Head;
-		using TailList = Typelist<EndOfList>;
-		using NextType = EndOfList;
+    template<typename Head>
+    class Typelist
+    {
+    public:
+        using FirstType = Head;
+        using TailList = Typelist<EndOfList>;
+        using NextType = EndOfList;
 
-		static constexpr size_t TypeCount{ 1 };
-	};
+        static constexpr size_t TypeCount{ 1 };
+    };
 
-	template<>
-	class Typelist<EndOfList>
-	{
-	public:
-		static constexpr size_t TypeCount{ 0 };
-	};
+    template<>
+    class Typelist<EndOfList>
+    {
+    public:
+        static constexpr size_t TypeCount{ 0 };
+    };
 }
 
 

@@ -9,14 +9,14 @@
 #define BASIC_NOEXCEPT noexcept
 
 #ifdef _MSC_VER
-	#define BASIC_ALWAYS_INLINE __forceinline
-	#define BASIC_NOINLINE		__declspec(noinline)
+  #define BASIC_ALWAYS_INLINE __forceinline
+  #define BASIC_NOINLINE		__declspec(noinline)
 #elif __GNUC__ || __clang__ || __llvm__
-	#define BASIC_ALWAYS_INLINE		__attribute__((always_inline)) inline
-	#define BASIC_NOINLINE			__attribute__((noinline))
+  #define BASIC_ALWAYS_INLINE		__attribute__((always_inline)) inline
+  #define BASIC_NOINLINE			__attribute__((noinline))
 #else
-	#define BASIC_ALWAYS_INLINE
-	#define BASIC_NOINLINE
+  #define BASIC_ALWAYS_INLINE
+  #define BASIC_NOINLINE
 #endif
 
 #define BASIC_CONSTEXPR constexpr
@@ -110,19 +110,19 @@ static_assert(std::is_same< T1, T2 >::value, \
 //#undef MY_INTERFACE
 #define MY_CONSTEXPR_INTERFACE(TypeName) \
 protected: \
-	constexpr TypeName() noexcept {}; \
-	~TypeName() = default; \
+  constexpr TypeName() noexcept {}; \
+  ~TypeName() = default; \
 
 #define MY_INTERFACE(TypeName) \
 protected: \
-	TypeName() = default ; \
-	~TypeName() = default; \
+  TypeName() = default ; \
+  ~TypeName() = default; \
 
 #define MY_VIRTUAL_INTERFACE(TypeName) \
 protected: \
-	TypeName() noexcept {}; \
+  TypeName() noexcept {}; \
 public: \
-	virtual ~TypeName() = default; \
+  virtual ~TypeName() = default; \
 
 // Silly hack to force static functions into an interface so that it throws an error at compile time
 // Use it like this STATICINTERFACE(T,T,createObjectFromConfigFile,(const ConfigFile &file, std::string &section),(file,section))
@@ -134,8 +134,8 @@ public: \
 #define CONCATTHREE_LTR(first,second,third) CONCAT(first,CONCAT(second,third))
 
 #define CLASS_STATIC_AND_OBJ_FUNC(ReturnType,Type,StaticFunc,ForwardArgsWithType,ForwardArgs) \
-	ReturnType CONCAT(StaticFunc,Obj) ForwardArgsWithType const noexcept\
-		{ return Type :: StaticFunc ForwardArgs ; };
+  ReturnType CONCAT(StaticFunc,Obj) ForwardArgsWithType const noexcept\
+    { return Type :: StaticFunc ForwardArgs ; };
 
 
 

@@ -43,8 +43,6 @@ private:
     std::uint64_t                _NumberOfThreads;   // NumberOfCreated Threads 
     std::atomic<std::uint64_t>   _WorkingThreads{ 0 };// Number of Working Threads
 
-
-
     std::deque<std::function<void()>> _Tasks;        // List with Task 
 
     std::uint64_t createThreads(const std::uint64_t &NumberOfThreadsToCreate);
