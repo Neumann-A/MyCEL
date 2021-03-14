@@ -1,0 +1,46 @@
+{
+    "name" : "basics" ,
+    "target_type" : "library",
+    "parameters" : [
+        "OBJECT"
+    ],
+    "sources" : [
+        "src/basics/BasicIncludes.cpp",
+        "src/basics/GlobalParameters.cpp",
+        "src/basics/StartOptions.cpp",
+        "src/basics/ThreadManager.cpp",
+        "include/MyCEL/basics/BasicIncludes.h",
+        "include/MyCEL/basics/BasicMacros.h",
+        "include/MyCEL/basics/ComplexMacros.h",
+        "include/MyCEL/basics/GlobalParameters.h",
+        "include/MyCEL/basics/Logger.h",
+        "include/MyCEL/basics/NoCopy.h",
+        "include/MyCEL/basics/SimpleSmartEnum.h",
+        "include/MyCEL/basics/enumhelpers.h",
+        "include/MyCEL/basics/concepts.h",
+        "include/MyCEL/basics/templatehelpers.h",
+        "include/MyCEL/basics/StartOptions.h",
+        "include/MyCEL/basics/ThreadManager.h",
+        "include/MyCEL/basics/Timer.h",
+        "include/MyCEL/basics/Typelist.h"
+    ],
+    "include_directories" : {
+        "private" : [ 
+            "src",
+            "include/MyCEL/basics"
+        ],
+        "public" : [ 
+            "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>",
+            "$<INSTALL_INTERFACE:include>" ]
+    },
+    "compile_features" : {
+        "private" : [
+            "cxx_std_20"
+        ]
+    },
+    "link_libraries" : {
+        "public": [
+            "Threads::Threads"
+        ]
+    }
+}

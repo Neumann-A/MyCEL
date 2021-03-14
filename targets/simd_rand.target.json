@@ -1,0 +1,25 @@
+{
+    "name" : "simd_rand" ,
+    "target_type" : "library",
+    "parameters" : [
+        "INTERFACE"
+    ],
+    "target_sources" : {
+        "interface": [
+            "$<BUILD_INTERFACE:$<TARGET_PROPERTY:SOURCE_DIR>/include/MyCEL/simd_rand/constants.h>",
+            "$<BUILD_INTERFACE:$<TARGET_PROPERTY:SOURCE_DIR>/include/MyCEL/simd_rand/definitions.h>",
+            "$<BUILD_INTERFACE:$<TARGET_PROPERTY:SOURCE_DIR>/include/MyCEL/simd_rand/simd_lcg.h>",
+            "$<BUILD_INTERFACE:$<TARGET_PROPERTY:SOURCE_DIR>/include/MyCEL/simd_rand/simd_normal_dist.h>"
+        ]
+    },
+    "include_directories" : {
+        "interface" : [ 
+            "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include/>"
+        ]
+    },
+    "compile_features" : {
+        "interface" : [
+            "cxx_std_17"
+        ]
+    }
+}

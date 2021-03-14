@@ -1,0 +1,26 @@
+{
+    "export" : false,
+    "name" : "stdext_test" ,
+    "target_type" : "library",
+    "parameters" : [
+        "STATIC"
+    ],
+    "sources" : [
+        "src/stdext/test.cpp"
+    ],
+    "link_libraries" : {
+        "private" : [ 
+            "stdext"
+        ]
+    },
+    "compile_features" : {
+        "public" : [
+            "cxx_std_20"
+        ]
+    },
+    "include_directories" : {
+        "private" : [
+            "include/MyCEL/stdext"
+        ]
+    }
+}

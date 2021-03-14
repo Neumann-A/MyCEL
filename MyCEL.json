@@ -1,0 +1,23 @@
+{
+    "name" : "MyCppExtensionLibrary" ,
+    "package_name" : "MyCEL",
+    "homepage" : "https://github.com/Neumann-A/MyCEL",
+    "description" : "My C++ Extension Library (MyCEL). MyCEL is a C++ utility/toolbox library extending common standard library capabilities.",
+    "version" : "0.1.0",
+    "languages" : ["CXX"],
+    "dependencies": [
+        "Threads"
+    ],
+    "public_cmake_module_path" : "cmake",
+    "list" : [
+        "targets/basics.target.json",
+        "targets/math.target.json",
+        "targets/utils.target.json",
+        "targets/stdext.target.json",
+        "targets/stdext_test.target.json",
+        "targets/intrin.target.json",
+        "targets/simd_rand.target.json",
+        "targets/types.target.json",
+        "targets/MyCEL.target.json"
+    ]
+}

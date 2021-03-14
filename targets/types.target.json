@@ -1,0 +1,24 @@
+{
+    "name" : "types" ,
+    "target_type" : "library",
+    "parameters" : [
+        "INTERFACE"
+    ],
+    "target_sources" : {
+        "interface": [
+            "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include/MyCEL/types/operators.hpp>",
+            "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include/MyCEL/types/static_map.hpp>",
+            "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include/MyCEL/types/strongtype.hpp>"
+        ]
+    },
+    "include_directories" : {
+        "interface" : [ 
+            "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include/>"
+        ]
+    },
+    "compile_features" : {
+        "interface" : [
+            "cxx_std_20"
+        ]
+    }
+}
