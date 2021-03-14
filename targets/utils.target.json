@@ -1,0 +1,31 @@
+{
+    "name" : "utils" ,
+    "target_type" : "library",
+    "parameters" : [
+        "OBJECT"
+    ],
+    "sources" : [
+        "src/utils/CoreInfo.cpp",
+        "src/utils/hpcenvreader.cpp",
+        "src/utils/ProcessorInformation.cpp",
+        "include/MyCEL/utils/CoreInfo.h",
+        "include/MyCEL/utils/HPCEnvReader.h",
+        "include/MyCEL/utils/ProcessorInformation.h",
+        "include/MyCEL/utils/ThreadDispatcher.h",
+        "include/MyCEL/utils/ThreadPool.h"
+    ],
+    "include_directories" : {
+        "private" : [ 
+            "src",
+            "include/MyCEL/utils"
+        ],
+        "public" : [ 
+            "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>",
+            "$<INSTALL_INTERFACE:include>" ]
+    },
+    "compile_features" : {
+        "public" : [
+            "cxx_std_17"
+        ]
+    }
+}

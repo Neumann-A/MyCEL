@@ -1,0 +1,38 @@
+{
+    "name" : "MyCEL" ,
+    "target_type" : "library",
+    "parameters" : [
+        "STATIC"
+    ],
+    "sources" : [
+        "$<TARGET_OBJECTS:utils>",
+        "$<TARGET_OBJECTS:basics>",
+        "$<TARGET_OBJECTS:math>"
+    ],
+    "include_directories" : {
+        "private" : [ 
+            "include"
+        ],
+        "interface" : [ 
+            "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>",
+            "$<INSTALL_INTERFACE:include>" ]
+    },
+    "compile_features" : {
+        "public" : [
+            "cxx_std_20"
+        ]
+    },
+    "link_libraries" : {
+        "private": [
+            "stdext",
+            "intrin",
+            "simd_rand",
+            "types"
+        ]
+    },
+    "properties" : [{
+        "name": "LINKER_LANGUAGE",
+        "value": "CXX"
+    }],
+    "public_include_directory" : "include"
+}

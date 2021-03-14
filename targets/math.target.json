@@ -1,0 +1,37 @@
+{
+    "name" : "math" ,
+    "target_type" : "library",
+    "parameters" : [
+        "OBJECT"
+    ],
+    "sources" : [
+        "src/math/DistributionHelper.cpp",
+        "include/MyCEL/math/ApproxJacobian.h",
+        "include/MyCEL/math/Coordinates.h",
+        "include/MyCEL/math/DistributionCalculator.h",
+        "include/MyCEL/math/DistributionHelper.h",
+        "include/MyCEL/math/Geometry.h",
+        "include/MyCEL/math/GSL_Implicit_Solver.h",
+        "include/MyCEL/math/GSL_Implicit_Solver_Derivative_Free.h",
+        "include/MyCEL/math/Implicit_Solver.h",
+        "include/MyCEL/math/math_constants.h",
+        "include/MyCEL/math/random_helpers.h",
+        "include/MyCEL/math/sincos.h"
+    ],
+    "include_directories" : {
+        "private" : [ 
+            "src",
+            "include/MyCEL/math"
+        ],
+        "public" : [ 
+            "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>",
+            "$<INSTALL_INTERFACE:include>" ]
+    },
+    "compile_features" : {
+        "private" : [
+            "cxx_std_17"
+        ]
+    }
+}
+
+

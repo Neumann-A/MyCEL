@@ -1,0 +1,24 @@
+{
+    "name" : "intrin" ,
+    "target_type" : "library",
+    "parameters" : [
+        "INTERFACE"
+    ],
+    "target_sources" : {
+        "interface": [
+            "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include/MyCEL/intrin/svml_prolog.h>",
+            "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include/MyCEL/intrin/svml/avx_svml_intrin.h>",
+            "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include/MyCEL/intrin/svml/avx512_svml_intrin.h>"
+        ]
+    },
+    "include_directories" : {
+        "interface" : [ 
+            "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include/>"
+        ]
+    },
+    "compile_features" : {
+        "interface" : [
+            "cxx_std_17"
+        ]
+    }
+}
