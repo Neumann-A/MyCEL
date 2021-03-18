@@ -4,9 +4,9 @@
 #define INC_MYCEL_ENUMHELPERS_H
 
 #include <type_traits>
+#include <variant>
 
 #include <magic_enum.hpp>
-
 
 namespace MyCEL
 {
