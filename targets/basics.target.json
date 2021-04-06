@@ -22,7 +22,8 @@
         "include/MyCEL/basics/StartOptions.h",
         "include/MyCEL/basics/ThreadManager.h",
         "include/MyCEL/basics/Timer.h",
-        "include/MyCEL/basics/Typelist.h"
+        "include/MyCEL/basics/Typelist.h",
+        "include/MyCEL/basics/EnumFwd.hpp"
     ],
     "include_directories" : {
         "private" : [ 
