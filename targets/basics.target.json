@@ -17,7 +17,7 @@
         "include/MyCEL/basics/NoCopy.h",
         "include/MyCEL/basics/SimpleSmartEnum.h",
         "include/MyCEL/basics/enumhelpers.h",
-        "include/MyCEL/basics/concepts.h",
+        "include/MyCEL/basics/concepts.hpp",
         "include/MyCEL/basics/templatehelpers.h",
         "include/MyCEL/basics/StartOptions.h",
         "include/MyCEL/basics/ThreadManager.h",
