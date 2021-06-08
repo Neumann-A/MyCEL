@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.19)
-list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
+list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
 
 if(NOT CMakeJSON_FOUND)
     find_package(CMakeJSON REQUIRED)
@@ -10,4 +10,6 @@ set(CMAKE_C_VISIBILITY_PRESET hidden)
 
 project("MyCEL.json")
 
-add_subdirectory(tests)
+if(BUILD_TESTING)
+    add_subdirectory(tests)
+endif()
