@@ -34,5 +34,5 @@
         "name": "LINKER_LANGUAGE",
         "value": "CXX"
     }],
-    "public_include_directory" : "include"
+    "public_include_directory" : "include/"
 }
