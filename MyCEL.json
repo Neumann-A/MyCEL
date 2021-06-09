@@ -8,7 +8,7 @@
     "dependencies": [
         "Threads"
     ],
-    "public_cmake_module_path" : "cmake",
+    "public_cmake_module_path" : "cmake/",
     "list" : [
         "targets/basics.target.json",
         "targets/math.target.json",
