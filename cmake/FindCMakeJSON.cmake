@@ -1,19 +1,26 @@
 include(FetchContent)
 
-FetchContent_Declare(
-  CMakeJSON  
-  GIT_REPOSITORY https://github.com/Neumann-A/CMakeJSON.git
-  GIT_TAG        613feb6b2dbaada176668b5579f80c100bf51d72
-)
+find_file(CMakeJSON_INCLUDE_FILE NAMES "CMakeJSON.cmake" PATHS share cmake share/cmake PATH_SUFFIXES CMakeJSON)
 
-FetchContent_GetProperties(CMakeJSON)
-string(TOLOWER "CMakeJSON" lcName)
+if(NOT CMakeJSON_INCLUDE_FILE AND NOT CMakeJSON_FOUND)
+  FetchContent_Declare(
+    CMakeJSON  
+    GIT_REPOSITORY https://github.com/Neumann-A/CMakeJSON.git
+    GIT_TAG        f18ca04c22ed23dd08be154af95c4da1c7c1e5db
+  )
 
-if(NOT ${lcName}_POPULATED)
-    FetchContent_Populate(CMakeJSON)
-    set(CMakeJSON_INCLUDE_FILE "${${lcName}_SOURCE_DIR}/CMakeJSON/CMakeJSON.cmake")
-    set(CMakeJSON_FOUND)
-    include("${CMakeJSON_INCLUDE_FILE}")
+  FetchContent_GetProperties(CMakeJSON)
+  string(TOLOWER "CMakeJSON" lcName)
+
+  if(NOT ${lcName}_POPULATED)
+      FetchContent_Populate(CMakeJSON)
+      set(CMakeJSON_INCLUDE_FILE "${${lcName}_SOURCE_DIR}/CMakeJSON/CMakeJSON.cmake")
+  endif()
+endif()
+
+if(CMakeJSON_INCLUDE_FILE AND NOT CMakeJSON_FOUND)
+  include("${CMakeJSON_INCLUDE_FILE}")
+  set(CMakeJSON_FOUND TRUE)
 endif()
 
 include(FindPackageHandleStandardArgs)
