@@ -205,12 +205,12 @@ namespace MyCEL
         const auto& getEmumVariantType() const noexcept {
             using return_type = typename EnumVariantMapping<value>::type;
             return std::get<return_type>(variant);
-        };
+        }
         template<EnumType value>
         auto& getEmumVariantType() noexcept {
             using return_type = typename EnumVariantMapping<value>::type;
             return std::get<return_type>(variant);
-        };
+        }
     };
 
 } // namespace MyCEL
