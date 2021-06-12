@@ -5,7 +5,7 @@
 
 #include <type_traits>
 #include <variant>
-#include <format>
+#include <fmt/core.h>
 
 #include <magic_enum.hpp>
 #include "templatehelpers.h"

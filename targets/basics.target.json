@@ -41,7 +41,8 @@
     },
     "link_libraries" : {
         "public": [
-            "Threads::Threads"
+            "Threads::Threads",
+            "fmt::fmt"
         ]
     }
 }
