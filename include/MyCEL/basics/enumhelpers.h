@@ -159,7 +159,7 @@ namespace MyCEL
             template<typename... Args>
             void operator()(Args && ... args)
             {
-                throw std::out_of_range{std::format("No switch case available for the given enum value!").c_str()};
+                throw std::out_of_range{fmt::format("No switch case available for the given enum value!").c_str()};
             }
         };
 
