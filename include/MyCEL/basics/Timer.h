@@ -39,7 +39,7 @@ private:
     std::vector<std::chrono::time_point<clock, unit>> _times;
 protected:
 public:
-    BASIC_ALWAYS_INLINE Timer() : _time_begin(clock::now()), _times({_time_begin}) {};
+    BASIC_ALWAYS_INLINE Timer() : _time_begin(clock::now()), _time_end(_time_begin), _times({_time_begin}) {};
     BASIC_ALWAYS_INLINE ~Timer() {};
 
     //Sets the start time to the 

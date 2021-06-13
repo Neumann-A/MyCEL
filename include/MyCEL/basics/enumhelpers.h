@@ -5,7 +5,7 @@
 
 #include <type_traits>
 #include <variant>
-#include <format>
+#include <fmt/core.h>
 
 #include <magic_enum.hpp>
 #include "templatehelpers.h"
@@ -157,9 +157,9 @@ namespace MyCEL
         struct enum_default_switch_case
         {
             template<typename... Args>
-            void operator()(Args && ... args)
+            void operator()(Args && ... )
             {
-                throw std::out_of_range{std::format("No switch case available for the given enum value!").c_str()};
+                throw std::out_of_range{fmt::format("No switch case available for the given enum value!").c_str()};
             }
         };
 
@@ -205,12 +205,12 @@ namespace MyCEL
         const auto& getEmumVariantType() const noexcept {
             using return_type = typename EnumVariantMapping<value>::type;
             return std::get<return_type>(variant);
-        };
+        }
         template<EnumType value>
         auto& getEmumVariantType() noexcept {
             using return_type = typename EnumVariantMapping<value>::type;
             return std::get<return_type>(variant);
-        };
+        }
     };
 
 } // namespace MyCEL
