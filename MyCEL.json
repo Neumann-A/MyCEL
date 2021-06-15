@@ -6,9 +6,10 @@
     "version" : "0.1.0",
     "languages" : ["CXX"],
     "dependencies": [
-        "Threads"
+        "Threads",
+        "fmt"
     ],
-    "public_cmake_module_path" : "cmake",
+    "public_cmake_module_path" : "cmake/",
     "list" : [
         "targets/basics.target.json",
         "targets/math.target.json",

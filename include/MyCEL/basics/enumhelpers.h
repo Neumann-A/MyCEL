@@ -5,8 +5,10 @@
 
 #include <type_traits>
 #include <variant>
+#include <fmt/core.h>
 
 #include <magic_enum.hpp>
+#include "templatehelpers.h"
 
 namespace MyCEL
 {
@@ -152,7 +154,16 @@ namespace MyCEL
             }
         }
 
-        template <typename EnumType, typename DefaultCaseFunctor, template <EnumType> typename EnumFunctor,
+        struct enum_default_switch_case
+        {
+            template<typename... Args>
+            void operator()(Args && ... )
+            {
+                throw std::out_of_range{fmt::format("No switch case available for the given enum value!").c_str()};
+            }
+        };
+
+        template <typename EnumType, template <EnumType> typename EnumFunctor, typename DefaultCaseFunctor = enum_default_switch_case,
                   typename... Args>
         static constexpr decltype(auto) run(EnumType Value, Args &&...args)
         {
@@ -171,6 +182,37 @@ namespace MyCEL
     };
     template <typename EnumType, template <EnumType> typename MappingType, EnumType... Values>
     using enum_variant_creator_t = typename enum_variant_creator<EnumType, MappingType, Values...>::type;
+
+    template< typename EnumType >
+    struct enum_type_info
+    {
+    };
+
+    template< typename EnumType, template <std::remove_cvref_t<EnumType>> typename EnumVariantMapping, const auto& AllowedValues>
+    struct enum_variant {
+        static_assert(std::is_enum_v<std::remove_cvref_t<EnumType>>);
+        template<std::remove_cvref_t<EnumType> Value>
+        using enum_variant_mapping_t = EnumVariantMapping<Value>;
+        template<std::remove_cvref_t<EnumType>... Values>
+        using enum_variant_mapper_t = typename MyCEL::enum_variant_creator_t<std::remove_cvref_t<EnumType>, EnumVariantMapping, Values...>;
+        using enum_variant_type = MyCEL::apply_nttp_t<AllowedValues,enum_variant_mapper_t>;
+        using enum_type = EnumType;
+
+        enum_type value;
+        enum_variant_type variant;
+
+        template<EnumType value>
+        const auto& getEmumVariantType() const noexcept {
+            using return_type = typename EnumVariantMapping<value>::type;
+            return std::get<return_type>(variant);
+        }
+        template<EnumType value>
+        auto& getEmumVariantType() noexcept {
+            using return_type = typename EnumVariantMapping<value>::type;
+            return std::get<return_type>(variant);
+        }
+    };
+
 } // namespace MyCEL
 
 #endif
