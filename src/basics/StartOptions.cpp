@@ -85,7 +85,7 @@ void StartOptions::analyzeStartArguments(int argc, char** argv)
         const auto FoundIt = FoundwithArgument.find(option);
 
         if (FoundIt == FoundwithArgument.end())
-        { //Option was not found while parsing			
+        { //Option was not found while parsing
             FuncOptNotFound func = (std::get<2>(elem.second));
             if (func == nullptr) {
                 continue;
