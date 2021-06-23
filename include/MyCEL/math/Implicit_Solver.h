@@ -6,6 +6,9 @@
 
 #include <Eigen/Core>
 #include <Eigen/LU>
+//#include <Eigen/Householder>
+//#include <Eigen/QR>
+//#include <Eigen/SVD>
 
 template <typename prec>
 class Implicit_Solver
@@ -30,7 +33,10 @@ public:
         const auto fx = std::get<0>(func_eval);
         auto jacobi = std::get<1>(func_eval);
                 
-        PlainVector dx = jacobi.fullPivLu().solve(-fx);
+        //PlainVector dx = jacobi.completeOrthogonalDecomposition().solve(-fx); // Fails only 1 test case
+        //PlainVector dx = jacobi.jacobiSvd(Eigen::ComputeFullU | Eigen::ComputeFullV).solve(-fx); // Fails only 1 test case
+        //PlainVector dx = jacobi.fullPivHouseholderQr().solve(-fx); // Fails two test cases. 
+        PlainVector dx = jacobi.fullPivLu().solve(-fx); // Fails one test cases. 
 
         //TODO: check if it is really a solution!
         //std::cout << "fx:" << fx << "\n";
