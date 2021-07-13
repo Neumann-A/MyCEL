@@ -5,9 +5,9 @@
         "STATIC"
     ],
     "sources" : [
-        "$<TARGET_OBJECTS:utils>",
-        "$<TARGET_OBJECTS:basics>",
-        "$<TARGET_OBJECTS:math>"
+        "$<TARGET_OBJECTS:MyCEL::utils>",
+        "$<TARGET_OBJECTS:MyCEL::basics>",
+        "$<TARGET_OBJECTS:MyCEL::math>"
     ],
     "include_directories" : {
         "private" : [ 
@@ -24,10 +24,10 @@
     },
     "link_libraries" : {
         "private": [
-            "stdext",
-            "intrin",
-            "simd_rand",
-            "types"
+            "MyCEL::stdext",
+            "MyCEL::intrin",
+            "MyCEL::simd_rand",
+            "MyCEL::types"
         ]
     },
     "properties" : [{

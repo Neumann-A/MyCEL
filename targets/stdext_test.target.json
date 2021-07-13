@@ -10,7 +10,7 @@
     ],
     "link_libraries" : {
         "private" : [ 
-            "stdext"
+            "MyCEL::stdext"
         ]
     },
     "compile_features" : {
