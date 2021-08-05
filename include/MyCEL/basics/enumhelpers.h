@@ -5,6 +5,7 @@
 
 #include <type_traits>
 #include <variant>
+#include <memory>
 #include <fmt/core.h>
 
 #include <magic_enum.hpp>
@@ -213,6 +214,22 @@ namespace MyCEL
         }
     };
 
+    template< typename ReturnType, 
+            typename EnumType,
+            template <std::remove_cvref_t<EnumType>> typename EnumVariantMapping,
+            typename... Args>
+    std::unique_ptr<ReturnType> create_from(EnumType value, Args... args) {
+        using derived_return_type = typename EnumVariantMapping<value>::type;
+        static_assert(std::is_enum_v<std::remove_cvref_t<EnumType>>);
+        static_assert(std::is_base_of_v<ReturnType, derived_return_type>);
+        return std::make_unique<derived_return_type>(args..);
+    }
+
+    template<typename EnumType,template <std::remove_cvref_t<EnumType>> typename EnumVariantMapping>
+    struct EnumValueMapper
+    {
+        
+    };
 } // namespace MyCEL
 
 #endif
