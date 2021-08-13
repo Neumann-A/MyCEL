@@ -126,10 +126,10 @@ namespace Distribution
             break;
         case Distribution::IDistribution::Distribution_lognormal:
             {
-                const prec meansquare{ std::pow(mean, 2) };
-                const prec var{ std::pow(width, 2) };
-                const prec meanlog{ std::log(meansquare / std::sqrt(var + meansquare)) };
-                const prec stdlog{ std::log1p(var / meansquare) };
+                const prec meansquare{ (prec) std::pow(mean, 2) };
+                const prec var{ (prec) std::pow(width, 2) };
+                const prec meanlog{ (prec)(std::log(meansquare / std::sqrt(var + meansquare))) };
+                const prec stdlog{ (prec)(std::log1p(var / meansquare)) };
                 ptr = std::make_unique < Distribution::DistributionHelper<prec, std::lognormal_distribution<prec>>>(std::pair<prec, prec>{meanlog, stdlog});
             }
             break;
@@ -137,9 +137,9 @@ namespace Distribution
             {
             //Mean = shape * scale
             //Variance = shape * scale^2
-                const prec var{ std::pow(width, 2) };
-                const prec scale{var/mean};
-                const prec shape{mean/scale};
+                const prec var{ (prec) std::pow(width, 2) };
+                const prec scale{ (prec)(var/mean)};
+                const prec shape{ (prec)(mean/scale)};
                 ptr = std::make_unique < Distribution::DistributionHelper<prec, std::gamma_distribution<prec>>>(std::pair<prec, prec>{shape, scale});
             }
             break;
