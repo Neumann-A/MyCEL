@@ -214,21 +214,19 @@ namespace MyCEL
         }
     };
 
-    template< typename ReturnType, 
-            typename EnumType,
-            template <std::remove_cvref_t<EnumType>> typename EnumVariantMapping,
-            typename... Args>
-    std::unique_ptr<ReturnType> create_from(EnumType value, Args... args) {
-        using derived_return_type = typename EnumVariantMapping<value>::type;
-        static_assert(std::is_enum_v<std::remove_cvref_t<EnumType>>);
-        static_assert(std::is_base_of_v<ReturnType, derived_return_type>);
-        return std::make_unique<derived_return_type>(args..);
-    }
-
-    template<typename EnumType,template <std::remove_cvref_t<EnumType>> typename EnumVariantMapping>
-    struct EnumValueMapper
-    {
-        
+    struct enum_factory{
+        template< typename ReturnType,
+                  typename EnumType,
+                  template <std::remove_cvref_t<EnumType>> typename EnumFactoryFunctor,
+                  typename EnumDefaultFactoryFunctor,
+                  typename... Args>
+        static inline constexpr std::unique_ptr<ReturnType> create_from(EnumType value, Args... args) {
+            static_assert(std::is_enum_v<std::remove_cvref_t<EnumType>>);
+            using derived_return_type = decltype(enum_switch::run<EnumType,EnumFactoryFunctor,EnumDefaultFactoryFunctor>(value, std::forward<Args>(args)...));
+            static_assert(std::is_base_of_v<ReturnType, derived_return_type>);
+            //std::make_unique<derived_return_type>(args..);
+            return enum_switch::run<EnumType,EnumFactoryFunctor,EnumDefaultFactoryFunctor>(value, std::forward<Args>(args)...);
+        }
     };
 } // namespace MyCEL
 
