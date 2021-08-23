@@ -4,6 +4,8 @@
 #define INC_MYCEL_TEMPLATEHELPERS_H
 
 #include <type_traits>
+#include <utility>
+#include <tuple>
 
 namespace MyCEL {
     template <const auto &Input, template <std::remove_cvref_t<decltype(::std::get<0>(Input))>...> typename Output, std::size_t... Is>
