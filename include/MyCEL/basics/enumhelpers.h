@@ -6,6 +6,7 @@
 #include <type_traits>
 #include <variant>
 #include <memory>
+#include <cassert>
 #include <fmt/core.h>
 
 #include <magic_enum.hpp>
@@ -95,7 +96,7 @@ namespace MyCEL
     }
 
     template <typename EnumType, size_t... I>
-    constexpr enum_tuple<EnumType, magic_enum::enum_value<EnumType>(I)...> make_enum_tuple_type_impl(std::index_sequence<I...>);
+    inline constexpr enum_tuple<EnumType, magic_enum::enum_value<EnumType>(I)...> make_enum_tuple_type_impl(std::index_sequence<I...>);
 
     template <typename EnumType>
     using make_enum_tuple_type = decltype( make_enum_tuple_type_impl<EnumType>( std::make_index_sequence< magic_enum::enum_count<EnumType>() >() ));
@@ -104,7 +105,7 @@ namespace MyCEL
     {
         template <std::size_t switch_size, typename EnumTuple, typename DefaultCaseFunctor,
                   template <typename EnumTuple::enum_type> typename EnumFunctor, typename... Args>
-        static constexpr decltype(auto) switch_impl(typename EnumTuple::enum_type value, Args... args)
+        inline static constexpr decltype(auto) switch_impl(typename EnumTuple::enum_type value, Args... args)
         {
             constexpr const auto enum_startindex = EnumTuple::count - switch_size;
             if constexpr (switch_size >= 4) {
@@ -158,7 +159,7 @@ namespace MyCEL
         struct enum_default_switch_case
         {
             template<typename... Args>
-            void operator()(Args && ... )
+            inline void operator()(Args && ... ) const
             {
                 throw std::out_of_range{fmt::format("No switch case available for the given enum value!").c_str()};
             }
@@ -166,16 +167,41 @@ namespace MyCEL
 
         template <typename EnumType, template <EnumType> typename EnumFunctor, typename DefaultCaseFunctor = enum_default_switch_case,
                   typename... Args>
-        static constexpr decltype(auto) run(EnumType Value, Args &&...args)
+        inline static constexpr decltype(auto) run(EnumType Value, Args &&...args)
         {
             static_assert(std::is_enum_v<EnumType>);
             using EnumTuple = decltype(make_enum_tuple<EnumType>());
             return switch_impl<EnumTuple::count, EnumTuple, DefaultCaseFunctor, EnumFunctor, Args...>(
                 Value, std::forward<Args>(args)...);
         }
+
+        template<typename EnumType>
+        struct enum_tuple_helper {
+            template<EnumType... values>
+            struct nttp_helper : ::MyCEL::enum_tuple<EnumType,values...> {};
+        };
+
+        template <typename EnumType, const auto& values, template <EnumType> typename EnumFunctor, typename DefaultCaseFunctor = enum_default_switch_case,
+                  typename... Args, std::size_t... Is>
+        inline static constexpr decltype(auto) run_impl(std::index_sequence<Is...>, EnumType Value, Args &&...args)
+        {
+            static_assert(std::is_enum_v<EnumType>);
+            using EnumTuple = ::MyCEL::enum_tuple<EnumType,::std::get<Is>(values)...>;
+            return switch_impl<EnumTuple::count, EnumTuple, DefaultCaseFunctor, EnumFunctor, Args...>(
+                Value, std::forward<Args>(args)...);
+        }
+
+        template <typename EnumType, const auto& values, template <EnumType> typename EnumFunctor, typename DefaultCaseFunctor = enum_default_switch_case,
+                  typename... Args>
+        inline static constexpr decltype(auto) run(EnumType Value, Args &&...args)
+        {
+            static_assert(std::is_enum_v<EnumType>);
+            return run_impl<EnumType, values, EnumFunctor, DefaultCaseFunctor, Args...>(std::make_index_sequence<values.size()>(),
+                Value, std::forward<Args>(args)...);
+        }
+
     };
 
-    
     template <typename EnumType, template <EnumType> typename MappingType, EnumType... Values>
     struct enum_variant_creator
     {
@@ -198,18 +224,21 @@ namespace MyCEL
         using enum_variant_mapper_t = typename MyCEL::enum_variant_creator_t<std::remove_cvref_t<EnumType>, EnumVariantMapping, Values...>;
         using enum_variant_type = MyCEL::apply_nttp_t<AllowedValues,enum_variant_mapper_t>;
         using enum_type = EnumType;
+        inline static constexpr auto& values = AllowedValues;
 
         enum_type value;
         enum_variant_type variant;
 
-        template<EnumType value>
-        const auto& getEmumVariantType() const noexcept {
-            using return_type = typename EnumVariantMapping<value>::type;
+        template<EnumType val>
+        inline const auto& getEmumVariantType() const noexcept {
+            assert(val == this->value);
+            using return_type = typename EnumVariantMapping<val>::type;
             return std::get<return_type>(variant);
         }
-        template<EnumType value>
-        auto& getEmumVariantType() noexcept {
-            using return_type = typename EnumVariantMapping<value>::type;
+        template <EnumType val>
+        inline auto& getEmumVariantType() noexcept {
+            assert(val == this->value);
+            using return_type = typename EnumVariantMapping<val>::type;
             return std::get<return_type>(variant);
         }
     };
