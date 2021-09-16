@@ -19,6 +19,8 @@
 #include <type_traits>
 #include <string>
 
+#include "is_container.h"
+
 namespace stdext
 {
     namespace detail
