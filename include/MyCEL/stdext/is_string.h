@@ -33,7 +33,7 @@ namespace stdext
     }
 
     template <typename T>
-    struct is_string :  detail::is_string_impl<std::decay_t<T>> {};
+    struct is_string :  detail::is_string_impl<std::remove_cvref_t<T>> {};
 
     template<typename T>
     constexpr bool is_string_v = is_string<T>::value;
@@ -43,7 +43,10 @@ namespace stdext
 
     template<typename T>
     struct is_container_of_strings<T, std::void_t<typename T::value_type>> : 
-            std::conjunction<stdext::is_string<std::decay_t<typename T::value_type>>,stdext::is_container<std::decay_t<T>>> {};
+            std::conjunction<stdext::is_string<std::remove_cvref_t<typename T::value_type>>,
+                           stdext::is_container<std::remove_cvref_t<T>>>
+    {
+    };
     
     template<typename T>
     constexpr bool is_container_of_strings_v = is_container_of_strings<T>::value;
