@@ -108,6 +108,9 @@ namespace stdext
         static constexpr bool const value = is_stl_container_impl::is_stl_container<std::decay_t<T>>::value;
     };
 
+    template <typename T>
+    concept IsContainer = is_container_v<T>;
+
 }
 
 #endif	// INC_is_container_H
