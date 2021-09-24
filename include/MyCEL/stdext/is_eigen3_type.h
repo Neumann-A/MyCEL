@@ -31,6 +31,10 @@ namespace Eigen
 
 namespace stdext
 {
+#ifdef EIGEN_CORE_H
+    template<typename T>
+    concept IsEigen3Type = std::is_base_of_v<Eigen::EigenBase<std::remove_cvref_t<T>>, T>;
+#endif
     template<typename T, typename _ = std::void_t<>>
     struct is_eigen_type : std::false_type {};
 
@@ -54,7 +58,7 @@ namespace stdext
     struct is_eigen_type<T> : std::is_base_of<Eigen::EigenBase<std::remove_cvref_t<T>>, std::remove_cvref_t<T>> {};
 
     template<typename T>
-    struct is_container_with_eigen_t<T, std::void_t<typename std::decay_t<T>::value_type>> : std::conjunction<stdext::is_container<std::decay_t<T>>, is_eigen_type<typename std::decay_t<T>::value_type>> {};
+    struct is_container_with_eigen_t<T, std::void_t<typename std::remove_cvref_t<T>::value_type>> : std::conjunction<stdext::is_container<std::remove_cvref_t<T>>, is_eigen_type<typename std::remove_cvref_t<T>::value_type>> {};
     
 #ifdef EIGEN_CXX11_TENSOR_TENSOR_H
     template<typename T>
