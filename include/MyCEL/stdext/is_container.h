@@ -40,6 +40,10 @@ namespace stdext
     template<typename T, typename _ = void>
     struct is_container : std::false_type {};
 
+    //Otherwise std::string will be detected as a container. 
+    template<typename CharT, typename TraitsT, typename AllocatorT>
+    struct is_container<std::basic_string<CharT, TraitsT, AllocatorT>> : std::false_type {};
+
     template<typename T>
     struct is_container<
         T,
@@ -74,6 +78,9 @@ namespace stdext
         static_assert(is_container_v<std::unordered_multiset<float>>);
         static_assert(is_container_v<std::unordered_map<std::uint16_t,float>>);
         static_assert(is_container_v<std::unordered_multimap<std::uint16_t,float>>);
+
+        //Make sure std::string is not found to be a container
+        static_assert(!is_container_v<std::string>);
 
         //These are not containers due to lack of some iterators or members! (They use one of the above internally but have a different interface!)
         static_assert(!is_container_v<std::forward_list<float>>); //Lacks size() method !
