@@ -30,7 +30,7 @@
     },
     "compile_features" : {
         "interface" : [
-            "cxx_std_17"
+            "cxx_std_20"
         ]
     }
 }

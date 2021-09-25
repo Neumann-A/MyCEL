@@ -25,7 +25,7 @@
     },
     "compile_features" : {
         "public" : [
-            "cxx_std_17"
+            "cxx_std_20"
         ]
     }
 }
