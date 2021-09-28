@@ -17,6 +17,7 @@
             "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include/MyCEL/stdext/is_memory_sequentiel_container.h>",
             "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include/MyCEL/stdext/is_nested_arithmetic_container.h>",
             "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include/MyCEL/stdext/is_nested_container.h>",
+            "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include/MyCEL/stdext/is_optional.hpp>",
             "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include/MyCEL/stdext/is_resizeable_container.h>",
             "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include/MyCEL/stdext/is_sequentiel_container.h>",
             "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include/MyCEL/stdext/is_string.h>",
