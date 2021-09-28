@@ -7,6 +7,7 @@
 #include <variant>
 #include <memory>
 #include <cassert>
+#include <stdexcept>
 #include <fmt/core.h>
 
 #include <magic_enum.hpp>
@@ -161,7 +162,8 @@ namespace MyCEL
             template<typename... Args>
             inline void operator()(Args && ... ) const
             {
-                throw std::out_of_range{fmt::format("No switch case available for the given enum value!").c_str()};
+                const auto msg = fmt::format("No switch case available for the given enum value!");
+                throw std::out_of_range(msg.c_str());
             }
         };
 
