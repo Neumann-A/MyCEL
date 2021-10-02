@@ -9,7 +9,7 @@ namespace stdext {
     template<typename T>
     struct is_optional<std::optional<T>> : std::true_type {};
     template<typename T>
-    constexpr auto is_optional_v = is_optional<T>::value;
+    inline constexpr auto is_optional_v = is_optional<T>::value;
 
     template<typename T>
     concept IsOptional = is_optional_v<T>;
