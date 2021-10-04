@@ -29,7 +29,7 @@
 #include "../stdext/is_eigen3_type.h"
 #include <Eigen/Core>
 
-#if defined(EIGEN_CORE_H) && defined(__AVX__)
+#if (defined(EIGEN_CORE_H)|| defined(EIGEN_CORE_MODULE_H)) && defined(__AVX__)
 namespace Eigen::internal {
 	template<typename T> EIGEN_STRONG_INLINE T psincos(T* cosres, const T& In) {};
 

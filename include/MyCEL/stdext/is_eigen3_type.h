@@ -31,7 +31,7 @@ namespace Eigen
 
 namespace stdext
 {
-#ifdef EIGEN_CORE_H
+#if defined(EIGEN_CORE_H)|| defined(EIGEN_CORE_MODULE_H)
     template<typename T>
     concept IsEigen3Type = std::is_base_of_v<Eigen::EigenBase<std::remove_cvref_t<T>>, T>;
 #endif
@@ -44,16 +44,7 @@ namespace stdext
     template<typename T, typename _ = std::void_t<>>
     struct is_eigen_tensor : std::false_type {};
     
-    template<typename T>
-    static constexpr bool is_eigen_type_v = is_eigen_type<T>::value;
-
-    template<typename T>
-    static constexpr bool is_eigen_tensor_v = is_eigen_tensor<T>::value;
-
-    template<typename T>
-    static constexpr bool is_container_with_eigen_type_v = is_container_with_eigen_t<T>::value;
-
-#ifdef EIGEN_CORE_H
+#if defined(EIGEN_CORE_H)|| defined(EIGEN_CORE_MODULE_H)
     template<typename T>
     struct is_eigen_type<T> : std::is_base_of<Eigen::EigenBase<std::remove_cvref_t<T>>, std::remove_cvref_t<T>> {};
 
@@ -72,6 +63,14 @@ namespace stdext
 #endif
 #endif
 #endif
+    template<typename T>
+    inline constexpr bool is_eigen_type_v = is_eigen_type<T>::value;
+
+    template<typename T>
+    inline constexpr bool is_eigen_tensor_v = is_eigen_tensor<T>::value;
+
+    template<typename T>
+    inline constexpr bool is_container_with_eigen_type_v = is_container_with_eigen_t<T>::value;
 }
 
 
