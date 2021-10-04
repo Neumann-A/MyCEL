@@ -82,7 +82,7 @@ namespace BasicTools
     long long stringToNumber<long long>(const std::string& stringtoconvert, size_t& pos);
 
     template<>
-    unsigned int stringToNumber<unsigned short>(const std::string& stringtoconvert, size_t& pos);
+    unsigned short stringToNumber<unsigned short>(const std::string& stringtoconvert, size_t& pos);
     template<>
     unsigned int stringToNumber<unsigned int>(const std::string& stringtoconvert, size_t& pos);
     template<>
