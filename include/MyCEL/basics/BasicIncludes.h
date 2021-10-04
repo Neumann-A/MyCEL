@@ -63,6 +63,7 @@ namespace BasicTools
         Return = stringToNumber<Number>(str, pos);
     }
 
+
     //Explicit instantiations
     template<>
     float stringToNumber<float>(const std::string& stringtoconvert, size_t& pos);
@@ -77,13 +78,15 @@ namespace BasicTools
     int stringToNumber<int>(const std::string& stringtoconvert, size_t& pos);
     template<>
     long stringToNumber<long>(const std::string& stringtoconvert, size_t& pos);
+    template<>
+    long long stringToNumber<long long>(const std::string& stringtoconvert, size_t& pos);
 
+    template<>
+    unsigned int stringToNumber<unsigned short>(const std::string& stringtoconvert, size_t& pos);
     template<>
     unsigned int stringToNumber<unsigned int>(const std::string& stringtoconvert, size_t& pos);
     template<>
     unsigned long stringToNumber<unsigned long>(const std::string& stringtoconvert, size_t& pos);
-    template<>
-    long long stringToNumber<long long>(const std::string& stringtoconvert, size_t& pos);
     template<>
     unsigned long long stringToNumber<unsigned long long>(const std::string& stringtoconvert, size_t& pos);
 
