@@ -34,16 +34,15 @@ private:
     DISALLOW_COPY_AND_ASSIGN(ThreadManager)
 
     //For synchronization
-    std::mutex _TaskDequeMutex;                        // Mutex for the Task list
-    std::condition_variable _TaskCondVar;            // Condition variable to wake sleeping threads waiting for the task list to update
-    std::vector<std::thread>     _Threads;            // Threads
+    std::atomic<bool>                   _stopped{ false };  // ThreadManager was stopped
+    std::mutex                          _TaskDequeMutex;    // Mutex for the Task list
+    std::condition_variable             _TaskCondVar;       // Condition variable to wake sleeping threads waiting for the task list to update
+    std::deque<std::function<void()>>   _Tasks;             // List with Task 
+    std::vector<std::thread>            _Threads;           // Threads
 
-    std::atomic<bool>            _stopped{ false };    // ThreadManager was stopped
     const std::thread::id        _tid;                // Thread ID of the owner of the ThreadManager
     std::uint64_t                _NumberOfThreads;   // NumberOfCreated Threads 
     std::atomic<std::uint64_t>   _WorkingThreads{ 0 };// Number of Working Threads
-
-    std::deque<std::function<void()>> _Tasks;        // List with Task 
 
     std::uint64_t createThreads(const std::uint64_t &NumberOfThreadsToCreate);
 

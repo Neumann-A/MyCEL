@@ -125,7 +125,7 @@ void ThreadManager::Log(const std::string& msg)
 }
 
 ThreadManager::ThreadManager(const std::uint64_t NumberOfThreadsToCreate) 
-    : _TaskDequeMutex(), _TaskCondVar(), _Threads(), _tid(std::this_thread::get_id()), _NumberOfThreads(createThreads(NumberOfThreadsToCreate)), _Tasks() {}
+    : _TaskDequeMutex(), _TaskCondVar(), _Tasks(), _Threads(), _tid(std::this_thread::get_id()), _NumberOfThreads(createThreads(NumberOfThreadsToCreate)) {}
 ThreadManager::~ThreadManager()
 {
 #ifdef _DEBUG
