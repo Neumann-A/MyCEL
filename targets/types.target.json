@@ -8,7 +8,8 @@
         "interface": [
             "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include/MyCEL/types/operators.hpp>",
             "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include/MyCEL/types/static_map.hpp>",
-            "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include/MyCEL/types/strongtype.hpp>"
+            "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include/MyCEL/types/strongtype.hpp>",
+            "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include/MyCEL/types/metainfo.hpp>"
         ]
     },
     "include_directories" : {
