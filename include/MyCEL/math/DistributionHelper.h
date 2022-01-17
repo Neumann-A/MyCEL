@@ -129,7 +129,7 @@ namespace Distribution
                 const prec meansquare{ (prec) std::pow(mean, 2) };
                 const prec var{ (prec) std::pow(width, 2) };
                 const prec meanlog{ (prec)(std::log(meansquare / std::sqrt(var + meansquare))) };
-                const prec stdlog{ (prec)(std::log1p(var / meansquare)) };
+                const prec stdlog{ (prec)( std::sqrt(std::log1p(var / meansquare))) };
                 ptr = std::make_unique < Distribution::DistributionHelper<prec, std::lognormal_distribution<prec>>>(std::pair<prec, prec>{meanlog, stdlog});
             }
             break;
