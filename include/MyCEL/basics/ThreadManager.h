@@ -34,15 +34,15 @@ private:
     DISALLOW_COPY_AND_ASSIGN(ThreadManager)
 
     //For synchronization
-    std::atomic<bool>                   _stopped{ false };  // ThreadManager was stopped
-    std::mutex                          _TaskDequeMutex;    // Mutex for the Task list
-    std::condition_variable             _TaskCondVar;       // Condition variable to wake sleeping threads waiting for the task list to update
-    std::deque<std::function<void()>>   _Tasks;             // List with Task 
-    std::vector<std::thread>            _Threads;           // Threads
+    std::atomic<bool>                   m_stopped{ false };  // ThreadManager was stopped
+    std::mutex                          m_TaskDequeMutex;    // Mutex for the Task list
+    std::condition_variable             m_TaskCondVar;       // Condition variable to wake sleeping threads waiting for the task list to update
+    std::deque<std::function<void()>>   m_Tasks;             // List with Task 
+    std::vector<std::thread>            m_Threads;           // Threads
 
-    const std::thread::id        _tid;                // Thread ID of the owner of the ThreadManager
-    std::uint64_t                _NumberOfThreads;   // NumberOfCreated Threads 
-    std::atomic<std::uint64_t>   _WorkingThreads{ 0 };// Number of Working Threads
+    const std::thread::id        m_tid;                // Thread ID of the owner of the ThreadManager
+    std::uint64_t                m_NumberOfThreads;   // NumberOfCreated Threads 
+    std::atomic<std::uint64_t>   m_WorkingThreads{ 0 };// Number of Working Threads
 
     std::uint64_t createThreads(const std::uint64_t &NumberOfThreadsToCreate);
 
@@ -68,22 +68,22 @@ public:
 
         std::future<return_type> res = task->get_future();
         {
-            std::unique_lock<std::mutex> lock(_TaskDequeMutex);
+            std::unique_lock<std::mutex> lock(m_TaskDequeMutex);
 
             // don't allow enqueueing after stopping the pool
-            if (_stopped)
+            if (m_stopped)
                 throw std::runtime_error("Tried to enque Task in stopped ThreadManager");
 
-            _Tasks.emplace_back([task]() { (*task)(); });
+            m_Tasks.emplace_back([task]() { (*task)(); });
         }
-        _TaskCondVar.notify_one();
+        m_TaskCondVar.notify_one();
 #ifdef _DEBUG
         Log("Task added");
 #endif
         return res;
     }
 
-    inline std::uint64_t getNumberOfWorkingThreads() const BASIC_NOEXCEPT { return _WorkingThreads.load(); };
+    inline std::uint64_t getNumberOfWorkingThreads() const BASIC_NOEXCEPT { return m_WorkingThreads.load(); };
 };
 
 #endif //_THREADMANAGER_H_

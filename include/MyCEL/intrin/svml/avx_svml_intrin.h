@@ -1,5 +1,6 @@
 #include "../svml_prolog.h"
 #pragma once
+#pragma clang diagnostic ignored "-Wreserved-identifier"
 __SVML_INTRIN_PROLOG __m128i __DEFAULT_SVML_FN_ATTRS128
     _mm_div_epi8(__m128i param0, __m128i param1) 
 { 

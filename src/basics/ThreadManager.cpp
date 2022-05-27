@@ -29,7 +29,7 @@ std::uint64_t ThreadManager::createThreads(const std::uint64_t &NumberOfThreadsT
             try
             {
                 std::thread new_thread(&ThreadManager::ThreadLoop, this);
-                _Threads.push_back(std::move(new_thread));
+                m_Threads.push_back(std::move(new_thread));
                 //_Threads.emplace_back( &ThreadManager::ThreadLoop, this );
                 //_Threads.emplace_back([this] {this->createThread(); });
                 
@@ -45,7 +45,7 @@ std::uint64_t ThreadManager::createThreads(const std::uint64_t &NumberOfThreadsT
 #if defined(_WIN32)
         using Dispatcher = utils::ThreadDispatcher;
         using Strategy = utils::ThreadStrategy_OneThreadOneLogicalCore<void, void>;
-        Dispatcher::assignThreads<Strategy>(_Threads, HPCEnv.AssignedCores);
+        Dispatcher::assignThreads<Strategy>(m_Threads, HPCEnv.AssignedCores);
 #endif
         
 #ifdef _DEBUG
@@ -66,19 +66,19 @@ void ThreadManager::ThreadLoop()
         std::function<void()> task;
 
         {
-            std::unique_lock<std::mutex> lock(_TaskDequeMutex);
+            std::unique_lock<std::mutex> lock(m_TaskDequeMutex);
 #ifdef _DEBUG
-            _TaskCondVar.wait(lock, [this] { 
+            m_TaskCondVar.wait(lock, [this] { 
                 Log("Waiting...");
-                return (this->_stopped || !this->_Tasks.empty());                 
+                return (this->m_stopped || !this->m_Tasks.empty());                 
             });   // Wait until dequeue is not empty or ThreadManager is stopped
 #else
-            _TaskCondVar.wait(lock, [this] {
-                return (this->_stopped || !this->_Tasks.empty());
+            m_TaskCondVar.wait(lock, [this] {
+                return (this->m_stopped || !this->m_Tasks.empty());
             });   // Wait until dequeue is not empty or ThreadManager is stopped
 #endif
 
-            if (_stopped && _Tasks.empty())            //ThreadManager is stopped and there are no tasks left
+            if (m_stopped && m_Tasks.empty())            //ThreadManager is stopped and there are no tasks left
             {
 #ifdef _DEBUG
                 Log("Stopped!");
@@ -86,9 +86,9 @@ void ThreadManager::ThreadLoop()
                 return;
             }
 
-            ++_WorkingThreads;
-            task = std::move(this->_Tasks.front());    // Get Task
-            this->_Tasks.pop_front();                // Remove Task from queue
+            ++m_WorkingThreads;
+            task = std::move(this->m_Tasks.front());    // Get Task
+            this->m_Tasks.pop_front();                // Remove Task from queue
             
         }
 #ifdef _DEBUG
@@ -107,7 +107,7 @@ void ThreadManager::ThreadLoop()
             Log("Unknown excpetion thrown by task!");
             //throw;
         }
-        --_WorkingThreads;
+        --m_WorkingThreads;
     }
 }
 
@@ -116,7 +116,7 @@ void ThreadManager::Log(const std::string& msg)
     std::stringstream smsg;
     const std::thread::id tid{ std::this_thread::get_id() };
 
-    if( _tid != tid )
+    if( m_tid != tid )
         smsg << "ThreadManager: Thread " << (tid) << ": " << msg << '\n';
     else
         smsg << "ThreadManager: " << msg << '\n';
@@ -125,19 +125,19 @@ void ThreadManager::Log(const std::string& msg)
 }
 
 ThreadManager::ThreadManager(const std::uint64_t NumberOfThreadsToCreate) 
-    : _TaskDequeMutex(), _TaskCondVar(), _Tasks(), _Threads(), _tid(std::this_thread::get_id()), _NumberOfThreads(createThreads(NumberOfThreadsToCreate)) {}
+    : m_TaskDequeMutex(), m_TaskCondVar(), m_Tasks(), m_Threads(), m_tid(std::this_thread::get_id()), m_NumberOfThreads(createThreads(NumberOfThreadsToCreate)) {}
 ThreadManager::~ThreadManager()
 {
 #ifdef _DEBUG
     Log("Terminating Pool");
 #endif
     {
-        std::unique_lock<std::mutex> lock(_TaskDequeMutex); //Make sure no other thread of the pool is running
-        _stopped = true;
+        std::unique_lock<std::mutex> lock(m_TaskDequeMutex); //Make sure no other thread of the pool is running
+        m_stopped = true;
     }
-    _TaskCondVar.notify_all();
+    m_TaskCondVar.notify_all();
 
-    for (std::thread &Thread : _Threads)
+    for (std::thread &Thread : m_Threads)
     {    
         if (Thread.joinable())
             Thread.join();
