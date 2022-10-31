@@ -4,11 +4,13 @@
 #define MYCEL_STATIC_MAP_HPP
 
 #include <array>
+#include <string>
 #include <cstdint>
 #include <utility>
 #include <stdexcept>
 #include <optional>
 #include <algorithm>
+#include <fmt/format.h>
 
 namespace MyCEL
 {
@@ -31,8 +33,9 @@ namespace MyCEL
                 std::find_if(std::begin(*this), std::end(*this), [&key](const auto &val) { return val.first == key; });
             if (it != std::end(*this))
                 return it->second;
-            else
-                throw std::range_error("Key not found");
+            else {
+                throw std::range_error("Key not found!");
+            }
         };
         [[nodiscard]] constexpr Key operator[](const Value &val) const
         {
@@ -40,8 +43,21 @@ namespace MyCEL
                 std::find_if(std::begin(*this), std::end(*this), [&val](const auto &key) { return key.second == val; });
             if (it != std::end(*this))
                 return it->first;
-            else
-                throw std::range_error("Value not found");
+            else {
+                using std::to_string;
+                constexpr bool has_to_string = requires(const Value& t) {
+                    to_string(t);
+                };
+                if constexpr (!has_to_string) {
+                    const auto msg = fmt::format("Value '{}' not found!" , val);
+                    throw std::range_error(msg);
+                }
+                else {
+                    
+                    const auto msg = fmt::format("Value '{}' not found!" , to_string(val));
+                    throw std::range_error(msg);
+                }
+            }
         };
         [[nodiscard]] constexpr static_map<Value, Key, Size> switch_key_value() const noexcept
         {
