@@ -19,6 +19,7 @@
 #include <deque>
 #include <forward_list>
 #include <list>
+#include <string>
 
 //Adaptors (For the seq. containers)
 #include <stack>
